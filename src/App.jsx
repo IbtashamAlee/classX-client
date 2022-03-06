@@ -1,7 +1,17 @@
 import * as React from "react";
 import {Routes, Route, Outlet, Link} from "react-router-dom";
+import {useEffect} from "react";
+import {useDispatch} from "react-redux";
+import {getUser} from "./redux/actions/user-actions";
+import {About} from "./pages/about";
 
 export default function App() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getUser());
+  }, []);
+
+
   return (
       <div>
         <h1>Basic Example</h1>
@@ -73,13 +83,7 @@ function Home() {
   );
 }
 
-function About() {
-  return (
-      <div>
-        <h2>About</h2>
-      </div>
-  );
-}
+
 
 function Dashboard() {
   return (

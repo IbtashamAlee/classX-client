@@ -1,1 +1,4 @@
-export const ActionsTypes = {}
+export const ActionTypes = {
+  SET_USER_ACTION: "SET_USER_ACTION",
+  SET_USER_ACTION_SUCCESS: "SET_USER_ACTION_SUCCESS"
+}
