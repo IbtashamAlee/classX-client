@@ -1,5 +1,5 @@
-import { call, put, fork } from 'redux-saga/effects';
-import { getUserRequest } from '../requests/user-requests';
+import {call, put} from 'redux-saga/effects';
+import {getUserRequest} from '../requests/user-requests';
 import {ActionTypes} from "../../constants/actions-types";
 
 export function* handleGetUser(action) {
