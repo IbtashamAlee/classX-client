@@ -1,8 +1,6 @@
-import axios from "axios";
+import Api from '../../../generic-services/api'
 
 export function getUserRequest() {
-  return axios.request({
-    method: 'get',
-    url: "https://my-json-server.typicode.com/atothey/demo/user"
-  })
+  return Api.get("https://my-json-server.typicode.com/atothey/demo/user")
+
 }
