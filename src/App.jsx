@@ -6,6 +6,9 @@ import {getUser} from "./redux/actions/user-actions";
 import {About} from "./pages/about";
 import {Signup} from "./pages/signup";
 import {ThemeProvider, createTheme} from "@mui/material";
+import {Signin} from "./pages/signin";
+import {Notification} from "./components/notification";
+import {NotFound} from "./pages/not-found";
 
 export default function App() {
   const dispatch = useDispatch();
@@ -26,6 +29,7 @@ export default function App() {
 
   return (
       <ThemeProvider theme={outerTheme}>
+        <Notification/>
         <Routes>
           <Route path="/" element={<Layout/>}>
             <Route index element={<Home/>}/>
@@ -34,9 +38,11 @@ export default function App() {
             {/* Using path="*"" means "match anything", so this route
                 acts like a catch-all for URLs that we don't have explicit
                 routes for. */}
-            <Route path="*" element={<NoMatch/>}/>
+
           </Route>
           <Route path="signup" element={<Signup/>}/>
+          <Route path="signin" element={<Signin/>}/>
+          <Route path="*" element={<NotFound/>}/>
         </Routes>
       </ThemeProvider>
   );

@@ -1,14 +1,12 @@
 import React, {useEffect, useState} from "react";
 import {Button} from "@mui/material";
 import {ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
-import Carousel from 'react-material-ui-carousel';
-import {Link} from "react-router-dom"
+import Carousel from 'react-material-ui-carousel'
+import {Link} from "react-router-dom";
 
-export function Signup() {
+export function Signin() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [name, setName] = useState('');
 
   var items = [
     {
@@ -39,13 +37,7 @@ export function Signup() {
       }
       return true;
     });
-    ValidatorForm.addValidationRule('isPasswordMatch', (value) => {
-      if (value !== password) {
-        return false;
-      }
-      return true;
-    });
-  }, [password, confirmPassword])
+  }, [password])
 
   return (
       <>
@@ -58,7 +50,7 @@ export function Signup() {
                     src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
                     alt="Workflow"
                 />
-                <h2 className="mt-6 text-3xl font-bold text-gray-900">Sign up</h2>
+                <h2 className="mt-6 text-3xl font-extrabold text-gray-900">Sign up</h2>
                 <p className="font-medium mt-2 text-sm text-gray-900">
                   Please enter your credentials to continue
                 </p>
@@ -67,18 +59,6 @@ export function Signup() {
               <div className="mt-8">
                 <div className="mt-6">
                   <ValidatorForm className="space-y-6" onSubmit={signup}>
-                    <TextValidator
-                        value={name}
-                        onChange={event => setName(event.target.value)}
-                        className="block w-full"
-                        id="name"
-                        label="Name"
-                        type="name"
-                        aautoComplete="current-name"
-                        variant="outlined"
-                        validators={['required']}
-                        errorMessages={['This field is required']}
-                    />
                     <TextValidator
                         value={email}
                         onChange={event => setEmail(event.target.value)}
@@ -91,29 +71,40 @@ export function Signup() {
                         validators={['required', 'isEmail']}
                         errorMessages={['This field is required', 'Email is not valid']}
                     />
-                    <TextValidator
-                        value={password}
-                        onChange={event => setPassword(event.target.value)}
-                        className="block w-full"
-                        id="password"
-                        label="Password"
-                        type="password"
-                        autoComplete="current-password"
-                        variant="outlined"
-                        validators={['required', 'isPassword6Char']}
-                        errorMessages={['This field is required', 'Password must be 6 characters long']}
-                    />
-                    <TextValidator
-                        value={confirmPassword}
-                        onChange={event => setConfirmPassword(event.target.value)}
-                        className="block w-full"
-                        id="confirm-password"
-                        label="Confirm Password"
-                        type="password"
-                        variant="outlined"
-                        validators={['isPasswordMatch', 'required']}
-                        errorMessages={['Password does not match', 'This field is required']}
-                    />
+                    <div>
+                      <TextValidator
+                          value={password}
+                          onChange={event => setPassword(event.target.value)}
+                          className="block w-full"
+                          id="password"
+                          label="Password"
+                          type="password"
+                          autoComplete="current-password"
+                          variant="outlined"
+                          validators={['required', 'isPassword6Char']}
+                          errorMessages={['This field is required', 'Password must be 6 characters long']}
+                      />
+                    </div>
+
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center">
+                        <input
+                            id="remember-me"
+                            name="remember-me"
+                            type="checkbox"
+                            className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                        />
+                        <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900">
+                          Remember me
+                        </label>
+                      </div>
+
+                      <div className="text-sm">
+                        <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">
+                          Forgot your password?
+                        </a>
+                      </div>
+                    </div>
 
                     <div>
                       <Button variant="contained" color="primary" type="submit"
@@ -121,9 +112,9 @@ export function Signup() {
                         Sign up
                       </Button>
                       <div className="text-gray-900 mt-2">
-                        Already have an account?
-                        <Link to="/signin">
-                          <Button variant="text">Sign in</Button>
+                        Don't have an account?
+                        <Link to="/signup">
+                          <Button variant="text">Sign up</Button>
                         </Link>
                       </div>
                     </div>
@@ -155,7 +146,7 @@ function Item(props)
   return (
       <div className="auth-carousel__item flex flex-col items-center justify-center text-center">
         <div className="auth-carousel__item-inner">
-          <img src={props.item.image} className="select-none" alt="Not found :("/>
+          <img src={props.item.image} className="select-none"/>
           <h2 className="font-semibold my-2 text-slate-600">{props.item.title}</h2>
           <p className="text-slate-400">{props.item.description}</p>
         </div>

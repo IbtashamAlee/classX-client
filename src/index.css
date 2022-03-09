@@ -6,3 +6,27 @@ html,
 body, #root {
     height: 100%;
 }
+
+input:focus {
+    box-shadow: none!important;
+}
+
+.MuiButton-root, .MuiTab-wrapper {
+    text-transform: none!important;
+}
+
+.MuiPaper-root {
+    background-color: transparent!important;
+}
+
+.auth-carousel__item {
+    height: 677px;
+}
+
+.auth-carousel__item-inner {
+    width: 450px;
+}
+
+.notification {
+    z-index: 99999999999999999;
+}
