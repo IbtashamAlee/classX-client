@@ -74,7 +74,7 @@ export function Signup() {
                         id="name"
                         label="Name"
                         type="name"
-                        aautoComplete="current-name"
+                        autoComplete="current-name"
                         variant="outlined"
                         validators={['required']}
                         errorMessages={['This field is required']}

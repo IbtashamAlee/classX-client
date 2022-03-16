@@ -3,6 +3,7 @@ import {Routes, Route, Outlet, Link} from "react-router-dom";
 import {useEffect} from "react";
 import {useDispatch} from "react-redux";
 import {getUser} from "./redux/actions/user-actions";
+import {signupUser} from "./redux/actions/auth-actions";
 import {About} from "./pages/about";
 import {Signup} from "./pages/signup";
 import {ThemeProvider, createTheme} from "@mui/material";
@@ -13,7 +14,11 @@ import {NotFound} from "./pages/not-found";
 export default function App() {
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getUser());
+    // dispatch({
+    //     type: "SET_USER_ACTION",
+    //     hi: "hi",
+    // });
+      dispatch(getUser({hi: "hi payload"}));
   }, [dispatch]);
 
   const outerTheme = createTheme({

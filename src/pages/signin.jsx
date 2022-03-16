@@ -2,11 +2,15 @@ import React, {useEffect, useState} from "react";
 import {Button} from "@mui/material";
 import {ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
 import Carousel from 'react-material-ui-carousel'
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
+import {useDispatch} from "react-redux";
+import {signinUser} from "../redux/actions/auth-actions";
 
 export function Signin() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const dispatch = useDispatch();
+  let navigate = useNavigate();
 
   var items = [
     {
@@ -26,8 +30,8 @@ export function Signin() {
     }
   ]
 
-  const signup = () => {
-
+  const signin = () => {
+    dispatch(signinUser(email, password, navigate));
   }
 
   useEffect(() => {
@@ -50,7 +54,7 @@ export function Signin() {
                     src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
                     alt="Workflow"
                 />
-                <h2 className="mt-6 text-3xl font-extrabold text-gray-900">Sign up</h2>
+                <h2 className="mt-6 text-3xl font-extrabold text-gray-900">Sign in</h2>
                 <p className="font-medium mt-2 text-sm text-gray-900">
                   Please enter your credentials to continue
                 </p>
@@ -58,7 +62,7 @@ export function Signin() {
 
               <div className="mt-8">
                 <div className="mt-6">
-                  <ValidatorForm className="space-y-6" onSubmit={signup}>
+                  <ValidatorForm className="space-y-6" onSubmit={signin}>
                     <TextValidator
                         value={email}
                         onChange={event => setEmail(event.target.value)}
@@ -109,7 +113,7 @@ export function Signin() {
                     <div>
                       <Button variant="contained" color="primary" type="submit"
                               className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                        Sign up
+                        Sign in
                       </Button>
                       <div className="text-gray-900 mt-2">
                         Don't have an account?
