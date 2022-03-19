@@ -104,9 +104,11 @@ export function Signin() {
                       </div>
 
                       <div className="text-sm">
-                        <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">
-                          Forgot your password?
-                        </a>
+                        <Link to="/forgot-password">
+                          <span className="font-medium text-indigo-600 hover:text-indigo-500">
+                            Forgot your password?
+                          </span>
+                        </Link>
                       </div>
                     </div>
 

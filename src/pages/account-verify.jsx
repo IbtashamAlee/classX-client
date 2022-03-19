@@ -8,7 +8,8 @@ export function AccountVerify(props) {
                 <div className="text-slate-600 min-w-96 text-center">
                     We appreciate your time.
                     <br></br>
-                    We have created your account. For using classX services please first verify your email. Thanks :)</div>
+                    We have created your account. For using classX services please first verify your email. Thanks :)
+                </div>
             </div>
         </div>
     )
