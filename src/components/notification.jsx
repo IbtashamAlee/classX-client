@@ -1,11 +1,17 @@
 /* This example requires Tailwind CSS v2.0+ */
-import { Fragment, useState } from 'react'
+import {Fragment, useEffect, useState} from 'react'
 import { Transition } from '@headlessui/react'
 import { CheckCircleIcon } from '@heroicons/react/outline'
 import { XIcon } from '@heroicons/react/solid'
 
-export function Notification() {
-  const [show, setShow] = useState(true)
+export function Notification(props) {
+  const [show, setShow] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => {
+      props.closeNotification();
+    }, 5000)
+  }, [])
 
   return (
       <>
@@ -17,7 +23,7 @@ export function Notification() {
           <div className="w-full flex flex-col items-center space-y-4 sm:items-end">
             {/* Notification panel, dynamically insert this into the live region when it needs to be displayed */}
             <Transition
-                show={show}
+                show={props.isOpened}
                 as={Fragment}
                 enter="transform ease-out duration-300 transition"
                 enterFrom="translate-y-2 opacity-0 sm:translate-y-0 sm:translate-x-2"
@@ -33,14 +39,14 @@ export function Notification() {
                       <CheckCircleIcon className="h-6 w-6 text-green-400" aria-hidden="true" />
                     </div>
                     <div className="ml-3 w-0 flex-1 pt-0.5">
-                      <p className="text-sm font-medium text-gray-900">User successfully created!</p>
-                      <p className="mt-1 text-sm text-gray-500">Now you can create a class and many more</p>
+                      <p className="text-sm font-medium text-gray-900">{props.title}</p>
+                      <p className="mt-1 text-sm text-gray-500">{props.message}</p>
                     </div>
                     <div className="ml-4 flex-shrink-0 flex">
                       <button
                           className="bg-white rounded-md inline-flex text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                           onClick={() => {
-                            setShow(false)
+                            props.closeNotification();
                           }}
                       >
                         <span className="sr-only">Close</span>

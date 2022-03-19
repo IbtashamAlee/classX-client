@@ -8,7 +8,6 @@ import {About} from "./pages/about";
 import {Signup} from "./pages/signup";
 import {ThemeProvider, createTheme} from "@mui/material";
 import {Signin} from "./pages/signin";
-import {Notification} from "./components/notification";
 import {NotFound} from "./pages/not-found";
 import {AccountVerify} from "./pages/account-verify";
 import {ForgotPassword} from "./pages/forgot-password";
@@ -36,7 +35,6 @@ export default function App() {
 
   return (
       <ThemeProvider theme={outerTheme}>
-        <Notification/>
         <Routes>
           <Route path="/" element={<Layout/>}>
             <Route index element={<Home/>}/>
