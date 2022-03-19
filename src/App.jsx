@@ -10,6 +10,7 @@ import {ThemeProvider, createTheme} from "@mui/material";
 import {Signin} from "./pages/signin";
 import {Notification} from "./components/notification";
 import {NotFound} from "./pages/not-found";
+import {AccountVerify} from "./pages/account-verify";
 
 export default function App() {
   const dispatch = useDispatch();
@@ -47,6 +48,7 @@ export default function App() {
           </Route>
           <Route path="signup" element={<Signup/>}/>
           <Route path="signin" element={<Signin/>}/>
+          <Route path="verify" element={<AccountVerify/>}/>
           <Route path="*" element={<NotFound/>}/>
         </Routes>
       </ThemeProvider>

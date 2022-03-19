@@ -7,6 +7,7 @@ export function* handleSignupUserRequest(action) {
         const response = yield call(signupUserRequest, action.email, action.password, action.name);
         const { data } = response;
         yield put({ type: ActionTypes.SIGN_UP_USER_SUCCESS, user: data });
+        action.navigate('/verify');
     } catch (err) {
         yield put({type: ActionTypes.SIGN_UP_USER_FAIL})
         console.log(err);
@@ -17,7 +18,7 @@ export function* handleSigninUserRequest(action) {
     try {
         const response = yield call(signinUserRequest, action.email, action.password);
         const { data } = response;
-        console.log(data.access_token)
+        localStorage.setItem("access_token", data.access_token)
         yield put({ type: ActionTypes.SIGN_IN_USER_SUCCESS, access_token: data });
         action.navigate('/dashboard');
     } catch (err) {

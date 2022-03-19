@@ -1,11 +1,12 @@
 import {ActionTypes} from "../constants/actions-types";
 
-export const signupUser = (email, password, name) => {
+export const signupUser = (email, password, name, navigate) => {
     return {
         type: ActionTypes.SIGN_UP_USER,
         email: email,
         password: password,
-        name: name
+        name: name,
+        navigate: navigate
     };
 };
 

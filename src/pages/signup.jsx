@@ -2,13 +2,17 @@ import React, {useEffect, useState} from "react";
 import {Button} from "@mui/material";
 import {ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
 import Carousel from 'react-material-ui-carousel';
-import {Link} from "react-router-dom"
+import {Link, useNavigate} from "react-router-dom"
+import {signupUser} from "../redux/actions/auth-actions";
+import {useDispatch} from "react-redux";
 
 export function Signup() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [name, setName] = useState('');
+  let dispatch = useDispatch();
+  let navigate = useNavigate();
 
   var items = [
     {
@@ -29,7 +33,7 @@ export function Signup() {
   ]
 
   const signup = () => {
-
+    dispatch(signupUser(email, password, name, navigate));
   }
 
   useEffect(() => {
@@ -136,6 +140,7 @@ export function Signup() {
             <div className="bg-slate-100 .auth-carousel h-full w-full">
               <Carousel
                   navButtonsAlwaysInvisible={true}
+                  duration={1000}
                   animation="slide"
                   className="bg-slate-100 h-full flex flex-col justify-center items-center"
               >
