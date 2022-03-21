@@ -66,7 +66,10 @@ function Layout() {
               <Link to="/">Home</Link>
             </li>
             <li>
-              <Link to="/signup">About</Link>
+              <Link to="/signin">Sign in</Link>
+            </li>
+            <li>
+              <Link to="/signup">Sign up</Link>
             </li>
             <li>
               <Link to="/dashboard">Dashboard</Link>
