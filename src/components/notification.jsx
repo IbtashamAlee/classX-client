@@ -1,11 +1,10 @@
 /* This example requires Tailwind CSS v2.0+ */
-import {Fragment, useEffect, useState} from 'react'
+import {Fragment, useEffect} from 'react'
 import { Transition } from '@headlessui/react'
 import { CheckCircleIcon } from '@heroicons/react/outline'
 import { XIcon } from '@heroicons/react/solid'
 
 export function Notification(props) {
-  const [show, setShow] = useState(true);
 
   useEffect(() => {
     setTimeout(() => {
