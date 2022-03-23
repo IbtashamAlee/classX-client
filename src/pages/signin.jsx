@@ -152,7 +152,7 @@ function Item(props)
   return (
       <div className="auth-carousel__item flex flex-col items-center justify-center text-center">
         <div className="auth-carousel__item-inner">
-          <img src={props.item.image} className="select-none"/>
+          <img src={props.item.image} alt="nothing found" className="select-none"/>
           <h2 className="font-semibold my-2 text-slate-600">{props.item.title}</h2>
           <p className="text-slate-400">{props.item.description}</p>
         </div>

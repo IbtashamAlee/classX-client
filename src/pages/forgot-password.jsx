@@ -36,7 +36,7 @@ export function ForgotPassword(props) {
         {isResetting && <Notification title={title} message={message} closeNotification={closeNotification} isOpened={isResetting}/>}
         <div className="flex items-center justify-center flex-col h-full w-full bg-slate-50">
           <div className="md:mx-12 sm:mx-auto sm:w-full sm:max-w-md flex items-center justify-center flex-col bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10 relative overflow-hidden">
-            <img src="./forgot-password.png" className="h-52"/>
+            <img src="./forgot-password.png" alt="nothing found" className="h-52"/>
             <div className="text-slate-600 text-center mx-auto w-full">
               <div className="my-6">
                 <div className="text-slate-600 min-w-96 text-center text-xl font-normal leading-9">

@@ -9,7 +9,7 @@ export function signupUserRequest(email, password, name) {
 }
 
 export function signinUserRequest(email, password) {
-    return Api.execute("/auth/login", "post", {
+    return Api.execute("/auth/signin", "post", {
         email: email,
         password: password,
     })
