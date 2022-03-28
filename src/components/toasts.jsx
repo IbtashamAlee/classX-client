@@ -1,21 +1,21 @@
 import PropTypes from "prop-types";
 import React from "react";
-import { bindActionCreators } from "redux";
-import { connect } from "react-redux";
+import {bindActionCreators} from "redux";
+import {connect} from "react-redux";
 import Toast from "./toast";
-import { removeToast } from "../redux/actions/toast-actions";
+import {removeToast} from "../redux/actions/toast-actions";
 
-const Toasts = ({ actions, toasts }) => {
-  const { removeToast } = actions;
+const Toasts = ({actions, toasts}) => {
+  const {removeToast} = actions;
   return (
-      <ul className="toasts">
-        {toasts.map(toast => {
-          const { id } = toast;
-          return (
-              <Toast {...toast} key={id} onDismissClick={() => removeToast(id)} />
-          );
-        })}
-      </ul>
+    <ul className="toasts">
+      {toasts.map(toast => {
+        const {id} = toast;
+        return (
+          <Toast {...toast} key={id} onDismissClick={() => removeToast(id)}/>
+        );
+      })}
+    </ul>
   );
 };
 
@@ -27,7 +27,7 @@ Toasts.propTypes = {
 };
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({ removeToast }, dispatch)
+  actions: bindActionCreators({removeToast}, dispatch)
 });
 
 const mapStateToProps = state => ({

@@ -1,7 +1,7 @@
-import { ActionTypes } from "../constants";
+import {ActionTypes} from "../constants";
 
 export default function toasts(state = [], action) {
-  const { payload, type } = action;
+  const {payload, type} = action;
 
   switch (type) {
     case ActionTypes.ADD_TOAST:

@@ -8,15 +8,15 @@ body, #root {
 }
 
 input:focus {
-    box-shadow: none!important;
+    box-shadow: none !important;
 }
 
 .MuiButton-root, .MuiTab-wrapper {
-    text-transform: none!important;
+    text-transform: none !important;
 }
 
 .MuiPaper-root {
-    background-color: transparent!important;
+    background-color: transparent !important;
 }
 
 .auth-carousel__item {
