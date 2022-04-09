@@ -1,5 +1,5 @@
 import createToast from '../../factories/createToast'
-import {ActionTypes}  from "../constants/actions-types";
+import {ActionTypes} from "../constants/actions-types";
 
 export function addToast(options = {}) {
   return {
