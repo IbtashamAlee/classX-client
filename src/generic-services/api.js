@@ -1,12 +1,11 @@
 import axios from "axios";
 import qs from "qs";
-
 // import auth from "../auth";
 
 axios.defaults.headers.common.Authorization = `Bearer ${localStorage.getItem('access_token')}`;
 
 class Api {
-  execute(url, method, dataObject = {}) {
+  execute(url,method, dataObject={}) {
     return new Promise(function (resolve, reject) {
       const authAxios = axios.create({
         headers: {
@@ -20,9 +19,9 @@ class Api {
         headers: {
           'content-type': 'application/x-www-form-urlencoded;charset=utf-8'
         }
-      }).then((res) => {
+      }).then((res) =>{
         resolve(res);
-      }).catch((err) => {
+      }).catch((err) =>{
         if (err.response.status === 401) {
           // auth.logout();
         }
@@ -32,7 +31,7 @@ class Api {
   }
 
   get(url) {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve, reject )=> {
       axios.get(url).then(res => {
         resolve(res);
       }).catch(err => {
