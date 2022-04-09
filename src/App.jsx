@@ -11,6 +11,8 @@ import {Signin} from "./pages/signin";
 import {NotFound} from "./pages/not-found";
 import {AccountVerify} from "./pages/account-verify";
 import {ForgotPassword} from "./pages/forgot-password";
+import CreateInstitute from "./pages/create-institute";
+import {Dashboard} from "./pages/dashboard";
 
 export default function App() {
   const dispatch = useDispatch();
@@ -39,7 +41,6 @@ export default function App() {
           <Route path="/" element={<Layout/>}>
             <Route index element={<Home/>}/>
             <Route path="about" element={<About/>}/>
-            <Route path="dashboard" element={<Dashboard/>}/>
             {/* Using path="*"" means "match anything", so this route
                 acts like a catch-all for URLs that we don't have explicit
                 routes for. */}
@@ -47,7 +48,9 @@ export default function App() {
           </Route>
           <Route path="signup" element={<Signup/>}/>
           <Route path="signin" element={<Signin/>}/>
+          <Route path="dashboard" element={<Dashboard/>}/>
           <Route path="verify" element={<AccountVerify/>}/>
+          <Route path="institute/request" element={<CreateInstitute/>}/>
           <Route path="forgot-password" element={<ForgotPassword/>}/>
           <Route path="*" element={<NotFound/>}/>
         </Routes>
@@ -75,6 +78,15 @@ function Layout() {
               <Link to="/dashboard">Dashboard</Link>
             </li>
             <li>
+              <Link to="/institute/request">Request institute</Link>
+            </li>
+            <li>
+              <Link to="/verify">Verify page</Link>
+            </li>
+            <li>
+              <Link to="/verify">Institute Requests</Link>
+            </li>
+            <li>
               <Link to="/nothing-here">Nothing Here</Link>
             </li>
           </ul>
@@ -94,16 +106,6 @@ function Home() {
   return (
       <div>
         <h2>Home</h2>
-      </div>
-  );
-}
-
-
-
-function Dashboard() {
-  return (
-      <div>
-        <h2>Dashboard</h2>
       </div>
   );
 }

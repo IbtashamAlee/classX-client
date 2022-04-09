@@ -2,6 +2,8 @@ import axios from "axios";
 import qs from "qs";
 // import auth from "../auth";
 
+axios.defaults.headers.common.Authorization = `Bearer ${localStorage.getItem('access_token')}`;
+
 class Api {
   execute(url,method, dataObject={}) {
     return new Promise(function (resolve, reject) {
