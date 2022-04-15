@@ -7,14 +7,11 @@ import {requestInstitute} from "../redux/actions/institute-actions"
 
 export default function CreateInstitute() {
   const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
   const [description, setDescription] = useState('');
   const [country, setCountry] = useState('Pakistan');
   const [street, setStreet] = useState("");
   const [city, setCity] = useState("");
   const [type, setType] = useState('University');
-  const [zip, setZip] = useState("");
-  const [state, setState] = useState("");
 
   const dispatch = useDispatch();
 
@@ -37,7 +34,7 @@ export default function CreateInstitute() {
                 </div>
 
                 <div className="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
-                  <div className="sm:col-span-6">
+                  <div className="sm:col-span-3">
                     <TextValidator
                         value={name}
                         helperText="Please enter your institute name"
@@ -53,7 +50,7 @@ export default function CreateInstitute() {
                         errorMessages={['This field is required']}
                     />
                   </div>
-
+{/* 
                   <div className="sm:col-span-3">
                     <TextValidator
                         value={email}
@@ -68,7 +65,7 @@ export default function CreateInstitute() {
                         validators={['required', 'isEmail']}
                         errorMessages={['This field is required', 'Email is not valid']}
                     />
-                  </div>
+                  </div> */}
 
                   <div className="sm:col-span-3">
                     <FormControl fullWidth variant="filled">
@@ -132,38 +129,6 @@ export default function CreateInstitute() {
                         <MenuItem value={"Pakistan"}>{"Pakistan"}</MenuItem>
                       </Select>
                     </FormControl>
-                  </div>
-
-                  <div className="sm:col-span-3">
-                    <TextValidator
-                        value={state}
-                        onChange={event => setState(event.target.value)}
-                        helperText="Enter your state/province"
-                        type="text"
-                        name="region"
-                        id="region"
-                        label="State/Province"
-                        autoComplete="address-level1"
-                        className="w-full"
-                        validators={['required']}
-                        errorMessages={['This field is required']}
-                    />
-                  </div>
-
-                  <div className="sm:col-span-3">
-                    <TextValidator
-                        value={zip}
-                        onChange={event => setZip(event.target.value)}
-                        helperText="Enter your zip/postal code"
-                        type="text"
-                        name="postal-code"
-                        id="postal-code"
-                        label="ZIP/Postal code"
-                        autoComplete="postal-code"
-                        className="w-full"
-                        validators={['required']}
-                        errorMessages={['This field is required']}
-                    />
                   </div>
 
                   <div className="sm:col-span-6">
@@ -233,7 +198,7 @@ export default function CreateInstitute() {
                           </label>
                           <p className="pl-1">or drag and drop</p>
                         </div>
-                        <p className="text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
+                        <p className="text-xs text-gray-500">Any Supporting documents upto 10mb</p>
                       </div>
                     </div>
                   </div>
