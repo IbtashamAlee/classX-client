@@ -2,7 +2,8 @@ import * as React from "react";
 import {Routes, Route, Outlet, Link} from "react-router-dom";
 import {useEffect} from "react";
 import {useDispatch} from "react-redux";
-import {getUser} from "./redux/actions/user-actions";
+import {getRoles} from "./redux/actions/user-actions";
+import {signinUser} from "./redux/actions/auth-actions";
 import {signupUser} from "./redux/actions/auth-actions";
 import {About} from "./pages/about";
 import {Signup} from "./pages/signup";
@@ -14,6 +15,7 @@ import {ForgotPassword} from "./pages/forgot-password";
 import CreateInstitute from "./pages/create-institute";
 import {Dashboard} from "./pages/dashboard";
 
+
 export default function App() {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -21,7 +23,8 @@ export default function App() {
     //     type: "SET_USER_ACTION",
     //     hi: "hi",
     // });
-      dispatch(getUser({hi: "hi payload"}));
+    dispatch(getRoles());
+    dispatch(signinUser());
   }, [dispatch]);
 
   const outerTheme = createTheme({

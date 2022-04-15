@@ -1,4 +1,4 @@
-import React, {Fragment, useState} from "react";
+import React, {Fragment, useEffect, useState} from "react";
 import Sidebar from "../components/sidebar";
 import Card from '../components/card'
 import {
@@ -12,6 +12,9 @@ import {
 } from "@heroicons/react/outline";
 import {SearchIcon} from "@heroicons/react/solid";
 import {Menu, Transition} from "@headlessui/react";
+import {FormControl, InputLabel, MenuItem, Select} from "@mui/material";
+import {useDispatch, useSelector} from "react-redux";
+import {getRoles} from "../redux/actions/user-actions";
 
 const userNavigation = [
   { name: 'Your Profile', href: '#' },
@@ -24,7 +27,10 @@ function classNames(...classes) {
 }
 
 export function Dashboard() {
+  const dispatch = useDispatch();
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [role, setRole] = useState('');
+  let roles = useSelector((state => state.roles.roles));
   const [classes, setClasses] = useState([
     {
       "_id": "60dcee2f8d30ee001526c72f",
@@ -63,6 +69,10 @@ export function Dashboard() {
   const hideShowSidebar = () => {
     setSidebarOpen(!sidebarOpen);
   }
+
+  useEffect(() => {
+
+  }, [dispatch, role]);
 
   return (
       <React.Fragment>
@@ -153,8 +163,24 @@ export function Dashboard() {
 
             <main className="flex-1">
               <div className="py-6">
-                <div className="px-4 sm:px-6 md:px-0">
+                <div className="px-4 sm:px-6 md:px-0 md:flex md:justify-between">
                   <h1 className="text-2xl font-semibold text-gray-900">Dashboard</h1>
+                  <div className="w-64 mt-4 md:mt-0">
+                    <FormControl fullWidth variant="filled">
+                      <InputLabel id="demo-simple-select-label">Selected Role</InputLabel>
+                      <Select
+                          labelId="demo-simple-select-label"
+                          id="demo-simple-select"
+                          value={role}
+                          label="Select Country"
+                          onChange={event => {setRole(event.target.value)}}
+                      >
+                        {roles && roles.map((r) => (
+                            <MenuItem value={r}>{r}</MenuItem>
+                        ))}
+                      </Select>
+                    </FormControl>
+                  </div>
                 </div>
                 <div className="px-4 sm:px-6 md:px-0">
                   {/* Replace with your content */}

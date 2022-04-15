@@ -12,7 +12,7 @@ export const setSignupUser = (state = {}, action) => {
 export const setSigninUser = (state = {}, action) => {
     switch (action.type) {
         case ActionTypes.SIGN_IN_USER_SUCCESS:
-            return { ...state, ...action.access_token };
+            return { ...state, access_token: action.access_token };
         default:
             return state;
     }

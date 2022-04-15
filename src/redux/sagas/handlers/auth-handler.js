@@ -16,6 +16,10 @@ export function* handleSignupUserRequest(action) {
 
 export function* handleSigninUserRequest(action) {
     try {
+        if (localStorage.getItem('access_token')) {
+            yield put({ type: ActionTypes.SIGN_IN_USER_SUCCESS, access_token: localStorage.getItem('access_token')});
+            return;
+        }
         const response = yield call(signinUserRequest, action.email, action.password);
         const { data } = response;
         localStorage.setItem("access_token", data.access_token)
