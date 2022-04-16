@@ -39,7 +39,7 @@ export function* handleGetDepartmentClasses(action) {
 
 export function* handleGetInstituteClasses(action) {
   try {
-    const response = yield call(getDepartmentClassesRequest);
+    const response = yield call(getInstituteClassesRequest);
     const { data } = response;
     yield put({ type: ActionTypes.GET_INSTITUTE_CLASSES_SUCCESS, data: data });
   } catch (err) {
