@@ -23,3 +23,9 @@ export const getInstituteClasses = () => {
     type: ActionTypes.GET_INSTITUTE_CLASSES,
   };
 };
+
+export const clearClasses= () => {
+  return {
+    type: ActionTypes.CLEAR_CLASSES,
+  };
+};

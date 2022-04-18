@@ -17,6 +17,8 @@ export const setClassesReducer = (state = [], action) => {
       return { ...state, classes: action.data };
     case ActionTypes.GET_STUDENT_TEACHER_CLASSES_SUCCESS:
       return { ...state, classes: action.data };
+    case ActionTypes.CLEAR_CLASSES:
+      return {...state, classes: []}
     default:
       return state;
   }
