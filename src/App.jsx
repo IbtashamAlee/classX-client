@@ -4,7 +4,6 @@ import {useEffect} from "react";
 import {useDispatch} from "react-redux";
 import {getRoles} from "./redux/actions/user-actions";
 import {signinUser} from "./redux/actions/auth-actions";
-import {signupUser} from "./redux/actions/auth-actions";
 import {About} from "./pages/about";
 import {Signup} from "./pages/signup";
 import {ThemeProvider, createTheme} from "@mui/material";
@@ -14,6 +13,9 @@ import {AccountVerify} from "./pages/account-verify";
 import {ForgotPassword} from "./pages/forgot-password";
 import CreateInstitute from "./pages/create-institute";
 import {Dashboard} from "./pages/dashboard";
+import {ClassDetails} from "./pages/class-details"
+import {Feed} from "./pages/feed";
+import {Assessments} from "./pages/assessments";
 
 
 export default function App() {
@@ -44,6 +46,14 @@ export default function App() {
           <Route path="/" element={<Layout/>}>
             <Route index element={<Home/>}/>
             <Route path="about" element={<About/>}/>
+            {/* Using path="*"" means "match anything", so this route
+                acts like a catch-all for URLs that we don't have explicit
+                routes for. */}
+
+          </Route>
+          <Route path="/class-details/:id" element={<ClassDetails/>}>
+            <Route index element={<Feed/>}/>
+            <Route path="assessments" element={<Assessments/>}/>
             {/* Using path="*"" means "match anything", so this route
                 acts like a catch-all for URLs that we don't have explicit
                 routes for. */}
@@ -109,17 +119,6 @@ function Home() {
   return (
       <div>
         <h2>Home</h2>
-      </div>
-  );
-}
-
-function NoMatch() {
-  return (
-      <div>
-        <h2>Nothing to see here!</h2>
-        <p>
-          <Link to="/">Go to the home page</Link>
-        </p>
       </div>
   );
 }

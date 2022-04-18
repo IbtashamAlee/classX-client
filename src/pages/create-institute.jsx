@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import {Button, TextField, FormControl, InputLabel, Select, MenuItem} from "@mui/material";
 import {ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
-import {Link, useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {requestInstitute} from "../redux/actions/institute-actions"
 
@@ -50,7 +49,7 @@ export default function CreateInstitute() {
                         errorMessages={['This field is required']}
                     />
                   </div>
-{/* 
+{/*
                   <div className="sm:col-span-3">
                     <TextValidator
                         value={email}

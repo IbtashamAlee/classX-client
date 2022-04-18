@@ -10,7 +10,7 @@ export function Notification(props) {
     setTimeout(() => {
       props.closeNotification();
     }, 5000)
-  }, [])
+  }, [props])
 
   return (
       <>

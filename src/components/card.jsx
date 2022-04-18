@@ -2,14 +2,10 @@ import React from 'react';
 import { makeStyles } from '@mui/styles';
 import Card from '@mui/material/Card';
 import CardActionArea from '@mui/material/CardActionArea';
-import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
-import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import { Link } from "react-router-dom";
-import Api from "../generic-services/api";
-import {useDispatch, useSelector} from "react-redux";
 
 const useStyles = makeStyles({
   root: {

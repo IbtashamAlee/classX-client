@@ -1,17 +1,14 @@
-import { Fragment, useState } from 'react'
-import { Dialog, Menu, Transition } from '@headlessui/react'
+import { Fragment } from 'react'
+import { Dialog, Transition } from '@headlessui/react'
 import {
-  BellIcon,
   CalendarIcon,
   ChartBarIcon,
   FolderIcon,
   HomeIcon,
   InboxIcon,
-  MenuAlt2Icon,
   UsersIcon,
   XIcon,
-} from '@heroicons/react/outline'
-import { SearchIcon } from '@heroicons/react/solid'
+} from '@heroicons/react/outline';
 
 const navigation = [
   { name: 'Dashboard', href: '#', icon: HomeIcon, current: true },
@@ -20,11 +17,6 @@ const navigation = [
   { name: 'Calendar', href: '#', icon: CalendarIcon, current: false },
   { name: 'Documents', href: '#', icon: InboxIcon, current: false },
   { name: 'Reports', href: '#', icon: ChartBarIcon, current: false },
-]
-const userNavigation = [
-  { name: 'Your Profile', href: '#' },
-  { name: 'Settings', href: '#' },
-  { name: 'Sign out', href: '#' },
 ]
 
 function classNames(...classes) {
@@ -153,8 +145,6 @@ export default function Sidebar(props) {
               </div>
             </div>
           </div>
-
-
         </div>
       </>
   )
