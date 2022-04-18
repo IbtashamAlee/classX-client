@@ -16,7 +16,7 @@ const useStyles = makeStyles({
     maxWidth: 345,
   },
   media: {
-    height: 140,
+    height: 194,
   },
 });
 
@@ -41,9 +41,6 @@ export default function MediaCard(props) {
             <CardContent>
               <Typography gutterBottom variant="h5" component="h2">
                 {props.classname}
-              </Typography>
-              <Typography variant="body1" color="textSecondary" component="p">
-                {props.classsection}
               </Typography>
               <Typography variant="body2" color="textSecondary" component="p">
                 {props.classdetails}
