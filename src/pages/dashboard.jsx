@@ -14,7 +14,13 @@ import {SearchIcon} from "@heroicons/react/solid";
 import {Menu, Transition} from "@headlessui/react";
 import {FormControl, InputLabel, MenuItem, Select} from "@mui/material";
 import {useDispatch, useSelector} from "react-redux";
-import {getRoles} from "../redux/actions/user-actions";
+import {
+  getRoles,
+  getDepartmentClasses,
+  getInstituteClasses,
+  getStudentTeacherClasses,
+  clearClasses
+} from "../redux/actions/user-actions";
 
 const userNavigation = [
   { name: 'Your Profile', href: '#' },
@@ -31,47 +37,27 @@ export function Dashboard() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [role, setRole] = useState('');
   let roles = useSelector((state => state.roles.roles));
-  const [classes, setClasses] = useState([
-    {
-      "_id": "60dcee2f8d30ee001526c72f",
-      "name": "Programming Fundamentals",
-      "userid": "60dcee0c8d30ee001526c72e",
-      "section": "Section B",
-      "details": "We will learn basics of programming",
-      "image": "https://www.gstatic.com/classroom/themes/img_code.jpg"
-    },
-    {
-      "_id": "60dcee568d30ee001526c730",
-      "name": "Web Technologies",
-      "userid": "60dcee0c8d30ee001526c72e",
-      "section": "Section A",
-      "details": "We will go through from MERN stack step by step with practical examples",
-      "image": "https://www.gstatic.com/classroom/themes/img_code.jpg"
-    },
-    {
-      "_id": "6122b679ee4fb7001570c69d",
-      "name": "Pre 11th",
-      "userid": "60dcee0c8d30ee001526c72e",
-      "section": "B",
-      "details": "ICS- Physics",
-      "image": "https://www.gstatic.com/classroom/themes/img_code.jpg"
-    },
-    {
-      "_id": "613218783c52b30015f5dffc",
-      "name": "Test Class 3",
-      "userid": "60dcee0c8d30ee001526c72e",
-      "section": "C",
-      "details": "None",
-      "image": "https://www.gstatic.com/classroom/themes/img_code.jpg"
-    }
-  ]);
+  let classes = useSelector((state => state.classes.classes));
 
   const hideShowSidebar = () => {
     setSidebarOpen(!sidebarOpen);
   }
 
   useEffect(() => {
-
+    dispatch(clearClasses());
+    switch (role) {
+      case "DepartmentAdmin":
+        dispatch(getDepartmentClasses());
+        break;
+      case "InstituteAdmin":
+        dispatch(getInstituteClasses());
+        break;
+      case "Teacher":
+        dispatch(getStudentTeacherClasses());
+        break;
+      default:
+        dispatch(getStudentTeacherClasses());
+    }
   }, [dispatch, role]);
 
   return (
@@ -176,23 +162,18 @@ export function Dashboard() {
                           onChange={event => {setRole(event.target.value)}}
                       >
                         {roles && roles.map((r) => (
-                            <MenuItem value={r}>{r}</MenuItem>
+                            <MenuItem value={r} key={r}>{r}</MenuItem>
                         ))}
                       </Select>
                     </FormControl>
                   </div>
                 </div>
                 <div className="px-4 sm:px-6 md:px-0">
-                  {/* Replace with your content */}
-                  {/*<div className="py-4">*/}
-                  {/*  <div className="h-96 border-4 border-dashed border-gray-200 rounded-lg" />*/}
-                  {/*</div>*/}
-                  {/* /End replace */}
                   <div className="flex flex-wrap gap-4 mt-6">
-                    {classes.length ?
+                    {classes ?
                         classes.map((item) => (
-                            <Card classId={item._id} className="mx-auto" key={item._id} image={item.image} classname={item.name}
-                                  classsection={item.section} classdetails={item.details}
+                            <Card classId={item.classId} className="mx-auto" key={item.classId} image={"./class.png"} classname={item.name || item.class}
+                                  classsection={item.section} classdetails={item.description}
                             />
                         )) : <div>No Classes Found</div>
                     }
