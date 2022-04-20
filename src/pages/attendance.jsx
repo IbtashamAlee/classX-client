@@ -1,6 +1,6 @@
-import { CalendarIcon, ChevronRightIcon } from '@heroicons/react/solid'
+import { CalendarIcon } from '@heroicons/react/solid'
 import AttendanceTable from "../components/attendance-table";
-import {Button, IconButton} from "@mui/material";
+import { IconButton} from "@mui/material";
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 const positions = [
