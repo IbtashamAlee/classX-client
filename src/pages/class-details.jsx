@@ -1,11 +1,10 @@
 import React, {useState} from "react";
 import Sidebar from "../components/sidebar";
-import {Link, Outlet, useLocation} from "react-router-dom";
+import {Outlet} from "react-router-dom";
 import {Header} from "../components/header";
 
 export function ClassDetails (props) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const location = useLocation();
   const hideShowSidebar = () => {
     setSidebarOpen(!sidebarOpen);
   }
@@ -15,9 +14,8 @@ export function ClassDetails (props) {
         <div>
           <Sidebar isOpen={sidebarOpen} setSidebarOpen={hideShowSidebar}/>
         </div>
-        <div className="md:ml-64">
-          <div>This is class details page</div>
-          <Link to={`${location.pathname}/assessments`}>Home</Link>
+        <div className="md:ml-64 md:px-6">
+          <div className="text-gray-900 text-2xl font-medium py-4">Attendance</div>
           <Outlet/>
         </div>
       </div>

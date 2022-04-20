@@ -16,6 +16,7 @@ import {Dashboard} from "./pages/dashboard";
 import {ClassDetails} from "./pages/class-details"
 import {Feed} from "./pages/feed";
 import {Assessments} from "./pages/assessments";
+import Attendance from "./pages/attendance";
 
 
 export default function App() {
@@ -54,6 +55,7 @@ export default function App() {
           <Route path="/class-details/:id" element={<ClassDetails/>}>
             <Route index element={<Feed/>}/>
             <Route path="assessments" element={<Assessments/>}/>
+            <Route path="attendances" element={<Attendance/>}/>
             {/* Using path="*"" means "match anything", so this route
                 acts like a catch-all for URLs that we don't have explicit
                 routes for. */}
@@ -95,9 +97,6 @@ function Layout() {
             </li>
             <li>
               <Link to="/verify">Verify page</Link>
-            </li>
-            <li>
-              <Link to="/verify">Institute Requests</Link>
             </li>
             <li>
               <Link to="/nothing-here">Nothing Here</Link>
