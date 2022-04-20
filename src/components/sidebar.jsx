@@ -1,29 +1,27 @@
-import { Fragment } from 'react'
-import { Dialog, Transition } from '@headlessui/react'
+import {Fragment} from 'react';
+import {Dialog, Transition} from '@headlessui/react';
 import {
   CalendarIcon,
-  ChartBarIcon,
   FolderIcon,
   HomeIcon,
   InboxIcon,
   UsersIcon,
   XIcon,
 } from '@heroicons/react/outline';
-
-const navigation = [
-  { name: 'Dashboard', href: '#', icon: HomeIcon, current: true },
-  { name: 'Team', href: '#', icon: UsersIcon, current: false },
-  { name: 'Projects', href: '#', icon: FolderIcon, current: false },
-  { name: 'Calendar', href: '#', icon: CalendarIcon, current: false },
-  { name: 'Documents', href: '#', icon: InboxIcon, current: false },
-  { name: 'Reports', href: '#', icon: ChartBarIcon, current: false },
-]
+import {Link} from "react-router-dom";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
 export default function Sidebar(props) {
+  const navigation = [
+    {name: 'Feed', href: ``, icon: HomeIcon, current: true},
+    {name: 'Assessments', href: `assessments`, icon: UsersIcon, current: false},
+    {name: 'Attendances', href: `attendances`, icon: FolderIcon, current: false},
+    {name: 'Participants', href: `participants`, icon: CalendarIcon, current: false},
+    {name: 'Setting', href: `settings`, icon: InboxIcon, current: false},
+  ]
 
   return (
       <>
@@ -39,7 +37,7 @@ export default function Sidebar(props) {
                   leaveFrom="opacity-100"
                   leaveTo="opacity-0"
               >
-                <Dialog.Overlay className="fixed inset-0 bg-gray-600 bg-opacity-75" />
+                <Dialog.Overlay className="fixed inset-0 bg-gray-600 bg-opacity-75"/>
               </Transition.Child>
               <Transition.Child
                   as={Fragment}
@@ -67,7 +65,7 @@ export default function Sidebar(props) {
                           onClick={() => props.setSidebarOpen(false)}
                       >
                         <span className="sr-only">Close sidebar</span>
-                        <XIcon className="h-6 w-6 text-white" aria-hidden="true" />
+                        <XIcon className="h-6 w-6 text-white" aria-hidden="true"/>
                       </button>
                     </div>
                   </Transition.Child>
@@ -81,16 +79,15 @@ export default function Sidebar(props) {
                   <div className="mt-5 flex-1 h-0 overflow-y-auto">
                     <nav className="px-2 space-y-1">
                       {navigation.map((item) => (
-                          <a
-                              key={item.name}
-                              href={item.href}
-                              className={classNames(
-                                  item.current
-                                      ? 'bg-gray-100 text-gray-900'
-                                      : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900',
-                                  'group rounded-md py-2 px-2 flex items-center text-base font-medium'
-                              )}
-                          >
+                          <Link to={item.href} key={item.name}>
+                            <span
+                                className={classNames(
+                                    item.current
+                                        ? 'bg-gray-100 text-gray-900'
+                                        : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900',
+                                    'group rounded-md py-2 px-2 flex items-center text-base font-medium'
+                                )}
+                            >
                             <item.icon
                                 className={classNames(
                                     item.current ? 'text-gray-500' : 'text-gray-400 group-hover:text-gray-500',
@@ -98,14 +95,16 @@ export default function Sidebar(props) {
                                 )}
                                 aria-hidden="true"
                             />
-                            {item.name}
-                          </a>
+                              {item.name}
+                          </span>
+                          </Link>
                       ))}
                     </nav>
                   </div>
                 </div>
               </Transition.Child>
-              <div className="flex-shrink-0 w-14">{/* Dummy element to force sidebar to shrink to fit close icon */}</div>
+              <div
+                  className="flex-shrink-0 w-14">{/* Dummy element to force sidebar to shrink to fit close icon */}</div>
             </Dialog>
           </Transition.Root>
 
@@ -123,23 +122,26 @@ export default function Sidebar(props) {
               <div className="flex-grow mt-5 flex flex-col">
                 <nav className="flex-1 px-2 pb-4 space-y-1">
                   {navigation.map((item) => (
-                      <a
+                      <Link
                           key={item.name}
                           href={item.href}
-                          className={classNames(
-                              item.current ? 'bg-gray-100 text-gray-900' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900',
-                              'group rounded-md py-2 px-2 flex items-center text-sm font-medium'
-                          )}
                       >
-                        <item.icon
+                        <span
                             className={classNames(
-                                item.current ? 'text-gray-500' : 'text-gray-400 group-hover:text-gray-500',
-                                'mr-3 flex-shrink-0 h-6 w-6'
+                                item.current ? 'bg-gray-100 text-gray-900' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900',
+                                'group rounded-md py-2 px-2 flex items-center text-sm font-medium'
                             )}
-                            aria-hidden="true"
-                        />
-                        {item.name}
-                      </a>
+                        >
+                          <item.icon
+                              className={classNames(
+                                  item.current ? 'text-gray-500' : 'text-gray-400 group-hover:text-gray-500',
+                                  'mr-3 flex-shrink-0 h-6 w-6'
+                              )}
+                              aria-hidden="true"
+                          />
+                          {item.name}
+                        </span>
+                      </Link>
                   ))}
                 </nav>
               </div>
