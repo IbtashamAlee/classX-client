@@ -5,13 +5,13 @@ export function getRolesRequest() {
 }
 
 export function getStudentTeacherClassesRequest() {
-  return Api.execute("/users/me/classes", "get");
+  return Api.execute("/user/me/classes", "get");
 }
 
 export function getDepartmentClassesRequest() {
-  return Api.execute("/users/me/get-department-classes", "get");
+  return Api.execute("/user/me/get-department-classes", "get");
 }
 
 export function getInstituteClassesRequest() {
-  return Api.execute("/users/me/get-institute-classes", "get");
+  return Api.execute("/user/me/get-institute-classes", "get");
 }
