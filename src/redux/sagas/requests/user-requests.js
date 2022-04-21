@@ -1,7 +1,7 @@
 import Api from '../../../generic-services/api'
 
 export function getRolesRequest() {
-  return Api.execute("/users/me/roles", "get");
+  return Api.execute("/user/me/roles", "get");
 }
 
 export function getStudentTeacherClassesRequest() {

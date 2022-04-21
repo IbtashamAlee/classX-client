@@ -63,7 +63,7 @@ export function Dashboard() {
                   <div className="flex flex-wrap gap-4 mt-6">
                     {classes ?
                         classes.map((item) => (
-                            <Card classId={item.classId} className="mx-auto" key={item.classId} image={"./class.png"} classname={item.name || item.class}
+                            <Card classId={item.id} className="mx-auto" key={item.id} image={"./class.png"} classname={item.name || item.class}
                                   classsection={item.section} classdetails={item.description}
                             />
                         )) : <div>No Classes Found</div>

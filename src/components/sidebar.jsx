@@ -124,7 +124,7 @@ export default function Sidebar(props) {
                   {navigation.map((item) => (
                       <Link
                           key={item.name}
-                          href={item.href}
+                          to={item.href}
                       >
                         <span
                             className={classNames(
