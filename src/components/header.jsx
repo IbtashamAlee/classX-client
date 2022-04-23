@@ -6,23 +6,31 @@ import {
 import {SearchIcon} from "@heroicons/react/solid";
 import {Menu, Transition} from "@headlessui/react";
 import Sidebar from "./sidebar";
-
-const userNavigation = [
-  { name: 'Your Profile', href: '#' },
-  { name: 'Settings', href: '#' },
-  { name: 'Sign out', href: '#' },
-]
+import {useNavigate} from "react-router-dom";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
 export function Header(props) {
+  let navigate = useNavigate();
   const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  const signOut = () => {
+    localStorage.clear();
+    navigate('/');
+  }
 
   const hideShowSidebar = () => {
     setSidebarOpen(!sidebarOpen);
   }
+
+  const userNavigation = [
+    { name: 'Your Profile', href: '#', click: '' },
+    { name: 'Settings', href: '#', click: '' },
+    { name: 'Sign out', href: '#', click: signOut },
+  ]
+
   return (
       <React.Fragment>
         {props.isSideBarEnabled &&
@@ -93,7 +101,7 @@ export function Header(props) {
                 >
                   <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 py-1 focus:outline-none">
                     {userNavigation.map((item) => (
-                        <Menu.Item key={item.name}>
+                        <Menu.Item key={item.name} onClick={item.click}>
                           {({ active }) => (
                               <a
                                   href={item.href}
