@@ -37,7 +37,7 @@ export function Dashboard() {
       <React.Fragment>
         <div>
           <Header isSideBarEnabled={false}/>
-          <div className="mx-12 md:mx-16 flex flex-col md:px-8 xl:px-0">
+          <div className="mx-2 md:mx-16 flex flex-col md:px-8 xl:px-0">
             <main className="flex-1">
               <div className="py-6">
                 <div className="px-4 sm:px-6 md:px-0 md:flex md:justify-between">
