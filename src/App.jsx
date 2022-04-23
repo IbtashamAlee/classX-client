@@ -17,6 +17,7 @@ import {ClassDetails} from "./pages/class-details"
 import {Feed} from "./pages/feed";
 import {Assessments} from "./pages/assessments";
 import Attendance from "./pages/attendance";
+import {Participants} from "./pages/participants";
 
 
 export default function App() {
@@ -56,6 +57,7 @@ export default function App() {
             <Route index element={<Feed/>}/>
             <Route path="assessments" element={<Assessments/>}/>
             <Route path="attendances" element={<Attendance/>}/>
+            <Route path="participants" element={<Participants/>}/>
             {/* Using path="*"" means "match anything", so this route
                 acts like a catch-all for URLs that we don't have explicit
                 routes for. */}

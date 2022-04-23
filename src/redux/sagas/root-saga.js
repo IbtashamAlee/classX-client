@@ -10,7 +10,8 @@ import {
   handleSignupUserRequest,
   handleSigninUserRequest
 } from "./handlers/auth-handler";
-import {handleRequestInstituteRequest} from "./handlers/institute-handler"
+import {handleRequestInstituteRequest} from "./handlers/institute-handler";
+import {handleGetParticipants} from "./handlers/participants-handler";
 
 export function* watcherSaga() {
   // auth handler
@@ -25,4 +26,7 @@ export function* watcherSaga() {
   yield takeEvery(ActionTypes.GET_STUDENT_TEACHER_CLASSES, handleGetStudentTeacherClasses);
   yield takeEvery(ActionTypes.GET_INSTITUTE_CLASSES, handleGetInstituteClasses);
   yield takeEvery(ActionTypes.GET_DEPARTMENT_CLASSES, handleGetDepartmentClasses);
+
+  // participants-handler
+  yield takeEvery(ActionTypes.GET_PARTICIPANTS_CLASS, handleGetParticipants);
 }

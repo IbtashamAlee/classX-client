@@ -2,6 +2,7 @@ import { CalendarIcon } from '@heroicons/react/solid'
 import AttendanceTable from "../components/attendance-table";
 import { IconButton} from "@mui/material";
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import React from "react";
 
 const positions = [
   {
@@ -105,10 +106,12 @@ export default function Attendance() {
   }
 
   return (
-      <div className="bg-white shadow overflow-hidden sm:rounded-md">
-        <ul role="list" className="divide-y divide-gray-200">
-          {positions.map((position) => (
-              <li key={position.id}>
+      <React.Fragment>
+        <div className="text-gray-900 text-2xl font-medium py-4">Attendance</div>
+        <div className="bg-white shadow overflow-hidden sm:rounded-md">
+          <ul className="divide-y divide-gray-200">
+            {positions.map((position) => (
+                <li key={position.id}>
                 <span className="block hover:bg-gray-50">
                   <div className="px-4 py-4 flex items-center sm:px-6">
                     <div className="min-w-0 flex-1 sm:flex sm:items-center sm:justify-between">
@@ -148,9 +151,10 @@ export default function Attendance() {
                     <AttendanceTable/>
                   </div>
                 </span>
-              </li>
-          ))}
-        </ul>
-      </div>
+                </li>
+            ))}
+          </ul>
+        </div>
+      </React.Fragment>
   )
 }
