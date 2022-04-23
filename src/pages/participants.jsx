@@ -20,7 +20,7 @@ export function Participants() {
   return (
       <div>
         <div className="text-gray-900 text-2xl font-medium py-4">Participants</div>
-        <ul role="list" className="divide-y divide-gray-200">
+        <ul className="divide-y divide-gray-200">
           <h1 className="text-lg mb-6 font-medium">Teachers</h1>
           {teachers && teachers.map((person) => (
               <li key={person.id} className="py-4 flex">
