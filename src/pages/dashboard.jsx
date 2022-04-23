@@ -12,7 +12,7 @@ import {Header} from "../components/header";
 
 export function Dashboard() {
   const dispatch = useDispatch();
-  const [role, setRole] = useState('');
+  const [role, setRole] = useState('Teacher');
   let roles = useSelector((state => state.roles.roles));
   let classes = useSelector((state => state.classes.classes));
 
@@ -60,15 +60,66 @@ export function Dashboard() {
                   </div>
                 </div>
                 <div className="px-4 sm:px-6 md:px-0">
-                  <div className="flex flex-wrap gap-4 mt-6">
-                    {classes ?
-                        classes.map((item) => (
-                            <Card classId={item.id} className="mx-auto" key={item.id} image={"./class.png"} classname={item.name || item.class}
-                                  classsection={item.section} classdetails={item.description}
-                            />
-                        )) : <div>No Classes Found</div>
-                    }
-                  </div>
+                  {
+                      role && role === 'InstituteAdmin' &&
+                      <div>
+                        {classes &&
+                            classes.map((ins) => (
+                                <div key={ins.id}>
+                                  <h1 className="text-lg font-medium text-gray-700">Departments under institute {ins.name}</h1>
+                                  {ins.departments &&
+                                      ins.departments.map((dept) => (
+                                          <div key={dept.id} className="px-2">
+                                            <h1 className="text-md font-medium text-gray-500">&bull; Classes under department {dept.name}</h1>
+                                            <div className="flex flex-wrap gap-4 my-6 px-4">
+                                              {dept.class && dept.class.length ?
+                                                  dept.class.map((item) => (
+                                                      <Card classId={item.id} className="mx-auto" key={item.id} image={"./class.png"} classname={item.name || item.class}
+                                                            classsection={item.section} classdetails={item.description}
+                                                      />
+                                                  )) : <div>No class found under {dept.name} department :(</div>
+                                              }
+                                            </div>
+                                          </div>
+                                      ))
+                                  }
+                                </div>
+                            ))
+                        }
+                      </div>
+                  }
+                  {
+                      role && role === 'DepartmentAdmin' &&
+                      <div>
+                        {classes &&
+                            classes.map((dept) => (
+                                <div key={dept.id}>
+                                  <h1 className="text-lg font-medium text-gray-700">&bull; Classes under department {dept.name}</h1>
+                                  <div className="flex flex-wrap gap-4 my-6 px-4">
+                                    {dept.class && dept.class.length ?
+                                        dept.class.map((item) => (
+                                            <Card classId={item.id} className="mx-auto" key={item.id} image={"./class.png"} classname={item.name || item.class}
+                                                  classsection={item.section} classdetails={item.description}
+                                            />
+                                        )) : <div>No class found under {dept.name} department :(</div>
+                                    }
+                                  </div>
+                                </div>
+                            ))
+                        }
+                      </div>
+                  }
+                  {role && (role === 'Teacher' || role === "Student") &&
+                      <div className="flex flex-wrap gap-4 mt-6">
+                        {classes ?
+                            classes.map((item) => (
+                                <Card classId={item.id} className="mx-auto" key={item.id} image={"./class.png"} classname={item.name || item.class}
+                                      classsection={item.section} classdetails={item.description}
+                                />
+                            )) : <div>No Classes Found</div>
+                        }
+                      </div>
+                  }
                 </div>
               </div>
             </main>
