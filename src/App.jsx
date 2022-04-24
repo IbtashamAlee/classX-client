@@ -11,7 +11,7 @@ import {Signin} from "./pages/signin";
 import {NotFound} from "./pages/not-found";
 import {AccountVerify} from "./pages/account-verify";
 import {ForgotPassword} from "./pages/forgot-password";
-import CreateInstitute from "./pages/create-institute";
+import CreateInstitute from "./components/request-institute";
 import {Dashboard} from "./pages/dashboard";
 import {ClassDetails} from "./pages/class-details"
 import {Feed} from "./pages/feed";
@@ -46,7 +46,7 @@ export default function App() {
   return (
       <ThemeProvider theme={outerTheme}>
         <Routes>
-          <Route path="/" element={<Layout/>}>
+          <Route path="/" element={<EnrouteToDashboard> <Layout/> </EnrouteToDashboard>}>
             <Route index element={<Home/>}/>
             <Route path="about" element={<About/>}/>
             {/* Using path="*"" means "match anything", so this route

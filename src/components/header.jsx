@@ -9,6 +9,7 @@ import Sidebar from "./sidebar";
 import {useNavigate} from "react-router-dom";
 import {IconButton} from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
+import RequestInstituteDialog from "./request-institute-dialog";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -17,6 +18,7 @@ function classNames(...classes) {
 export function Header(props) {
   let navigate = useNavigate();
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [openRequestInstituteDialog, setOpenRequestInstituteDialog] = useState(false);
 
   const signOut = () => {
     localStorage.clear();
@@ -25,6 +27,10 @@ export function Header(props) {
 
   const hideShowSidebar = () => {
     setSidebarOpen(!sidebarOpen);
+  }
+
+  const handleCloseRequestInstituteDialog = () => {
+    setOpenRequestInstituteDialog(!openRequestInstituteDialog);
   }
 
   const userNavigation = [
@@ -36,12 +42,13 @@ export function Header(props) {
   const addNavigation = [
     { name: 'Create class', href: '#', click: '' },
     { name: 'Create class in department', href: '#', click: '' },
-    { name: 'Create institute', href: '#', click: '' },
+    { name: 'Request institute', href: '#', click: handleCloseRequestInstituteDialog },
     { name: 'Join class', href: '#', click: '' },
   ]
 
   return (
       <React.Fragment>
+        <RequestInstituteDialog open={openRequestInstituteDialog} handleClose={handleCloseRequestInstituteDialog}/>
         {props.isSideBarEnabled &&
             <Sidebar isOpen={sidebarOpen} setSidebarOpen={hideShowSidebar}/>
         }

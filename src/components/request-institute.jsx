@@ -3,8 +3,9 @@ import {Button, TextField, FormControl, InputLabel, Select, MenuItem} from "@mui
 import {ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
 import {useDispatch} from "react-redux";
 import {requestInstitute} from "../redux/actions/institute-actions"
+import {useNavigate} from "react-router-dom";
 
-export default function CreateInstitute() {
+export default function RequestInstitute() {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [country, setCountry] = useState('Pakistan');
@@ -13,10 +14,11 @@ export default function CreateInstitute() {
   const [type, setType] = useState('University');
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const submitInstitute = () => {
-    console.log("Hello")
     dispatch(requestInstitute(name, type));
+    navigate('/');
   }
 
   return (
