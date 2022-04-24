@@ -18,6 +18,7 @@ import {Feed} from "./pages/feed";
 import {Assessments} from "./pages/assessments";
 import Attendance from "./pages/attendance";
 import {Participants} from "./pages/participants";
+import {AuthorizedRoute, EnrouteToDashboard} from "./generic-services/authorized-routes";
 
 
 export default function App() {
@@ -53,21 +54,18 @@ export default function App() {
                 routes for. */}
 
           </Route>
-          <Route path="/class-details/:id" element={<ClassDetails/>}>
-            <Route index element={<Feed/>}/>
-            <Route path="assessments" element={<Assessments/>}/>
-            <Route path="attendances" element={<Attendance/>}/>
-            <Route path="participants" element={<Participants/>}/>
-            {/* Using path="*"" means "match anything", so this route
-                acts like a catch-all for URLs that we don't have explicit
-                routes for. */}
-
+          <Route path="/class-details/:id" element={<AuthorizedRoute> <ClassDetails/> </AuthorizedRoute>}>
+            <Route index element={<AuthorizedRoute> <Feed/> </AuthorizedRoute>}/>
+            <Route path="assessments" element={<AuthorizedRoute> <Assessments/> </AuthorizedRoute>}/>
+            <Route path="attendances" element={<AuthorizedRoute> <Attendance/> </AuthorizedRoute>}/>
+            <Route path="participants" element={<AuthorizedRoute> <Participants/> </AuthorizedRoute>}/>
+            <Route path="*" element={<NotFound/>}/>
           </Route>
-          <Route path="signup" element={<Signup/>}/>
-          <Route path="signin" element={<Signin/>}/>
-          <Route path="dashboard" element={<Dashboard/>}/>
+          <Route path="signup" element={<EnrouteToDashboard> <Signup/> </EnrouteToDashboard>}/>
+          <Route path="signin" element={<EnrouteToDashboard> <Signin/> </EnrouteToDashboard>}/>
+          <Route path="dashboard" element={<AuthorizedRoute> <Dashboard/> </AuthorizedRoute>}/>
           <Route path="verify" element={<AccountVerify/>}/>
-          <Route path="institute/request" element={<CreateInstitute/>}/>
+          <Route path="institute/request" element={ <AuthorizedRoute> <CreateInstitute/> </AuthorizedRoute>}/>
           <Route path="forgot-password" element={<ForgotPassword/>}/>
           <Route path="*" element={<NotFound/>}/>
         </Routes>
