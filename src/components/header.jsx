@@ -40,10 +40,11 @@ export function Header(props) {
   ]
 
   const addNavigation = [
+    { name: 'Join class', href: '#', click: '' },
     { name: 'Create class', href: '#', click: '' },
     { name: 'Create class in department', href: '#', click: '' },
+    { name: 'Create department in institute', href: '#', click: '' },
     { name: 'Request institute', href: '#', click: handleCloseRequestInstituteDialog },
-    { name: 'Join class', href: '#', click: '' },
   ]
 
   return (
