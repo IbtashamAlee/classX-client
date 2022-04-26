@@ -10,6 +10,7 @@ import {useNavigate} from "react-router-dom";
 import {IconButton} from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
 import RequestInstituteDialog from "./request-institute-dialog";
+import CreateIndependentClassDialog from "./create-independent-class-dialog";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -19,6 +20,8 @@ export function Header(props) {
   let navigate = useNavigate();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [openRequestInstituteDialog, setOpenRequestInstituteDialog] = useState(false);
+  const [openCreateJoinClass, setOpenCreateJoinClass] = useState(false);
+  const [joinClass, setJoinClass] = useState(false)
 
   const signOut = () => {
     localStorage.clear();
@@ -33,6 +36,16 @@ export function Header(props) {
     setOpenRequestInstituteDialog(!openRequestInstituteDialog);
   }
 
+  const handleOpenCloseCreateJoinClass = () => {
+    setOpenCreateJoinClass(!openCreateJoinClass);
+    setJoinClass(false);
+  }
+
+  const handleJoinClassFeature = () => {
+    handleOpenCloseCreateJoinClass();
+    setJoinClass(true);
+  }
+
   const userNavigation = [
     { name: 'Your Profile', href: '#', click: '' },
     { name: 'Settings', href: '#', click: '' },
@@ -40,8 +53,8 @@ export function Header(props) {
   ]
 
   const addNavigation = [
-    { name: 'Join class', href: '#', click: '' },
-    { name: 'Create class', href: '#', click: '' },
+    { name: 'Join class', href: '#', click: handleJoinClassFeature },
+    { name: 'Create class', href: '#', click: handleOpenCloseCreateJoinClass },
     { name: 'Create class in department', href: '#', click: '' },
     { name: 'Create department in institute', href: '#', click: '' },
     { name: 'Request institute', href: '#', click: handleCloseRequestInstituteDialog },
@@ -49,6 +62,7 @@ export function Header(props) {
 
   return (
       <React.Fragment>
+        <CreateIndependentClassDialog open={openCreateJoinClass} handleClose={handleOpenCloseCreateJoinClass} isJoin={joinClass}/>
         <RequestInstituteDialog open={openRequestInstituteDialog} handleClose={handleCloseRequestInstituteDialog}/>
         {props.isSideBarEnabled &&
             <Sidebar isOpen={sidebarOpen} setSidebarOpen={hideShowSidebar}/>

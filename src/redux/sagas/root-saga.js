@@ -12,6 +12,7 @@ import {
 } from "./handlers/auth-handler";
 import {handleRequestInstituteRequest} from "./handlers/institute-handler";
 import {handleGetParticipants} from "./handlers/participants-handler";
+import {handleCreateIndependentRequest} from "./handlers/class-handler";
 
 export function* watcherSaga() {
   // auth handler
@@ -29,4 +30,7 @@ export function* watcherSaga() {
 
   // participants-handler
   yield takeEvery(ActionTypes.GET_PARTICIPANTS_CLASS, handleGetParticipants);
+
+  //class-handler
+  yield takeEvery(ActionTypes.CREATE_INDEPENDENT_CLASS, handleCreateIndependentRequest);
 }
