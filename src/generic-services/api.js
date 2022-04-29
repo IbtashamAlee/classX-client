@@ -7,6 +7,7 @@ axios.defaults.headers.common.Authorization = `Bearer ${localStorage.getItem('ac
 class Api {
   execute(url,method, dataObject={}) {
     return new Promise(function (resolve, reject) {
+      document.getElementById("loader").style.display = "flex";
       const authAxios = axios.create({
         headers: {
           Authorization: `Bearer ${localStorage.getItem('access_token')}`
@@ -20,8 +21,10 @@ class Api {
           'content-type': 'application/x-www-form-urlencoded;charset=utf-8'
         }
       }).then((res) =>{
+        document.getElementById("loader").style.display = "none";
         resolve(res);
       }).catch((err) =>{
+        document.getElementById("loader").style.display = "none";
         if (err.response.status === 401) {
           // auth.logout();
         }

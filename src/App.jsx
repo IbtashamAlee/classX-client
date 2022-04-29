@@ -19,6 +19,7 @@ import {Assessments} from "./pages/assessments";
 import Attendance from "./pages/attendance";
 import {Participants} from "./pages/participants";
 import {AuthorizedRoute, EnrouteToDashboard} from "./generic-services/authorized-routes";
+import {Loader} from "./components/loader";
 
 
 export default function App() {
@@ -45,6 +46,7 @@ export default function App() {
 
   return (
       <ThemeProvider theme={outerTheme}>
+        <Loader/>
         <Routes>
           <Route path="/" element={<EnrouteToDashboard> <Layout/> </EnrouteToDashboard>}>
             <Route index element={<Home/>}/>
