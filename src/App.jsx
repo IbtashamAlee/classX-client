@@ -68,7 +68,7 @@ export default function App() {
           <Route path="dashboard" element={<AuthorizedRoute> <Dashboard/> </AuthorizedRoute>}/>
           <Route path="verify" element={<AccountVerify/>}/>
           <Route path="institute/request" element={ <AuthorizedRoute> <CreateInstitute/> </AuthorizedRoute>}/>
-          <Route path="forgot-password" element={<ForgotPassword/>}/>
+          <Route path="forgot-password" element={<EnrouteToDashboard> <ForgotPassword/> </EnrouteToDashboard>}/>
           <Route path="*" element={<NotFound/>}/>
         </Routes>
       </ThemeProvider>
