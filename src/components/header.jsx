@@ -38,12 +38,16 @@ export function Header(props) {
 
   const handleOpenCloseCreateJoinClass = () => {
     setOpenCreateJoinClass(!openCreateJoinClass);
-    setJoinClass(false);
+    if (joinClass) {
+      setTimeout(() => {
+          setJoinClass(false);
+      }, 200);
+    }
   }
 
   const handleJoinClassFeature = () => {
+    setJoinClass(!joinClass);
     handleOpenCloseCreateJoinClass();
-    setJoinClass(true);
   }
 
   const userNavigation = [
