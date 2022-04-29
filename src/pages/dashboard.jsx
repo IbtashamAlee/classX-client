@@ -6,7 +6,7 @@ import {
   getDepartmentClasses,
   getInstituteClasses,
   getStudentTeacherClasses,
-  clearClasses
+  clearClasses, getRoles
 } from "../redux/actions/user-actions";
 import {Header} from "../components/header";
 
@@ -32,6 +32,10 @@ export function Dashboard() {
         dispatch(getStudentTeacherClasses());
     }
   }, [dispatch, role]);
+
+  useEffect(() => {
+    dispatch(getRoles());
+  }, [])
 
   return (
       <React.Fragment>
