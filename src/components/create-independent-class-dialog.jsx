@@ -7,7 +7,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import {ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
 import {createIndependentClass} from "../redux/actions/class-actions";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 
 export default function CreateIndependentClassDialog(props) {
   const [className, setClassName] = useState('');
