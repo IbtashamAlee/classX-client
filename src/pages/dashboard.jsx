@@ -9,6 +9,8 @@ import {
   clearClasses, getRoles
 } from "../redux/actions/user-actions";
 import {Header} from "../components/header";
+import {getInstitutes} from "../redux/actions/institute-actions";
+import {InstitutesTable} from "../components/institutes-table";
 
 export function Dashboard() {
   const dispatch = useDispatch();
@@ -27,6 +29,9 @@ export function Dashboard() {
         break;
       case "Teacher":
         dispatch(getStudentTeacherClasses());
+        break;
+      case "SystemAdmin":
+        dispatch(getInstitutes());
         break;
       default:
         dispatch(getStudentTeacherClasses());
@@ -63,6 +68,10 @@ export function Dashboard() {
                     </FormControl>
                   </div>
                 </div>
+                {
+                    role && role === 'SystemAdmin' &&
+                    <InstitutesTable/>
+                }
                 <div className="px-4 sm:px-6 md:px-0">
                   {
                       role && role === 'InstituteAdmin' &&

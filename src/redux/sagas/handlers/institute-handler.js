@@ -57,6 +57,14 @@ export function* handleDeleteInstituteRequest(action) {
   try {
     const response = yield call(requestDeleteInstitute, action.id);
     yield put({ type: ActionTypes.DELETE_INSTITUTE_SUCCESS });
+    try {
+      const response = yield call(requestGetInstitutes);
+      const { data } = response;
+      yield put({ type: ActionTypes.GET_INSTITUTES_SUCCESS, data: data });
+    } catch (err) {
+      yield put({type: ActionTypes.GET_INSTITUTES_FAIL})
+      console.log(err);
+    }
   } catch (err) {
     yield put({type: ActionTypes.DELETE_INSTITUTE_FAIL})
     console.log(err);
@@ -67,6 +75,14 @@ export function* handleRestoreInstituteRequest(action) {
   try {
     const response = yield call(requestRestoreInstitute, action.id);
     yield put({ type: ActionTypes.RESTORE_INSTITUTE_SUCCESS });
+    try {
+      const response = yield call(requestGetInstitutes);
+      const { data } = response;
+      yield put({ type: ActionTypes.GET_INSTITUTES_SUCCESS, data: data });
+    } catch (err) {
+      yield put({type: ActionTypes.GET_INSTITUTES_FAIL})
+      console.log(err);
+    }
   } catch (err) {
     yield put({type: ActionTypes.RESTORE_INSTITUTE_FAIL})
     console.log(err);

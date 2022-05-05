@@ -3,7 +3,7 @@ import {ActionTypes} from "../constants/actions-types";
 export const setInstitutes = (state = {}, action) => {
   switch (action.type) {
     case ActionTypes.GET_INSTITUTES_SUCCESS:
-      return { ...state, ...action.data };
+      return { ...state, institutes: action.data };
     default:
       return state;
   }

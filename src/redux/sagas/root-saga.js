@@ -10,7 +10,11 @@ import {
   handleSignupUserRequest,
   handleSigninUserRequest
 } from "./handlers/auth-handler";
-import {handleRequestInstituteRequest} from "./handlers/institute-handler";
+import {
+  handleDeleteInstituteRequest,
+  handleGetInstitutesRequest,
+  handleRequestInstituteRequest, handleRestoreInstituteRequest,
+} from "./handlers/institute-handler";
 import {handleAddParticipants, handleGetParticipants} from "./handlers/participants-handler";
 import {handleCreateIndependentRequest} from "./handlers/class-handler";
 
@@ -21,6 +25,9 @@ export function* watcherSaga() {
 
   // institute-handler
   yield takeEvery(ActionTypes.REQUEST_INSTITUTE, handleRequestInstituteRequest);
+  yield takeEvery(ActionTypes.GET_INSTITUTES, handleGetInstitutesRequest);
+  yield takeEvery(ActionTypes.DELETE_INSTITUTE, handleDeleteInstituteRequest);
+  yield takeEvery(ActionTypes.RESTORE_INSTITUTE, handleRestoreInstituteRequest);
 
   // user-handler
   yield takeEvery(ActionTypes.GET_ROLES, handleGetRoles);

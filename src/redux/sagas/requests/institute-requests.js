@@ -20,11 +20,11 @@ export function requestAcceptRejectInstitute(id, method) {
 }
 
 export function requestDeleteInstitute(id) {
-  return Api.execute("/institutes/delete" + id, "put")
+  return Api.execute("/institutes/delete/" + id, "put")
 }
 
 export function requestRestoreInstitute(id) {
-  return Api.execute("/institutes/restore" + id, "put")
+  return Api.execute("/institutes/restore/" + id, "put")
 }
 
 export function requestAddDepartmentInInstitute(id, name, adminId) {
