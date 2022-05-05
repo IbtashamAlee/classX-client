@@ -11,7 +11,7 @@ import {
   handleSigninUserRequest
 } from "./handlers/auth-handler";
 import {handleRequestInstituteRequest} from "./handlers/institute-handler";
-import {handleGetParticipants} from "./handlers/participants-handler";
+import {handleAddParticipants, handleGetParticipants} from "./handlers/participants-handler";
 import {handleCreateIndependentRequest} from "./handlers/class-handler";
 
 export function* watcherSaga() {
@@ -30,6 +30,7 @@ export function* watcherSaga() {
 
   // participants-handler
   yield takeEvery(ActionTypes.GET_PARTICIPANTS_CLASS, handleGetParticipants);
+  yield takeEvery(ActionTypes.ADD_PARTICIPANTS_IN_CLASS, handleAddParticipants);
 
   //class-handler
   yield takeEvery(ActionTypes.CREATE_INDEPENDENT_CLASS, handleCreateIndependentRequest);
