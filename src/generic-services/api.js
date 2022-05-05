@@ -1,5 +1,4 @@
 import axios from "axios";
-import qs from "qs";
 // import auth from "../auth";
 
 axios.defaults.headers.common.Authorization = `Bearer ${localStorage.getItem('access_token')}`;
@@ -16,9 +15,9 @@ class Api {
       authAxios({
         method: method,
         url: url,
-        data: qs.stringify(dataObject),
+        data: dataObject,
         headers: {
-          'content-type': 'application/x-www-form-urlencoded;charset=utf-8'
+          'content-type': 'application/json'
         }
       }).then((res) =>{
         document.getElementById("loader").style.display = "none";
