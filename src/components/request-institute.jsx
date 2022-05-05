@@ -69,7 +69,7 @@ export default function RequestInstitute() {
                   </div> */}
 
                   <div className="sm:col-span-3">
-                    <FormControl fullWidth variant="filled">
+                    <FormControl fullWidth variant="outlined">
                       <InputLabel id="demo-simple-select-label">Institute Type</InputLabel>
                       <Select
                           labelId="demo-simple-select-label"
@@ -118,7 +118,7 @@ export default function RequestInstitute() {
                   </div>
 
                   <div className="sm:col-span-3">
-                    <FormControl fullWidth variant="filled">
+                    <FormControl fullWidth variant="outlined">
                       <InputLabel id="demo-simple-select-label">Country</InputLabel>
                       <Select
                           labelId="demo-simple-select-label"
