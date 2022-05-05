@@ -2,7 +2,6 @@ import * as React from "react";
 import {Routes, Route, Outlet, Link} from "react-router-dom";
 import {useEffect} from "react";
 import {useDispatch} from "react-redux";
-import {getRoles} from "./redux/actions/user-actions";
 import {signinUser} from "./redux/actions/auth-actions";
 import {About} from "./pages/about";
 import {Signup} from "./pages/signup";
@@ -29,7 +28,6 @@ export default function App() {
     //     type: "SET_USER_ACTION",
     //     hi: "hi",
     // });
-    dispatch(getRoles());
     dispatch(signinUser());
   }, [dispatch]);
 
