@@ -20,9 +20,10 @@ export const getInstitutes = () => {
   }
 }
 
-export const acceptRejectInstitute = (method) => {
+export const acceptRejectInstitute = (institute_id, method) => {
   return {
     type: ActionTypes.ACCEPT_REJECT_INSTITUTE,
+    institute_id: institute_id,
     method: method
   }
 }
@@ -41,9 +42,10 @@ export const restoreInstitute = (id) => {
   }
 }
 
-export const addDepartmentInInstitute = (name, email) => {
+export const addDepartmentInInstitute = (institute_id, name, email) => {
   return {
     type: ActionTypes.ADD_DEPARTMENT_IN_INSTITUTE,
+    institute_id: institute_id,
     name: name,
     adminId: email
   }
