@@ -17,8 +17,7 @@ export default function RequestInstitute() {
   const navigate = useNavigate();
 
   const submitInstitute = () => {
-    dispatch(requestInstitute(name, type));
-    navigate('/');
+    dispatch(requestInstitute(name, type, description, street, city, country, navigate));
   }
 
   return (

@@ -1,9 +1,13 @@
 import Api from '../../../generic-services/api'
 
-export function requestNewInstituteRequest(name, institute_type) {
+export function requestNewInstituteRequest(name, institute_type, description, address, city, country) {
   return Api.execute("/institutes/request", "post", {
     name: name,
-    instituteType: institute_type
+    instituteType: institute_type,
+    description: description,
+    address: address,
+    city: city,
+    country: country
   })
 }
 

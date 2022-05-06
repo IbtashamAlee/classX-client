@@ -17,7 +17,7 @@ export function Participants() {
   }
 
   useEffect(() => {
-    dispatch(getParticipantsInClass(3));
+    dispatch(getParticipantsInClass(id));
   }, [dispatch]);
 
 

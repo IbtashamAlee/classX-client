@@ -1,10 +1,15 @@
 import {ActionTypes} from "../constants/actions-types";
 
-export const requestInstitute = (name, institute_type) => {
+export const requestInstitute = (name, institute_type, description, address, city, country, navigate) => {
   return {
     type: ActionTypes.REQUEST_INSTITUTE,
     name: name,
-    institute_type: institute_type
+    institute_type: institute_type,
+    description: description,
+    address: address,
+    city: city,
+    country: country,
+    navigate: navigate
   };
 };
 

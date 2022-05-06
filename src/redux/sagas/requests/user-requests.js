@@ -9,9 +9,9 @@ export function getStudentTeacherClassesRequest() {
 }
 
 export function getDepartmentClassesRequest() {
-  return Api.execute("/user/me/get-department-classes", "get");
+  return Api.execute("/user/me/department-admin-classes", "get");
 }
 
 export function getInstituteClassesRequest() {
-  return Api.execute("/user/me/get-institute-classes", "get");
+  return Api.execute("/user/me/institute-admin-classes", "get");
 }

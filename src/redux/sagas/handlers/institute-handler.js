@@ -13,8 +13,9 @@ import {ActionTypes} from "../../constants/actions-types";
 
 export function* handleRequestInstituteRequest(action) {
   try {
-    const response = yield call(requestNewInstituteRequest, action.name, action.institute_type);
+    const response = yield call(requestNewInstituteRequest, action.name, action.institute_type, action.description,  action.address, action.city, action.country);
     yield put({ type: ActionTypes.REQUEST_INSTITUTE_SUCCESS });
+    action.navigate('/');
   } catch (err) {
     yield put({type: ActionTypes.REQUEST_INSTITUTE_FAIL})
     console.log(err);
