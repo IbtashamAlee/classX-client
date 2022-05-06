@@ -9,7 +9,7 @@ import {
   clearClasses, getRoles
 } from "../redux/actions/user-actions";
 import {Header} from "../components/header";
-import {getInstitutes} from "../redux/actions/institute-actions";
+import {getInstituteRequests, getInstitutes} from "../redux/actions/institute-actions";
 import {InstitutesTable} from "../components/institutes-table";
 
 export function Dashboard() {
@@ -32,6 +32,7 @@ export function Dashboard() {
         break;
       case "SystemAdmin":
         dispatch(getInstitutes());
+        dispatch(getInstituteRequests());
         break;
       default:
         dispatch(getStudentTeacherClasses());

@@ -16,11 +16,11 @@ export function requestGetInstitutes() {
 }
 
 export function requestGetInstitutesRequests() {
-  return Api.execute("/institutes/request", "get")
+  return Api.execute("/institutes/requests", "get")
 }
 
 export function requestAcceptRejectInstitute(id, method) {
-  return Api.execute("/institutes/request/process" + id + "?method=" + method, "put")
+  return Api.execute("/institutes/request/process/" + id + "?method=" + method, "put")
 }
 
 export function requestDeleteInstitute(id) {

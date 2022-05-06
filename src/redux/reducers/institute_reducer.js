@@ -12,7 +12,7 @@ export const setInstitutes = (state = {}, action) => {
 export const setInstitutesRequests = (state = {}, action) => {
   switch (action.type) {
     case ActionTypes.GET_INSTITUTE_REQUESTS_SUCCESS:
-      return { ...state, ...action.data };
+      return { ...state, institute_requests: action.data };
     default:
       return state;
   }

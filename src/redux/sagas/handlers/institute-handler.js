@@ -48,6 +48,22 @@ export function* handleAcceptRejectInstituteRequest(action) {
   try {
     const response = yield call(requestAcceptRejectInstitute, action.institute_id, action.method);
     yield put({ type: ActionTypes.ACCEPT_REJECT_INSTITUTE_SUCCESS });
+    try {
+      const response = yield call(requestGetInstitutes);
+      const { data } = response;
+      yield put({ type: ActionTypes.GET_INSTITUTES_SUCCESS, data: data });
+    } catch (err) {
+      yield put({type: ActionTypes.GET_INSTITUTES_FAIL})
+      console.log(err);
+    }
+    try {
+      const response = yield call(requestGetInstitutesRequests);
+      const { data } = response;
+      yield put({ type: ActionTypes.GET_INSTITUTE_REQUESTS_SUCCESS, data: data });
+    } catch (err) {
+      yield put({type: ActionTypes.GET_INSTITUTE_REQUESTS_FAIL})
+      console.log(err);
+    }
   } catch (err) {
     yield put({type: ActionTypes.ACCEPT_REJECT_INSTITUTE_FAIL})
     console.log(err);
