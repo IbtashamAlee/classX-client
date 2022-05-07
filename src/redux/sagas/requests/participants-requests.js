@@ -9,3 +9,10 @@ export function addParticipantsInClassRequest(class_id, users) {
     users: users
   })
 }
+
+
+export function removeParticipantsInClassRequest(class_id, users) {
+  return Api.execute("/class/" + class_id + "/participants/remove", "post", {
+    users: users
+  })
+}

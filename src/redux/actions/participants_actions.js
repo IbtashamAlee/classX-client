@@ -14,3 +14,11 @@ export const addParticipantsInClass = (class_id, users) => {
     users: users,
   };
 }
+
+export const removeParticipantsInClass = (class_id, users) => {
+  return {
+    type: ActionTypes.REMOVE_PARTICIPANT,
+    class_id: class_id,
+    users: users,
+  };
+}
