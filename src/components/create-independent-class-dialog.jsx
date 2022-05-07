@@ -6,8 +6,9 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import {ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
-import {createIndependentClass} from "../redux/actions/class-actions";
+import {createIndependentClass, joinClass} from "../redux/actions/class-actions";
 import {useDispatch} from "react-redux";
+import {useNavigate} from "react-router-dom";
 
 export default function CreateIndependentClassDialog(props) {
   const [className, setClassName] = useState('');
@@ -15,18 +16,17 @@ export default function CreateIndependentClassDialog(props) {
   const [description, setDescription] = useState('');
 
   let dispatch = useDispatch();
+  let navigate = useNavigate();
 
   const handleSubmit = () => {
-    console.log(props.isJoin)
-    props.isJoin ? joinClass() : addClass();
+    props.isJoin ? joinTheClass() : addClass();
   }
 
   function addClass() {
-    console.log("Hi ind")
-    dispatch(createIndependentClass(className, description));
+    dispatch(createIndependentClass(className, description, navigate));
   }
-  function joinClass() {
-    console.log("Hi")
+  function joinTheClass() {
+    dispatch(joinClass(classCode, navigate));
   }
 
   return (

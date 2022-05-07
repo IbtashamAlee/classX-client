@@ -6,3 +6,7 @@ export function createClassRequest(name, description) {
     description: description
   })
 }
+
+export function joinClassRequest(code) {
+  return Api.execute("/class/join/" + code, "post")
+}

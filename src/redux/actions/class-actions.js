@@ -8,3 +8,11 @@ export const createIndependentClass = (name, description, navigate = null) => {
     navigate: navigate
   };
 };
+
+export const joinClass = (code, navigate = null) => {
+  return {
+    type: ActionTypes.JOIN_CLASS,
+    code: code,
+    navigate: navigate
+  };
+};
