@@ -37,15 +37,15 @@ export default function AttendanceTable(props) {
                         </tr>
                         </thead>
                         <tbody className="divide-y divide-gray-200 bg-white">
-                        {people.map((person) => (
-                            <tr key={person.email}>
+                        {props.records && props.records.map((person) => (
+                            <tr key={person.id}>
                               <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm sm:pl-6">
                                 <div className="flex items-center">
                                   <div className="h-10 w-10 flex-shrink-0">
-                                    <img className="h-10 w-10 rounded-full" src={person.image} alt="" />
+                                    <img className="h-10 w-10 rounded-full" src={person.user.imageURL ? person.user.imageURL : "https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png"} alt="" />
                                   </div>
                                   <div className="ml-4">
-                                    <div className="font-medium text-gray-900">{person.name}</div>
+                                    <div className="font-medium text-gray-900">{person.user.name}</div>
                                   </div>
                                 </div>
                               </td>
@@ -56,7 +56,7 @@ export default function AttendanceTable(props) {
                               </td>
                               <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
                                 <a href="#" className="text-indigo-600 hover:text-indigo-900">
-                                  Edit<span className="sr-only">, {person.name}</span>
+                                  Edit<span className="sr-only">, {person.user.name}</span>
                                 </a>
                               </td>
                             </tr>
