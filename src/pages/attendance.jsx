@@ -1,11 +1,13 @@
 import { CalendarIcon } from '@heroicons/react/solid'
 import AttendanceTable from "../components/attendance-table";
-import { IconButton} from "@mui/material";
+import {Button, Dialog, DialogActions, DialogContent, DialogTitle, IconButton} from "@mui/material";
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {useParams} from "react-router-dom";
-import {getAttendance} from "../redux/actions/attendance-actions";
+import {createAttendance, getAttendance} from "../redux/actions/attendance-actions";
+import DialogContentText from "@mui/material/DialogContentText";
+import {TextValidator, ValidatorForm} from "react-material-ui-form-validator";
 
 export default function Attendance() {
   let dispatch = useDispatch();
@@ -33,9 +35,16 @@ export default function Attendance() {
     }
   }
 
+  function createNewAttendance() {
+    dispatch(createAttendance(id));
+  }
+
   return (
       <React.Fragment>
-        <div className="text-gray-900 text-2xl font-medium py-4">Attendance</div>
+        <div className="text-gray-900 text-2xl font-medium py-4 flex justify-between">
+          <h1>Attendance</h1>
+          <FormDialog/>
+        </div>
         <div className="bg-white shadow overflow-hidden sm:rounded-md">
           <ul className="divide-y divide-gray-200">
             {positions && positions.length && positions.map((position) => (
@@ -73,4 +82,48 @@ export default function Attendance() {
         </div>
       </React.Fragment>
   )
+}
+
+function FormDialog(props) {
+  const [open, setOpen] = React.useState(false);
+  const [title, setTitle] = useState('');
+  const dispatch = useDispatch();
+  let {id} = useParams();
+
+  const handleClickOpenClose = () => {
+    setOpen(!open);
+  };
+
+  const handleSubmit = () => {
+    dispatch(createAttendance(id, title));
+    handleClickOpenClose();
+  };
+
+  return (
+      <div>
+        <Button variant="contained" onClick={handleClickOpenClose}>
+          Create Attendance
+        </Button>
+        <Dialog open={open} onClose={handleClickOpenClose}>
+          <DialogTitle>Create Attendance</DialogTitle>
+          <DialogContent className="!pb-2 !pt-4">
+            <ValidatorForm onSubmit={handleSubmit} className={"w-96"}>
+              <TextValidator
+                  id="title"
+                  label="Title"
+                  value={title}
+                  onChange={e => setTitle(e.target.value)}
+                  fullWidth
+                  validators={['required']}
+                  errorMessages={['This field is required']}
+              />
+              <DialogActions className="mt-4">
+                <Button onClick={handleClickOpenClose}>Cancel</Button>
+                <Button type={"submit"}>Create</Button>
+              </DialogActions>
+            </ValidatorForm>
+          </DialogContent>
+        </Dialog>
+      </div>
+  );
 }

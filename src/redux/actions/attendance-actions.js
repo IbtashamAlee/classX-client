@@ -28,10 +28,11 @@ export const participateInAttendance = (class_id, attendance_id, navigate= null)
   };
 };
 
-export const createAttendance = (class_id, navigate= null) => {
+export const createAttendance = (class_id, title, navigate= null) => {
   return {
     type: ActionTypes.CREATE_ATTENDANCE,
     class_id: class_id,
+    title: title,
     navigate: navigate
   };
 };

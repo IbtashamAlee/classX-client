@@ -23,7 +23,7 @@ import {
   handleRemoveParticipantsRequest
 } from "./handlers/participants-handler";
 import {handleCreateIndependentClassRequest, handleJoinClassRequest} from "./handlers/class-handler";
-import {handleGetAttendanceRequest} from "./handlers/attendance-handler";
+import {handleCreateAttendanceRequest, handleGetAttendanceRequest} from "./handlers/attendance-handler";
 
 export function* watcherSaga() {
   // auth handler
@@ -55,4 +55,5 @@ export function* watcherSaga() {
 
   // attendance-handler
   yield takeEvery(ActionTypes.GET_ATTENDANCE, handleGetAttendanceRequest);
+  yield takeEvery(ActionTypes.CREATE_ATTENDANCE, handleCreateAttendanceRequest);
 }

@@ -31,9 +31,17 @@ export function* handleGetSpecificAttendanceRequest(action) {
 
 export function* handleCreateAttendanceRequest(action) {
   try {
-    const response = yield call(createAttendanceRequest, action.class_id);
+    const response = yield call(createAttendanceRequest, action.class_id, action.title);
     const { data } = response;
     yield put({ type: ActionTypes.CREATE_ATTENDANCE_SUCCESS });
+    try {
+      const response = yield call(getAttendanceRequest, action.class_id, 10, 1);
+      const { data } = response;
+      yield put({ type: ActionTypes.GET_ATTENDANCE_SUCCESS, data: data });
+    } catch (err) {
+      yield put({type: ActionTypes.GET_ATTENDANCE_FAIL})
+      console.log(err);
+    }
   } catch (err) {
     yield put({type: ActionTypes.CREATE_ATTENDANCE_FAIL})
     console.log(err);

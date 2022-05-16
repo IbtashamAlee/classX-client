@@ -8,8 +8,10 @@ export function getSpecificAttendanceRequest(class_id, attendance_id) {
   return Api.execute(`/class/${class_id}/attendance/${attendance_id}`, "get")
 }
 
-export function createAttendanceRequest(class_id) {
-  return Api.execute(`/class/${class_id}/attendance`, "post")
+export function createAttendanceRequest(class_id, title) {
+  return Api.execute(`/class/${class_id}/attendance`, "post", {
+    title: title
+  })
 }
 
 export function participateAttendanceRequest(class_id, attendance_id) {
