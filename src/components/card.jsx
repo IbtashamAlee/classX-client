@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 
 const useStyles = makeStyles({
   root: {
-    maxWidth: 345,
+    width: 320,
   },
   media: {
     height: 194,
@@ -35,11 +35,8 @@ export default function MediaCard(props) {
                 title={props.title}
             />
             <CardContent>
-              <Typography gutterBottom variant="h5" component="h2">
+              <Typography gutterBottom variant="h6" component="h2">
                 {props.classname}
-              </Typography>
-              <Typography variant="body2" color="textSecondary" component="p">
-                {props.classdetails}
               </Typography>
             </CardContent>
           </CardActionArea>
