@@ -45,7 +45,7 @@ export function Dashboard() {
 
   return (
     <React.Fragment>
-      <div>
+      <div className="min-w-[310px]">
         <Header isSideBarEnabled={false}/>
         <div className="mx-2 md:mx-16 flex flex-col md:px-8 xl:px-0">
           <main className="flex-1">
@@ -54,9 +54,10 @@ export function Dashboard() {
                 <div className="px-4 sm:px-6 md:px-0 md:flex md:justify-between">
                   <h1 className="text-2xl font-semibold text-gray-900 my-auto">Dashboard</h1>
                   <div className="w-64 mt-4 md:mt-0">
-                    <FormControl fullWidth variant="filled">
-                      <InputLabel id="demo-simple-select-label">Selected Role</InputLabel>
+                    <FormControl fullWidth variant="filled"  >
+                      <InputLabel className="md:ml-6" id="demo-simple-select-label">Selected Role</InputLabel>
                       <Select
+                        className="md:ml-6"
                         labelId="demo-simple-select-label"
                         id="demo-simple-select"
                         value={role}
@@ -83,7 +84,7 @@ export function Dashboard() {
                       {classes &&
                         classes.map((ins) => (
                           <div key={ins.id}>
-                            <h1 className="text-lg font-medium text-gray-700">Departments under
+                            <h1 className="text-lg font-medium text-gray-700 mt-12">Departments under
                               institute {ins.name}</h1>
                             {ins.departments &&
                               ins.departments.map((dept) => (
@@ -93,7 +94,7 @@ export function Dashboard() {
                                   <div className="flex flex-wrap gap-4 my-6 px-4">
                                     {dept.class && dept.class.length ?
                                       dept.class.map((item) => (
-                                        <Card classId={item.id} className="mx-auto" key={item.id} image={"./class.png"}
+                                        <Card classId={item.id} className="mx-auto" key={item.id} image={item.imageUrl ?? "./class.png"}
                                               classname={item.name || item.class}
                                               classsection={item.section} classdetails={item.description}
                                         />
@@ -114,7 +115,7 @@ export function Dashboard() {
                       {classes &&
                         classes.map((dept) => (
                           <div key={dept.id}>
-                            <h1 className="text-lg font-medium text-gray-700">&bull; Classes under
+                            <h1 className="text-lg font-medium text-gray-700 mt-10">&bull; Classes under
                               department {dept.name}</h1>
                             <div className="flex flex-wrap gap-4 my-6 px-4">
                               {dept.class && dept.class.length ?
