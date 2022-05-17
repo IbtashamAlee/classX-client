@@ -19,7 +19,7 @@ import Attendance from "./pages/attendance";
 import {Participants} from "./pages/participants";
 import {AuthorizedRoute, EnrouteToDashboard} from "./generic-services/authorized-routes";
 import {Loader} from "./components/loader";
-
+import ClassSettings from "./pages/class-settings";
 
 export default function App() {
   const dispatch = useDispatch();
@@ -59,6 +59,8 @@ export default function App() {
             <Route path="assessments" element={<AuthorizedRoute> <Assessments/> </AuthorizedRoute>}/>
             <Route path="attendances" element={<AuthorizedRoute> <Attendance/> </AuthorizedRoute>}/>
             <Route path="participants" element={<AuthorizedRoute> <Participants/> </AuthorizedRoute>}/>
+            <Route path="settings" element={<AuthorizedRoute> <ClassSettings/> </AuthorizedRoute>}/>
+
             <Route path="*" element={<NotFound/>}/>
           </Route>
           <Route path="signup" element={<EnrouteToDashboard> <Signup/> </EnrouteToDashboard>}/>
