@@ -49,7 +49,7 @@ export default function ClassSettings() {
                             id="classname"
                             autoComplete="classname"
                             className="focus:ring-sky-500 focus:border-sky-500 flex-grow block w-full min-w-0 rounded-none rounded-r-md sm:text-sm border-gray-300"
-                            defaultValue={data.handle}
+                            defaultValue={data.name}
                           />
                         </div>
                       </div>
