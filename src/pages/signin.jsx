@@ -36,7 +36,7 @@ export function Signin() {
 
   useEffect(() => {
     ValidatorForm.addValidationRule('isPassword6Char', (value) => {
-      if (password.length < 6) {
+      if (password.length < 3) {
         return false;
       }
       return true;
