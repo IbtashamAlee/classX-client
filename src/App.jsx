@@ -20,6 +20,7 @@ import {Participants} from "./pages/participants";
 import {AuthorizedRoute, EnrouteToDashboard} from "./generic-services/authorized-routes";
 import {Loader} from "./components/loader";
 import ClassSettings from "./pages/class-settings";
+import {CreateAssessment} from "./pages/create-assessment";
 
 export default function App() {
   const dispatch = useDispatch();
@@ -66,6 +67,7 @@ export default function App() {
           <Route path="signup" element={<EnrouteToDashboard> <Signup/> </EnrouteToDashboard>}/>
           <Route path="signin" element={<EnrouteToDashboard> <Signin/> </EnrouteToDashboard>}/>
           <Route path="dashboard" element={<AuthorizedRoute> <Dashboard/> </AuthorizedRoute>}/>
+          <Route path="/assessment/create" element={<AuthorizedRoute> <CreateAssessment/> </AuthorizedRoute>}/>
           <Route path="verify" element={<AccountVerify/>}/>
           <Route path="institute/request" element={ <AuthorizedRoute> <CreateInstitute/> </AuthorizedRoute>}/>
           <Route path="forgot-password" element={<EnrouteToDashboard> <ForgotPassword/> </EnrouteToDashboard>}/>
