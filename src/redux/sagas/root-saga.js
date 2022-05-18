@@ -24,6 +24,7 @@ import {
 } from "./handlers/participants-handler";
 import {handleCreateIndependentClassRequest, handleJoinClassRequest} from "./handlers/class-handler";
 import {handleCreateAttendanceRequest, handleGetAttendanceRequest} from "./handlers/attendance-handler";
+import {handleGetAssessmentsRequest, handleGetPublicAssessmentsRequest} from "./handlers/assessments-handler";
 
 export function* watcherSaga() {
   // auth handler
@@ -56,4 +57,8 @@ export function* watcherSaga() {
   // attendance-handler
   yield takeEvery(ActionTypes.GET_ATTENDANCE, handleGetAttendanceRequest);
   yield takeEvery(ActionTypes.CREATE_ATTENDANCE, handleCreateAttendanceRequest);
+
+  // assessments-handler
+  yield takeEvery(ActionTypes.GET_ASSESSMENTS, handleGetAssessmentsRequest);
+  yield takeEvery(ActionTypes.GET_PUBLIC_ASSESSMENTS, handleGetPublicAssessmentsRequest);
 }

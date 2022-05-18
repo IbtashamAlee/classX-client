@@ -5,6 +5,7 @@ import {toasts} from './toast';
 import {setClassParticipantsReducer} from './participants-reducer';
 import  {setInstitutesRequests, setInstitutes, setDepartmentsInInstitute} from './institute_reducer'
 import {setAttendances} from "./attendance-reducer";
+import {setAssessments} from "./assessments-reducer";
 
 const reducers = combineReducers({
   signup: setSignupUser,
@@ -16,6 +17,7 @@ const reducers = combineReducers({
   institutes: setInstitutes,
   departments: setDepartmentsInInstitute,
   attendances: setAttendances,
+  assessments: setAssessments,
   toasts
 });
 
