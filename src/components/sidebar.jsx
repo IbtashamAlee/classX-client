@@ -71,9 +71,9 @@ export default function Sidebar(props) {
                   </Transition.Child>
                   <div className="flex-shrink-0 px-4 flex items-center">
                     <img
-                        className="h-8 w-auto"
-                        src="https://tailwindui.com/img/logos/workflow-logo-indigo-600-mark-gray-800-text.svg"
-                        alt="Workflow"
+                        className="h-14 w-auto"
+                        src={window.location.origin + '/logo.svg'}
+                        alt="ClassX"
                     />
                   </div>
                   <div className="mt-5 flex-1 h-0 overflow-y-auto">
