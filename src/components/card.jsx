@@ -23,13 +23,15 @@ export default function MediaCard(props) {
   let class_id = props.classId;
 
   return (
-      <Card className={classes.root} variant="outlined">
+      <Card className={classes.root} variant="outlined" >
+        {
         <Link to={
           {
-            pathname: `/class-details/${class_id}`,
-            state: class_id
+            pathname: props.pathname ?? `/class-details/${class_id}`,
           }
-        }>
+        } state ={props.state ?? class_id}
+
+        >
           <CardActionArea>
             <CardMedia
                 className={classes.media}
@@ -45,7 +47,7 @@ export default function MediaCard(props) {
               </Typography>
             </CardContent>
           </CardActionArea>
-        </Link>
+        </Link>}
       </Card>
   );
 }

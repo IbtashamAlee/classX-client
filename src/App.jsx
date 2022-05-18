@@ -20,6 +20,10 @@ import {Participants} from "./pages/participants";
 import {AuthorizedRoute, EnrouteToDashboard} from "./generic-services/authorized-routes";
 import {Loader} from "./components/loader";
 import ClassSettings from "./pages/class-settings";
+import {DepartmentClasses} from "./pages/department-classes";
+import DepartmentSettings from "./pages/department-settings";
+import {InstituteDepartments} from "./pages/institute-departments";
+import InstituteSettings from "./pages/institute-settings";
 
 export default function App() {
   const dispatch = useDispatch();
@@ -66,6 +70,11 @@ export default function App() {
           <Route path="signup" element={<EnrouteToDashboard> <Signup/> </EnrouteToDashboard>}/>
           <Route path="signin" element={<EnrouteToDashboard> <Signin/> </EnrouteToDashboard>}/>
           <Route path="dashboard" element={<AuthorizedRoute> <Dashboard/> </AuthorizedRoute>}/>
+          <Route path="/department/:id" element={<AuthorizedRoute> <DepartmentClasses/> </AuthorizedRoute>}/>
+          <Route path="/department/:id/settings" element={<AuthorizedRoute> <DepartmentSettings/> </AuthorizedRoute>}/>
+          <Route path="/institute/:id" element={<AuthorizedRoute> <InstituteDepartments/> </AuthorizedRoute>}/>
+          <Route path="/institute/:id/settings" element={<AuthorizedRoute> <InstituteSettings/> </AuthorizedRoute>}/>
+
           <Route path="verify" element={<AccountVerify/>}/>
           <Route path="institute/request" element={ <AuthorizedRoute> <CreateInstitute/> </AuthorizedRoute>}/>
           <Route path="forgot-password" element={<EnrouteToDashboard> <ForgotPassword/> </EnrouteToDashboard>}/>

@@ -11,18 +11,18 @@ import {IconButton} from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
 import RequestInstituteDialog from "./request-institute-dialog";
 import CreateIndependentClassDialog from "./create-independent-class-dialog";
-
+import {useLocation} from 'react-router-dom'
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
 export function Header(props) {
   let navigate = useNavigate();
+  const location = useLocation();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [openRequestInstituteDialog, setOpenRequestInstituteDialog] = useState(false);
   const [openCreateJoinClass, setOpenCreateJoinClass] = useState(false);
   const [joinClass, setJoinClass] = useState(false)
-
   const signOut = () => {
     localStorage.clear();
     navigate('/');
@@ -71,6 +71,7 @@ export function Header(props) {
         {props.isSideBarEnabled &&
             <Sidebar isOpen={sidebarOpen} setSidebarOpen={hideShowSidebar}/>
         }
+
         <div className="sticky top-0 z-10 flex-shrink-0 h-16 bg-white border-b border-gray-200 flex">
           {props.isSideBarEnabled &&
               <button
@@ -82,28 +83,10 @@ export function Header(props) {
                 <MenuAlt2Icon className="h-6 w-6" aria-hidden="true" />
               </button>
           }
-          <div className="flex-1 flex justify-end px-4 md:px-0 mx-4 md:mx-16">
-            {props.isSearchEnabled &&
-                <div className="flex-1 flex">
-                  <form className="w-full flex md:ml-0" action="#" method="GET">
-                    <label htmlFor="search-field" className="sr-only">
-                      Search
-                    </label>
-                    <div className="relative w-full text-gray-400 focus-within:text-gray-600">
-                      <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center">
-                        <SearchIcon className="h-5 w-5" aria-hidden="true" />
-                      </div>
-                      <input
-                          id="search-field"
-                          className="block h-full w-full border-transparent py-2 pl-8 pr-3 text-gray-900 placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-0 focus:border-transparent sm:text-sm"
-                          placeholder="Search"
-                          type="search"
-                          name="search"
-                      />
-                    </div>
-                  </form>
-                </div>
-            }
+          <div className="flex-1 flex justify-between px-4 md:px-0 mx-4 md:mx-16 ">
+            <img src={window.location.origin + '/logo.svg'} onClick={()=>{
+              navigate('/');
+            }} />
             <div className="ml-4 flex items-center md:ml-6 space-x-3">
               <Menu as="div" className="relative">
                 <div>

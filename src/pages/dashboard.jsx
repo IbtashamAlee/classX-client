@@ -84,9 +84,10 @@ export function Dashboard() {
                       {classes &&
                         classes.map(item => (
                           <Card classId={item.id} className="mx-auto" key={item.id}
+                                pathname = {'/institute/' + item.id}
+                                state = {{data : item}}
                                 image={item.imageUrl ?? "./class.png"}
                                 classname={item.name || item.class}
-                                classsection={item.section} classdetails={item.description}
                           />
                         ))
                       }
@@ -98,6 +99,8 @@ export function Dashboard() {
                       {classes &&
                         classes.map((item) => (
                           <Card classId={item.id} className="mx-auto" key={item.id}
+                                pathname ={'/department/' + item.id}
+                                state = {{data : item}}
                                 image={item.imageUrl ?? "./class.png"}
                                 classname={item.name || item.class}
                                 classsection={item.section} classdetails={item?.institute?.name}
