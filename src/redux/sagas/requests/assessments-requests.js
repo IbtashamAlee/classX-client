@@ -7,3 +7,12 @@ export function getAssessmentsRequest() {
 export function getPublicAssessmentsRequest() {
   return Api.execute("/assessment/public", "get")
 }
+
+export function createAssessmentRequest(name, body, isPublic, questions) {
+  return Api.execute("/assessment", "post", {
+    name: name,
+    body: body,
+    isPublic: isPublic,
+    questions: questions
+  })
+}

@@ -13,3 +13,14 @@ export const getPublicAssessments = (navigate= null) => {
     navigate: navigate
   };
 };
+
+export const createAssessment = (name, body, isPublic, questions, navigate= null) => {
+  return {
+    type: ActionTypes.GET_PUBLIC_ASSESSMENTS,
+    name: name,
+    body: body,
+    isPublic: isPublic,
+    questions: questions,
+    navigate: navigate
+  };
+};
