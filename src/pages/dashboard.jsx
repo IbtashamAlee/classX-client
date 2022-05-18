@@ -54,7 +54,7 @@ export function Dashboard() {
                 <div className="px-4 sm:px-6 md:px-0 md:flex md:justify-between">
                   <h1 className="text-2xl font-semibold text-gray-900 my-auto">Dashboard</h1>
                   <div className="w-64 mt-4 md:mt-0">
-                    <FormControl fullWidth variant="filled"  >
+                    <FormControl fullWidth variant="filled">
                       <InputLabel className="md:ml-6" id="demo-simple-select-label">Selected Role</InputLabel>
                       <Select
                         className="md:ml-6"
@@ -80,54 +80,28 @@ export function Dashboard() {
                 <div className="px-4 sm:px-6 md:px-0">
                   {
                     role && role === 'InstituteAdmin' &&
-                    <div>
+                    <div className="mt-10 flex flex-wrap gap-4 mt-6">
                       {classes &&
-                        classes.map((ins) => (
-                          <div key={ins.id}>
-                            <h1 className="text-lg font-medium text-gray-700 mt-12">Departments under
-                              institute {ins.name}</h1>
-                            {ins.departments &&
-                              ins.departments.map((dept) => (
-                                <div key={dept.id} className="px-2">
-                                  <h1 className="text-md font-medium text-gray-500">&bull; Classes under
-                                    department {dept.name}</h1>
-                                  <div className="flex flex-wrap gap-4 my-6 px-4">
-                                    {dept.class && dept.class.length ?
-                                      dept.class.map((item) => (
-                                        <Card classId={item.id} className="mx-auto" key={item.id} image={item.imageUrl ?? "./class.png"}
-                                              classname={item.name || item.class}
-                                              classsection={item.section} classdetails={item.description}
-                                        />
-                                      )) : <div>No class found under {dept.name} department :(</div>
-                                    }
-                                  </div>
-                                </div>
-                              ))
-                            }
-                          </div>
+                        classes.map(item => (
+                          <Card classId={item.id} className="mx-auto" key={item.id}
+                                image={item.imageUrl ?? "./class.png"}
+                                classname={item.name || item.class}
+                                classsection={item.section} classdetails={item.description}
+                          />
                         ))
                       }
                     </div>
                   }
                   {
                     role && role === 'DepartmentAdmin' &&
-                    <div>
+                    <div  className="mt-10 flex flex-wrap gap-4 mt-6">
                       {classes &&
-                        classes.map((dept) => (
-                          <div key={dept.id}>
-                            <h1 className="text-lg font-medium text-gray-700 mt-10">&bull; Classes under
-                              department {dept.name}</h1>
-                            <div className="flex flex-wrap gap-4 my-6 px-4">
-                              {dept.class && dept.class.length ?
-                                dept.class.map((item) => (
-                                  <Card classId={item.id} className="mx-auto" key={item.id}
-                                        image={item.imageUrl ?? "./class.png"} classname={item.name || item.class}
-                                        classsection={item.section} classdetails={item.description}
-                                  />
-                                )) : <div>No class found under {dept.name} department :(</div>
-                              }
-                            </div>
-                          </div>
+                        classes.map((item) => (
+                          <Card classId={item.id} className="mx-auto" key={item.id}
+                                image={item.imageUrl ?? "./class.png"}
+                                classname={item.name || item.class}
+                                classsection={item.section} classdetails={item?.institute?.name}
+                          />
                         ))
                       }
                     </div>
@@ -139,7 +113,7 @@ export function Dashboard() {
                           <Card classId={item.id} className="mx-auto" key={item.id}
                                 image={item.imageurl ? item.imageurl : "./class.png"}
                                 classname={item.name || item.class}
-                                classsection={item.section} classdetails={item.description}
+                                classsection={item.section}
                           />
                         )) : <div>No Classes Found</div>
                       }
