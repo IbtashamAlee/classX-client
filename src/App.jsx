@@ -24,6 +24,7 @@ import {DepartmentClasses} from "./pages/department-classes";
 import DepartmentSettings from "./pages/department-settings";
 import {InstituteDepartments} from "./pages/institute-departments";
 import InstituteSettings from "./pages/institute-settings";
+import Profile from './pages/profile';
 
 export default function App() {
   const dispatch = useDispatch();
@@ -58,6 +59,8 @@ export default function App() {
                 routes for. */}
 
           </Route>
+          <Route path="/my/profile" element={<EnrouteToDashboard> <Profile/> </EnrouteToDashboard>}/>
+
           <Route path="/class-details/:id" element={<AuthorizedRoute> <ClassDetails/> </AuthorizedRoute>}>
             <Route index element={<AuthorizedRoute> <Feed/> </AuthorizedRoute>}/>
             <Route path="assessments" element={<AuthorizedRoute> <Assessments/> </AuthorizedRoute>}/>
