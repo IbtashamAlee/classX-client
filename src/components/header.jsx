@@ -25,7 +25,6 @@ export function Header(props) {
   const [joinClass, setJoinClass] = useState(false)
   const signOut = () => {
     localStorage.clear();
-    navigate('/');
   }
 
   const hideShowSidebar = () => {
@@ -53,7 +52,7 @@ export function Header(props) {
   const userNavigation = [
     {name: 'Your Profile', href: '/profile', click: ''},
     {name: 'Settings', href: '/user-settings', click: ''},
-    {name: 'Sign out', href: '#', click: signOut},
+    {name: 'Sign out', href: '/', click: signOut},
   ]
 
   const addNavigation = [
