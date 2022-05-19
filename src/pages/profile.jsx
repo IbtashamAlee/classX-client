@@ -39,8 +39,8 @@ export default function Example() {
   return (
     <div>
     <Header/>
-  <div className="flex justify-center items-center h-full">
-      <div className="flex lg:w-1/2 shadow mt-10 rounded-b-md">
+  <div className="flex justify-center items-center h-full mx-3">
+      <div className="flex  w-full md:w-2/3 ld:w-1/2 shadow mt-10 rounded-b-md">
         <Transition.Root show={sidebarOpen} as={Fragment}>
           <Dialog as="div" className="fixed inset-0 flex z-40 lg:hidden" onClose={setSidebarOpen}>
             <Transition.Child
