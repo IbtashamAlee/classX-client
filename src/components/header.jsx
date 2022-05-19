@@ -11,8 +11,7 @@ import {IconButton} from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
 import RequestInstituteDialog from "./request-institute-dialog";
 import CreateIndependentClassDialog from "./create-independent-class-dialog";
-import {useLocation} from 'react-router-dom'
-
+import {useLocation, Link} from 'react-router-dom'
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
@@ -52,8 +51,8 @@ export function Header(props) {
   }
 
   const userNavigation = [
-    {name: 'Your Profile', href: '#', click: ''},
-    {name: 'Settings', href: '#', click: ''},
+    {name: 'Your Profile', href: '/profile', click: ''},
+    {name: 'Settings', href: '/user-settings', click: ''},
     {name: 'Sign out', href: '#', click: signOut},
   ]
 
@@ -162,6 +161,7 @@ export function Header(props) {
                 <Menu.Items
                   className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 py-1 focus:outline-none">
                   {userNavigation.map((item) => (
+                    <Link to={item.href}>
                     <Menu.Item key={item.name} onClick={item.click}>
                       {({active}) => (
                         <span
@@ -174,6 +174,7 @@ export function Header(props) {
                               </span>
                       )}
                     </Menu.Item>
+                    </Link>
                   ))}
                 </Menu.Items>
               </Transition>
