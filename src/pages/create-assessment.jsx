@@ -1,20 +1,23 @@
 import React, {useState} from "react";
 import {Header} from "../components/header";
 import {TextValidator, ValidatorForm} from "react-material-ui-form-validator";
-import {Chip, FormControlLabel, FormGroup, Radio, Stack, TextareaAutosize, Tooltip} from "@mui/material";
+import {Button, Chip, FormControlLabel, FormGroup, Radio, Stack, TextareaAutosize, Tooltip} from "@mui/material";
 import Checkbox from '@mui/material/Checkbox';
 import {AddQuestionDialog} from "../components/add-question-dialog";
+import {useDispatch} from "react-redux";
+import {useNavigate} from "react-router-dom";
+import {createAssessment} from "../redux/actions/assessments-actions";
 
 export function CreateAssessment() {
-  const [isTeachers, setIsTeachers] = useState(false);
-  const [users, setUsers] = useState([]);
-  const [email, setEmail] = useState('');
+  const [name, setName] = useState('');
   const [body, setBody] =  useState('');
   const [isPublic, setIsPublic] = useState(false);
   const [questions, setQuestions] = useState([]);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   function createNewAssessment() {
-
+    dispatch(createAssessment(name, body, isPublic, questions, navigate));
   }
 
   function removeQuestion(statement) {
@@ -38,8 +41,8 @@ export function CreateAssessment() {
                 id="name"
                 label="Assessment Name"
                 type="name"
-                value={email}
-                onChange={e => setEmail(e.target.value)}
+                value={name}
+                onChange={e => setName(e.target.value)}
                 fullWidth
                 validators={['required']}
                 errorMessages={['This field is required']}
@@ -51,6 +54,9 @@ export function CreateAssessment() {
             <FormGroup>
               <FormControlLabel control={<Checkbox onChange={() => {setIsPublic(!isPublic)}}/>} label="Make Public" />
             </FormGroup>
+            <Button type={"submit"}>
+              Create
+            </Button>
          </ValidatorForm>
           <AddQuestionDialog addQuestions={addQuestions}/>
           <Stack direction="row" spacing={1} className={"mt-6"}>

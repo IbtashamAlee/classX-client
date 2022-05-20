@@ -9,7 +9,6 @@ import {Chip, FormControlLabel, FormGroup, Radio, Slide, Stack, Tooltip} from "@
 import DialogActions from "@mui/material/DialogActions";
 import {useParams} from "react-router-dom";
 import {useDispatch} from "react-redux";
-import {addParticipantsInClass} from "../redux/actions/participants_actions";
 import Checkbox from "@mui/material/Checkbox";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -18,7 +17,6 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 export function AddQuestionDialog (props) {
   const [open, setOpen] = React.useState(false);
-  const [users, setUsers] = useState([]);
   const [questions, setQuestions] = useState([]);
   const [statement, setStatement] = useState('');
   const [isTrue, setIsTrue] = useState(false);

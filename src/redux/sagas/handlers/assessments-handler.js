@@ -33,7 +33,7 @@ export function* handleCreateAssessmentRequest(action) {
     const response = yield call(createAssessmentRequest, action.name, action.body, action.isPublic, action.questions);
     const { data } = response;
     yield put({ type: ActionTypes.CREATE_ASSESSMENT_SUCCESS});
-    action.navigate()
+    //action.navigate('')
   } catch (err) {
     yield put({type: ActionTypes.CREATE_ASSESSMENT_FAIL})
     console.log(err);
