@@ -23,12 +23,13 @@ export function Feed () {
   }, [])
 
   return (
-      <div>
+      <div className={"space-y-2"}>
         {feed && feed.map(f => (
             <div>
               {f.type.toLowerCase() === "attendance" &&
                   <MarkAttendanceCard attendance={f}/>
               }
+              {f.type.toLowerCase() === ""}
             </div>
         ))}
       </div>
