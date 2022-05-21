@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Switch} from '@headlessui/react'
-import { TrashIcon } from '@heroicons/react/solid'
+import { KeyIcon } from '@heroicons/react/solid'
 import {Header} from "../components/header";
 
 
@@ -226,6 +226,15 @@ export default function UserSettings() {
                       className="ml-5 bg-sky-700 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:bg-sky-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
                     >
                       Save
+                    </button>
+                  </div>
+                  <div className="flex justify-center items-center my-1 py-2">
+                    <button
+                      type="button"
+                      className="w-2/6 inline-flex items-center ml-20 mr-20 px-6 py-2 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-[#6366F1] hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 flex justify-center items-center"
+                    >
+                      <KeyIcon className="-ml-1 mr-3 h-5 w-5" aria-hidden="true" />
+                      <p>FORGOT PASSWORD ?</p>
                     </button>
                   </div>
                 </div>
