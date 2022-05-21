@@ -16,32 +16,30 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 export default function RequestInstituteDialog(props) {
 
   return (
-      <div>
-        <Dialog
-            fullScreen
-            open={props.open}
-            onClose={props.handleClose}
-            TransitionComponent={Transition}
-        >
-          <AppBar sx={{ position: 'relative' }}>
-            <Toolbar>
-              <IconButton
-                  edge="start"
-                  color="inherit"
-                  onClick={props.handleClose}
-                  aria-label="close"
-              >
-                <CloseIcon />
-              </IconButton>
-              <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
-                Request Institute
-              </Typography>
-            </Toolbar>
-          </AppBar>
-          <DialogContent>
-            <RequestInstitute/>
-          </DialogContent>
-        </Dialog>
-      </div>
+      <Dialog
+          fullScreen
+          open={props.open}
+          onClose={props.handleClose}
+          TransitionComponent={Transition}
+      >
+        <AppBar sx={{ position: 'relative' }}>
+          <Toolbar>
+            <IconButton
+                edge="start"
+                color="inherit"
+                onClick={props.handleClose}
+                aria-label="close"
+            >
+              <CloseIcon />
+            </IconButton>
+            <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
+              Request Institute
+            </Typography>
+          </Toolbar>
+        </AppBar>
+        <DialogContent>
+          <RequestInstitute/>
+        </DialogContent>
+      </Dialog>
   );
 }
