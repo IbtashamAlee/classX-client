@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import {MarkAttendanceCard} from "../components/mark-attendance-card";
 import Api from '../generic-services/api'
 import {useParams} from "react-router-dom";
+import {PollCard} from "../components/poll-card";
 
 export function Feed () {
   const [feed, setFeed] = useState([]);
@@ -23,15 +24,19 @@ export function Feed () {
   }, [])
 
   return (
-      <div className={"space-y-2"}>
-        {feed && feed.map(f => (
-            <div>
-              {f.type.toLowerCase() === "attendance" &&
-                  <MarkAttendanceCard attendance={f}/>
-              }
-              {f.type.toLowerCase() === ""}
-            </div>
-        ))}
+      <div className="mx-auto lg:max-w-screen-lg">
+        <div className={"space-y-2"}>
+          {feed && feed.map(f => (
+              <div key={f.type + f.id}>
+                {f.type.toLowerCase() === "attendance" &&
+                    <MarkAttendanceCard attendance={f}/>
+                }
+                {f.type.toLowerCase() === "poll" &&
+                    <PollCard poll={f}/>
+                }
+              </div>
+          ))}
+        </div>
       </div>
   )
 }

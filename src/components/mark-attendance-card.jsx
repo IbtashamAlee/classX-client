@@ -1,13 +1,13 @@
 import React from "react";
 import {CalendarIcon} from "@heroicons/react/solid";
 import {Button} from "@mui/material";
+import DoneIcon from '@mui/icons-material/Done';
 
 export function MarkAttendanceCard (props) {
 
   function getDateTime(clockDate) {
     let date = new Date(clockDate);
     return date.getDate() + "-" + parseInt(date.getMonth() + 1)+ "-" + date.getFullYear() + ' ending at '+ date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
-
   }
 
   return (
@@ -23,7 +23,10 @@ export function MarkAttendanceCard (props) {
           </div>
         </div>
         <div className={"flex items-center"}>
-          <Button variant={"contained"}>Mark Present</Button>
+          <Button variant={"contained"} color={"success"}>
+            <DoneIcon className={"mr-2"}/>
+            <span>Mark Present</span>
+          </Button>
         </div>
       </div>
   )
