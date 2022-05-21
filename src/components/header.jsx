@@ -160,7 +160,7 @@ export function Header(props) {
                 <Menu.Items
                   className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 py-1 focus:outline-none">
                   {userNavigation.map((item) => (
-                    <Link to={item.href}>
+                    <Link to={item.href} key={item.href}>
                     <Menu.Item key={item.name} onClick={item.click}>
                       {({active}) => (
                         <span
