@@ -25,12 +25,11 @@ export default function MediaCard(props) {
   return (
       <Card className={classes.root} variant="outlined" >
         {
-        <Link to={
-          {
-            pathname: props.pathname ?? `/class-details/${class_id}`,
-          }
-        } state ={props.state ?? class_id}
-
+        <Link
+            to={
+              { pathname: props.pathname ?? `/class-details/${class_id}` }
+            }
+            state ={props.state ?? class_id}
         >
           <CardActionArea>
             <CardMedia

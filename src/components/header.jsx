@@ -3,7 +3,6 @@ import {
   BellIcon,
   MenuAlt2Icon,
 } from "@heroicons/react/outline";
-import {SearchIcon} from "@heroicons/react/solid";
 import {Menu, Transition} from "@headlessui/react";
 import Sidebar from "./sidebar";
 import {useNavigate} from "react-router-dom";
@@ -11,14 +10,13 @@ import {IconButton} from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
 import RequestInstituteDialog from "./request-institute-dialog";
 import CreateIndependentClassDialog from "./create-independent-class-dialog";
-import {useLocation, Link} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
 export function Header(props) {
   let navigate = useNavigate();
-  const location = useLocation();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [openRequestInstituteDialog, setOpenRequestInstituteDialog] = useState(false);
   const [openCreateJoinClass, setOpenCreateJoinClass] = useState(false);
