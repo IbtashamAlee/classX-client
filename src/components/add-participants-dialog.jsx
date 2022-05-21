@@ -116,7 +116,7 @@ export default function AddParticipantsDialog(props) {
                   </div>
                   <Stack direction="row" spacing={1}>
                     {users && users.map(user => (
-                        <Tooltip title={user.role}>
+                        <Tooltip title={user.role} key={user.email}>
                           <Chip label={user.email} variant="contained" onDelete={() => {removeParticipant(user.email)}} />
                         </Tooltip>
                     ))}
