@@ -43,6 +43,10 @@ export function DepartmentClasses() {
     })
   }
 
+  useEffect(() => {
+    dispatch(getDepartmentClasses());
+  }, [])
+
   return (
     <React.Fragment>
       <CreateIndependentClassDialog open={openCreateJoinClass} handleClose={handleOpenCloseCreateJoinClass} creatClassInDepartment={creatClassInDepartment}/>
@@ -56,11 +60,11 @@ export function DepartmentClasses() {
                 <div className="px-4 sm:px-6 md:px-0">
                   <div className="mx-2 flex justify-between items-center">
                     <div>
-                      <Typography gutterBottom variant="h3" component="h2">
-                        {department.name}
+                      <Typography gutterBottom variant="subtitle2" component="h2" className={"text-gray-600"}>
+                        {"Department under " + department?.institute.name}
                       </Typography>
-                      <Typography gutterBottom variant="subtitle2" component="h2">
-                        {department.institute.name}
+                      <Typography gutterBottom variant="h3" component="h2">
+                        {department?.name}
                       </Typography>
                     </div>
                     <div>

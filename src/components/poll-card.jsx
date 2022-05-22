@@ -12,7 +12,7 @@ export function PollCard(props) {
   }, [])
 
   return (
-      <div title={isPoolEnded && "Oops Pool Ended"} className="block p-4 max-w-full bg-white rounded-lg border border-gray-200 shadow-sm hover:bg-gray-100 flex justify-between item-center">
+      <div title={isPoolEnded ? "Oops Pool Ended": "Participate"} className="block p-4 max-w-full bg-white rounded-lg border border-gray-200 shadow-sm hover:bg-gray-100 flex justify-between item-center">
         <div className={"w-full"}>
           <div className={"flex justify-between"}>
             <h5 className="mb-2 font-medium text-gray-900 truncate">{props.poll.statement}</h5>

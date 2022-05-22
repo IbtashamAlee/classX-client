@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import Card from '../components/card';
-import {FormControl, InputLabel, MenuItem, Select} from "@mui/material";
+import {FormControl, IconButton, InputLabel, MenuItem, Select} from "@mui/material";
 import {useDispatch, useSelector} from "react-redux";
 import {
   getDepartmentClasses,
@@ -11,6 +11,9 @@ import {
 import {Header} from "../components/header";
 import {getInstituteRequests, getInstitutes} from "../redux/actions/institute-actions";
 import {InstitutesTable} from "../components/institutes-table";
+import {Link} from "react-router-dom";
+import SettingsIcon from "@mui/icons-material/Settings";
+import AddIcon from "@mui/icons-material/Add";
 
 export function Dashboard() {
   const dispatch = useDispatch();
@@ -41,7 +44,7 @@ export function Dashboard() {
 
   useEffect(() => {
     dispatch(getRoles());
-  }, [])
+  }, []);
 
   return (
     <React.Fragment>
@@ -80,18 +83,33 @@ export function Dashboard() {
                 <div className="px-4 sm:px-6 md:px-0">
                   {
                     role && role === 'InstituteAdmin' &&
-                    <div className="mt-10 flex flex-wrap gap-4 mt-6">
-                      {classes &&
-                        classes.map(item => (
-                          <Card classId={item.id} className="mx-auto" key={item.id}
-                                pathname = {'/institute/' + item.id}
-                                state = {{data : item}}
-                                image={item.imageUrl ?? "./class.png"}
-                                classname={item.name || item.class}
-                          />
-                        ))
-                      }
-                    </div>
+                      <div>
+                        <div className={"flex justify-between mt-4"}>
+                          <h1 className="text-xl font-semibold text-gray-900 my-auto">Institutes</h1>
+                          <div>
+                            <Link to={window.location.pathname + "/settings"}>
+                              <IconButton>
+                                <SettingsIcon/>
+                              </IconButton>
+                            </Link>
+                            <IconButton>
+                              <AddIcon/>
+                            </IconButton>
+                          </div>
+                        </div>
+                        <div className="mt-10 flex flex-wrap gap-4 mt-6">
+                          {classes &&
+                              classes.map(item => (
+                                  <Card classId={item.id} className="mx-auto" key={item.id}
+                                        pathname = {'/institute/' + item.id}
+                                        state = {{data : item}}
+                                        image={item.imageUrl ?? "./class.png"}
+                                        classname={item.name || item.class}
+                                  />
+                              ))
+                          }
+                        </div>
+                      </div>
                   }
                   {
                     role && role === 'DepartmentAdmin' &&
@@ -100,7 +118,6 @@ export function Dashboard() {
                         classes.map((item) => (
                           <Card classId={item.id} className="mx-auto" key={item.id}
                                 pathname ={'/department/' + item.id}
-                                state = {{data : item}}
                                 image={item.imageUrl ?? "./class.png"}
                                 classname={item.name || item.class}
                                 classsection={item.section} classdetails={item?.institute?.name}
