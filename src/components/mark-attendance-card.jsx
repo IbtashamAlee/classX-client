@@ -3,15 +3,21 @@ import {CalendarIcon} from "@heroicons/react/solid";
 import {Button} from "@mui/material";
 import DoneIcon from '@mui/icons-material/Done';
 import {getEndingDate} from "../functions/date-functions";
+import {useDispatch} from "react-redux";
+import {participateInAttendance} from "../redux/actions/attendance-actions";
+import {useParams} from "react-router-dom";
 
 export function MarkAttendanceCard (props) {
   const [isAttendanceTimeEnded, setIsAttendanceTimeEnded] = useState(false);
+
+  const dispatch = useDispatch();
+  const {id} = useParams();
 
   useEffect(() => {
     if (props.attendance.endingTime && new Date(props.attendance.endingTime) < new Date()) {
       setIsAttendanceTimeEnded(true);
     }
-  }, [])
+  }, []);
 
   return (
       <div
@@ -26,7 +32,7 @@ export function MarkAttendanceCard (props) {
           </div>
         </div>
         <div className={"flex items-center"}>
-          <Button variant={"contained"} color={"success"} disabled={isAttendanceTimeEnded} title={isAttendanceTimeEnded ? "Time's Up :(" : "Mark attendance"}>
+          <Button variant={"contained"} color={"success"} onClick={() => {dispatch(participateInAttendance(id, props.attendance.id))}} disabled={isAttendanceTimeEnded} title={isAttendanceTimeEnded ? "Time's Up :(" : "Mark attendance"}>
             <DoneIcon className={"mr-2"}/>
             <span>Mark Present</span>
           </Button>

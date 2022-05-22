@@ -4,6 +4,8 @@ import Api from '../generic-services/api'
 import {useParams} from "react-router-dom";
 import {PollCard} from "../components/poll-card";
 import {AssessmentCard} from "../components/assessment-card";
+import {Button, TextField} from "@mui/material";
+import ClassPost from "../components/class-post";
 
 export function Feed () {
   const [feed, setFeed] = useState([]);
@@ -25,7 +27,10 @@ export function Feed () {
   }, [])
 
   return (
-      <div className="lg:max-w-screen-lg mx-4 md:mx-auto">
+      <div className="lg:max-w-screen-lg mx-4 md:mx-auto mt-8">
+        <div>
+          <ClassPost/>
+        </div>
         <div className="text-gray-900 lg:text-2xl text-xl font-medium py-4">Feed</div>
         <div className={"space-y-2"}>
           {feed && feed.map(f => (

@@ -15,5 +15,5 @@ export function createAttendanceRequest(class_id, title) {
 }
 
 export function participateAttendanceRequest(class_id, attendance_id) {
-  return Api.execute(`/class/${class_id}/attendance/${attendance_id}`, "get")
+  return Api.execute(`/class/${class_id}/attendance/${attendance_id}`, "post")
 }
