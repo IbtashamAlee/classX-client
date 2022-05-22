@@ -23,6 +23,10 @@ export default function CreateIndependentClassDialog(props) {
   }
 
   function addClass() {
+    if (props.creatClassInDepartment) {
+      props.creatClassInDepartment(className, description);
+      return;
+    }
     dispatch(createIndependentClass(className, description, navigate));
   }
   function joinTheClass() {
@@ -34,7 +38,7 @@ export default function CreateIndependentClassDialog(props) {
               maxWidth={'xs'}
               fullWidth={true}
       >
-        <DialogTitle id="form-dialog-title">{props.isJoin ? "Join Class" : "Add Independent Class"}</DialogTitle>
+        <DialogTitle id="form-dialog-title">{props.isJoin ? "Join Class" : "Add Class"}</DialogTitle>
         <DialogContent className="!pb-2">
           <DialogContentText className="!mb-2">
             {props.isJoin ? "Fill the detail and to join class" : "Fill the detail and to create an independent class"}
