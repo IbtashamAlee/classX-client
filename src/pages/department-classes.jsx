@@ -9,14 +9,21 @@ import {Link} from "react-router-dom";
 import AddIcon from '@mui/icons-material/Add';
 import CreateIndependentClassDialog from "../components/create-independent-class-dialog";
 import Api from "../generic-services/api";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {getDepartmentClasses} from "../redux/actions/user-actions";
 
 export function DepartmentClasses() {
   const location = useLocation();
-  const data = location.state?.data;
   const {id} = useParams();
   const dispatch = useDispatch();
+
+  let departments = useSelector((state => state.classes.classes));
+  let classes, department;
+  if (departments) {
+    department = departments.filter((d) => d.id == id);
+    department = department[0];
+    classes = department.class;
+  }
 
   const [openCreateJoinClass, setOpenCreateJoinClass] = useState(false);
 
@@ -50,10 +57,10 @@ export function DepartmentClasses() {
                   <div className="mx-2 flex justify-between items-center">
                     <div>
                       <Typography gutterBottom variant="h3" component="h2">
-                        {data.name}
+                        {department.name}
                       </Typography>
                       <Typography gutterBottom variant="subtitle2" component="h2">
-                        {data.institute.name}
+                        {department.institute.name}
                       </Typography>
                     </div>
                     <div>
@@ -68,15 +75,14 @@ export function DepartmentClasses() {
                     </div>
                   </div>
                   <div className="mt-10 flex flex-wrap gap-4 mt-6">
-                    {data.class &&
-                      data.class.map(item => (
+                    {classes &&
+                      classes.map(item => (
                         <Card classId={item.id} className="mx-auto" key={item.id}
-                              image={item.imageUrl ?? "./class.png"}
+                              image={item.imageUrl ?? `${window.location.origin}/class.png`}
                               classname={item.name || item.class}
                               classsection={item.section} classdetails={item.description}
                         />
                       ))}
-
                   </div>
                 </div>
               </div>
