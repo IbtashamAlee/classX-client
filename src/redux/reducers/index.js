@@ -1,5 +1,5 @@
 import {combineReducers} from "redux";
-import {setRolesReducer, setClassesReducer} from "./user-reducer";
+import {setRolesReducer, setClassesReducer, setUserReducer} from "./user-reducer";
 import {setSignupUser, setSigninUser} from "./auth-reducer";
 import {toasts} from './toast';
 import {setClassParticipantsReducer} from './participants-reducer';
@@ -18,6 +18,7 @@ const reducers = combineReducers({
   departments: setDepartmentsInInstitute,
   attendances: setAttendances,
   assessments: setAssessments,
+  user: setUserReducer,
   toasts
 });
 

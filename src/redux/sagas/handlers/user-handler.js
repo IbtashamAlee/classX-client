@@ -3,7 +3,7 @@ import {
   getRolesRequest,
   getStudentTeacherClassesRequest,
   getDepartmentClassesRequest,
-  getInstituteClassesRequest
+  getInstituteClassesRequest, getUserRequest
 } from '../requests/user-requests';
 import {ActionTypes} from "../../constants/actions-types";
 
@@ -44,5 +44,15 @@ export function* handleGetInstituteClasses(action) {
     yield put({ type: ActionTypes.GET_INSTITUTE_CLASSES_SUCCESS, data: data });
   } catch (err) {
     yield put({ type: ActionTypes.GET_INSTITUTE_CLASSES_FAIL});
+  }
+}
+
+export function* handleGetUserRequest(action) {
+  try {
+    const response = yield call(getUserRequest);
+    const { data } = response;
+    yield put({ type: ActionTypes.GET_USER_SUCCESS, data: data });
+  } catch (err) {
+    yield put({ type: ActionTypes.GET_USER_FAIL});
   }
 }

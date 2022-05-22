@@ -24,8 +24,14 @@ export const getInstituteClasses = () => {
   };
 };
 
-export const clearClasses= () => {
+export const clearClasses = () => {
   return {
     type: ActionTypes.CLEAR_CLASSES,
   };
 };
+
+export const getUser = () => {
+  return {
+    type: ActionTypes.GET_USER,
+  };
+}

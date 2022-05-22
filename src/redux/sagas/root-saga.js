@@ -3,7 +3,7 @@ import {
   handleGetRoles,
   handleGetStudentTeacherClasses,
   handleGetInstituteClasses,
-  handleGetDepartmentClasses
+  handleGetDepartmentClasses, handleGetUserRequest
 } from "./handlers/user-handler";
 import {ActionTypes} from "../constants/actions-types";
 import {
@@ -52,6 +52,7 @@ export function* watcherSaga() {
   yield takeEvery(ActionTypes.GET_STUDENT_TEACHER_CLASSES, handleGetStudentTeacherClasses);
   yield takeEvery(ActionTypes.GET_INSTITUTE_CLASSES, handleGetInstituteClasses);
   yield takeEvery(ActionTypes.GET_DEPARTMENT_CLASSES, handleGetDepartmentClasses);
+  yield takeEvery(ActionTypes.GET_USER, handleGetUserRequest);
 
   // participants-handler
   yield takeEvery(ActionTypes.GET_PARTICIPANTS_CLASS, handleGetParticipants);

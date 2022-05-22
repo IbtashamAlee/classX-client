@@ -15,3 +15,7 @@ export function getDepartmentClassesRequest() {
 export function getInstituteClassesRequest() {
   return Api.execute("/user/me/institute-admin-classes", "get");
 }
+
+export function getUserRequest() {
+  return Api.execute("/user/me", "get");
+}

@@ -24,3 +24,12 @@ export const setClassesReducer = (state = [], action) => {
   }
 };
 
+export const setUserReducer = (state = {}, action) => {
+  switch (action.type) {
+    case ActionTypes.GET_USER_SUCCESS:
+      return {...state, user: action.data}
+    default:
+      return state;
+  }
+}
+

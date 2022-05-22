@@ -1,4 +1,4 @@
-import React, {Fragment, useState} from "react";
+import React, {Fragment, useEffect, useState} from "react";
 import {
   BellIcon,
   MenuAlt2Icon,
@@ -11,6 +11,8 @@ import AddIcon from '@mui/icons-material/Add';
 import RequestInstituteDialog from "./request-institute-dialog";
 import CreateIndependentClassDialog from "./create-independent-class-dialog";
 import {Link} from 'react-router-dom'
+import {useDispatch, useSelector} from "react-redux";
+import {getUser} from "../redux/actions/user-actions";
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
@@ -20,7 +22,12 @@ export function Header(props) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [openRequestInstituteDialog, setOpenRequestInstituteDialog] = useState(false);
   const [openCreateJoinClass, setOpenCreateJoinClass] = useState(false);
-  const [joinClass, setJoinClass] = useState(false)
+  const [joinClass, setJoinClass] = useState(false);
+
+  const user = useSelector((state => state.user.user));
+
+  const dispatch = useDispatch();
+
   const signOut = () => {
     localStorage.clear();
   }
@@ -60,6 +67,10 @@ export function Header(props) {
     {name: 'Create department in institute', href: '#', click: ''},
     {name: 'Request institute', href: '#', click: handleCloseRequestInstituteDialog},
   ]
+
+  useEffect(() => {
+    dispatch(getUser());
+  }, [])
 
   return (
     <React.Fragment>
@@ -140,7 +151,7 @@ export function Header(props) {
                   <IconButton>
                     <img
                       className="h-8 w-8 rounded-full"
-                      src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                      src={user?.imageUrl ? user?.imageUrl: `${window.location.origin}/Sample_User_Icon.png`}
                       alt=""
                     />
                   </IconButton>
