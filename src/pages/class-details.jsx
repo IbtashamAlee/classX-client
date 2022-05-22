@@ -14,7 +14,7 @@ export function ClassDetails (props) {
         <div>
           <Sidebar isOpen={sidebarOpen} setSidebarOpen={hideShowSidebar}/>
         </div>
-        <div className="md:ml-64 md:px-6">
+        <div className="md:ml-64 md:px-6 mx-4 md:mx-auto">
           <Outlet/>
         </div>
       </div>
