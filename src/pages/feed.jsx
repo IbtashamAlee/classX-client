@@ -31,7 +31,9 @@ export function Feed () {
         <div>
           <ClassPost/>
         </div>
-        <div className="text-gray-900 lg:text-2xl text-xl font-medium py-4">Feed</div>
+        <div className="text-gray-900 lg:text-2xl text-xl font-medium py-4">
+          <hr/>
+        </div>
         <div className={"space-y-2"}>
           {feed && feed.map(f => (
               <div key={f.type + f.id}>

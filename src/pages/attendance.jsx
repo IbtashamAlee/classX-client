@@ -6,7 +6,6 @@ import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {useParams} from "react-router-dom";
 import {createAttendance, getAttendance} from "../redux/actions/attendance-actions";
-import DialogContentText from "@mui/material/DialogContentText";
 import {TextValidator, ValidatorForm} from "react-material-ui-form-validator";
 
 export default function Attendance() {
@@ -47,7 +46,7 @@ export default function Attendance() {
         </div>
         <div className="bg-white shadow overflow-hidden sm:rounded-md">
           <ul className="divide-y divide-gray-200">
-            {positions && positions.length && positions.map((position) => (
+            {positions && positions.length>0 && positions.map((position) => (
                 <li key={position.id}>
                 <span className="block hover:bg-gray-50">
                   <div className="px-4 py-4 flex items-center sm:px-6">

@@ -32,13 +32,6 @@ export default function ClassPost() {
 
   return (
       <div className="flex items-start space-x-4">
-        <div className="flex-shrink-0">
-          <img
-              className="inline-block h-10 w-10 rounded-full"
-              src={user?.imageUrl ? user?.imageUrl: `${window.location.origin}/Sample_User_Icon.png`}
-              alt=""
-          />
-        </div>
         <div className="min-w-0 flex-1">
           <form action="#" className="relative">
             <div className="border border-gray-300 rounded-lg shadow-sm overflow-hidden focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500">
