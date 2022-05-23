@@ -13,6 +13,8 @@ import CreateIndependentClassDialog from "./create-independent-class-dialog";
 import {Link} from 'react-router-dom'
 import {useDispatch, useSelector} from "react-redux";
 import {getUser} from "../redux/actions/user-actions";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
@@ -63,8 +65,6 @@ export function Header(props) {
   const addNavigation = [
     {name: 'Join class', href: '#', click: handleJoinClassFeature},
     {name: 'Create class', href: '#', click: handleOpenCloseCreateJoinClass},
-    {name: 'Create class in department', href: '#', click: ''},
-    {name: 'Create department in institute', href: '#', click: ''},
     {name: 'Request institute', href: '#', click: handleCloseRequestInstituteDialog},
   ]
 
@@ -94,10 +94,12 @@ export function Header(props) {
         }
         <div
           className={`flex-1 flex justify-end md:justify-between px-4 md:px-0 mx-4 md:mx-16`}>
-
-          <img className="hidden md:flex" src={window.location.origin + '/logo.svg'} onClick={() => {
-            navigate('/');
-          }}/>
+          <div className={`flex px-4 md:px-0 mx-4 md:mx-16 items-center`}>
+            <ArrowBackIcon onClick={() => {navigate(-1);}} className={"text-gray-500"}/>
+            <img className="hidden md:flex w-16 ml-4 mb-1" src={window.location.origin + '/logo.svg'} onClick={() => {
+              navigate('/');
+            }}/>
+          </div>
           <div className="ml-4 flex items-center md:ml-6 space-x-3">
             <Menu as="div" className="relative">
               <div>
