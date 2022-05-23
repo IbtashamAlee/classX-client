@@ -28,6 +28,7 @@ import Profile from './pages/profile';
 import {CreateAssessment} from "./pages/create-assessment";
 import UserSettings from "./pages/user-settings";
 import LandingPage from "./pages/landing";
+import Messenger from "./pages/messenger";
 
 export default function App() {
   const dispatch = useDispatch();
@@ -63,6 +64,8 @@ export default function App() {
 
           </Route>
           <Route path="/profile" element={<AuthorizedRoute> <Profile/> </AuthorizedRoute>}/>
+          <Route path="/messenger" element={<AuthorizedRoute> <Messenger/> </AuthorizedRoute>}/>
+
           <Route path="/user-settings" element={<AuthorizedRoute> <UserSettings/> </AuthorizedRoute>}/>
 
           <Route path="/class-details/:id" element={<AuthorizedRoute> <ClassDetails/> </AuthorizedRoute>}>
