@@ -14,9 +14,9 @@ export function Participants() {
 
   if (participants && participants.length) {
     console.log(participants)
-    teachers = participants[0].users;
-    students = participants[1].users;
-    department_admin = participants[2].users;
+    teachers = participants[0]?.users;
+    students = participants[1]?.users;
+    department_admin = participants[2]?.users;
   }
 
   function removeParticipant(email, role) {
