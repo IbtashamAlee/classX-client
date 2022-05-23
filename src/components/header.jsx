@@ -58,6 +58,7 @@ export function Header(props) {
 
   const userNavigation = [
     {name: 'Your Profile', href: '/profile', click: ''},
+    {name: 'Your assessments', href: '/assessments', click: ''},
     {name: 'Settings', href: '/user-settings', click: ''},
     {name: 'Sign out', href: '/', click: signOut},
   ]
@@ -93,8 +94,8 @@ export function Header(props) {
           </button>
         }
         <div
-          className={`flex-1 flex justify-end md:justify-between px-4 md:px-0 mx-4 md:mx-16`}>
-          <div className={`flex px-4 md:px-0 mx-4 md:mx-16 items-center`}>
+          className={`flex-1 flex justify-between px-4 md:px-0 mx-4 md:mx-16`}>
+          <div className={`flex px-4 md:px-0 items-center`}>
             <ArrowBackIcon onClick={() => {navigate(-1);}} className={"text-gray-500"}/>
             <img className="hidden md:flex w-16 ml-4 mb-1" src={window.location.origin + '/logo.svg'} onClick={() => {
               navigate('/');

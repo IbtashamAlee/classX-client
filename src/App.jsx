@@ -67,13 +67,14 @@ export default function App() {
 
           <Route path="/class-details/:id" element={<AuthorizedRoute> <ClassDetails/> </AuthorizedRoute>}>
             <Route index element={<AuthorizedRoute> <Feed/> </AuthorizedRoute>}/>
-            <Route path="assessments" element={<AuthorizedRoute> <Assessments/> </AuthorizedRoute>}/>
             <Route path="attendances" element={<AuthorizedRoute> <Attendance/> </AuthorizedRoute>}/>
             <Route path="participants" element={<AuthorizedRoute> <Participants/> </AuthorizedRoute>}/>
             <Route path="settings" element={<AuthorizedRoute> <ClassSettings/> </AuthorizedRoute>}/>
 
             <Route path="*" element={<NotFound/>}/>
           </Route>
+
+          <Route path="assessments" element={<AuthorizedRoute> <Assessments/> </AuthorizedRoute>}/>
           <Route path="signup" element={<EnrouteToDashboard> <Signup/> </EnrouteToDashboard>}/>
           <Route path="signin" element={<EnrouteToDashboard> <Signin/> </EnrouteToDashboard>}/>
           <Route path="dashboard" element={<AuthorizedRoute> <Dashboard/> </AuthorizedRoute>}/>

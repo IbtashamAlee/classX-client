@@ -1,11 +1,13 @@
 import { CalendarIcon } from '@heroicons/react/solid'
-import { IconButton} from "@mui/material";
+import {Button, IconButton} from "@mui/material";
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {useParams} from "react-router-dom";
 import {getAttendance} from "../redux/actions/attendance-actions";
 import {getAssessments, getPublicAssessments} from "../redux/actions/assessments-actions";
+import {Header} from "../components/header";
+import {Link} from 'react-router-dom'
 
 export function Assessments() {
   let dispatch = useDispatch();
@@ -16,7 +18,6 @@ export function Assessments() {
   const [page, setPage] = useState(1);
 
   useEffect(() => {
-    dispatch(getAttendance(id,record, page));
     dispatch(getAssessments());
     dispatch(getPublicAssessments());
   }, [dispatch]);
@@ -40,13 +41,20 @@ export function Assessments() {
 
   return (
       <React.Fragment>
-        <div className="text-gray-900 text-2xl font-medium py-4">Assessments</div>
-        <div className="bg-white shadow overflow-hidden sm:rounded-md">
-          <ul className="divide-y divide-gray-200">
-            <div>
-              <h1 className="text-gray-800 text-xl font-medium pt-8 pb-2 px-4 sm:px-6">Your Assessments</h1>
-              {(assessments && assessments.length) ? assessments.map((position) => (
-                  <li key={position.id}>
+        <Header/>
+        <div className="flex flex-col md:px-8 xl:px-0 px-4 md:px-0 mx-4 md:mx-16">
+          <div className="text-gray-900 text-2xl font-medium py-4 flex justify-between item-center">
+            <div>Assessments</div>
+            <Link to="/assessment/create">
+              <Button variant={"contained"}>Create Assessment</Button>
+            </Link>
+          </div>
+          <div className="bg-white shadow overflow-hidden sm:rounded-md">
+            <ul className="divide-y divide-gray-200">
+              <div>
+                <h1 className="text-gray-800 text-xl font-medium pt-8 pb-2 px-4 sm:px-6">Your Assessments</h1>
+                {(assessments && assessments.length) ? assessments.map((position) => (
+                    <li key={position.id}>
                 <span className="block hover:bg-gray-50">
                   <div className="px-4 py-4 flex items-center sm:px-6">
                     <div className="min-w-0 flex-1 sm:flex sm:items-center sm:justify-between">
@@ -69,15 +77,15 @@ export function Assessments() {
                     </IconButton>
                   </div>
                 </span>
-                  </li>
-              )) : <div className="text-gray-500 text-base font-medium py-4 px-4 sm:px-6">No assessments in this class</div>
-              }
-            </div>
-            <div>
-              <h1 className="text-gray-800 text-xl font-medium pt-8 pb-2 px-4 sm:px-6">Public Assessments</h1>
-              {(public_assessments && public_assessments.length) ? public_assessments.map((position) => (
-                  <li key={position.id}>
-                <span className="block hover:bg-gray-50">
+                    </li>
+                )) : <div className="text-gray-500 text-base font-medium py-4 px-4 sm:px-6">No assessments in this class</div>
+                }
+              </div>
+              <div>
+                <h1 className="text-gray-800 text-xl font-medium pt-8 pb-2 px-4 sm:px-6">Public Assessments</h1>
+                {(public_assessments && public_assessments.length) ? public_assessments.map((position) => (
+                    <li key={position.id}>
+                <span className="block">
                   <div className="px-4 py-4 flex items-center sm:px-6">
                     <div className="min-w-0 flex-1 sm:flex sm:items-center sm:justify-between">
                       <div className="truncate">
@@ -94,16 +102,15 @@ export function Assessments() {
                         </div>
                       </div>
                     </div>
-                    <IconButton value={position.id} onClick={(e) => {handleClick(e)}} className="!ml-3">
-                      <ArrowForwardIosIcon className="text-gray-400 pointer-events-none" />
-                    </IconButton>
+                    <Button variant={"contained"}>Fork</Button>
                   </div>
                 </span>
-                  </li>
-              )): <div className="text-gray-500 text-base font-medium py-4 px-4 sm:px-6">No public assessments found</div>
-              }
-            </div>
-          </ul>
+                    </li>
+                )): <div className="text-gray-500 text-base font-medium py-4 px-4 sm:px-6">No public assessments found</div>
+                }
+              </div>
+            </ul>
+          </div>
         </div>
       </React.Fragment>
   )

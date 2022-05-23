@@ -16,3 +16,9 @@ export function createAssessmentRequest(name, body, isPublic, questions) {
     questions: questions
   })
 }
+
+export function addQuestionInAssessmentRequest(id, questions) {
+  return Api.execute(`/assessment/${id}/question`, "post", {
+    questions: questions
+  })
+}

@@ -54,7 +54,7 @@ export function CreateAssessment() {
             <FormGroup>
               <FormControlLabel control={<Checkbox onChange={() => {setIsPublic(!isPublic)}}/>} label="Make Public" />
             </FormGroup>
-            <Button type={"submit"}>
+            <Button type={"submit"} variant={"contained"} className={"!mb-6"}>
               Create
             </Button>
          </ValidatorForm>

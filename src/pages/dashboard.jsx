@@ -11,7 +11,7 @@ import {
 import {Header} from "../components/header";
 import {getInstituteRequests, getInstitutes} from "../redux/actions/institute-actions";
 import {InstitutesTable} from "../components/institutes-table";
-import {Link} from "react-router-dom";
+import {Link, useLocation, useNavigate} from "react-router-dom";
 import SettingsIcon from "@mui/icons-material/Settings";
 import AddIcon from "@mui/icons-material/Add";
 
@@ -21,19 +21,30 @@ export function Dashboard() {
   let roles = useSelector((state => state.roles.roles));
   let classes = useSelector((state => state.classes.classes));
 
+  let navigate = useNavigate();
+  let location = useLocation();
+  if(location.search) {
+    let tab = location.search.split('=');
+    console.log(tab)
+  }
+
   useEffect(() => {
     dispatch(clearClasses());
     switch (role) {
       case "DepartmentAdmin":
+        navigate('/dashboard?tab=DepartmentAdmin')
         dispatch(getDepartmentClasses());
         break;
       case "InstituteAdmin":
+        navigate('/dashboard?tab=InstituteAdmin')
         dispatch(getInstituteClasses());
         break;
       case "Teacher":
+        navigate('/dashboard?tab=Teacher')
         dispatch(getStudentTeacherClasses());
         break;
       case "SystemAdmin":
+        navigate('/dashboard?tab=SystemAdmin')
         dispatch(getInstitutes());
         dispatch(getInstituteRequests());
         break;
