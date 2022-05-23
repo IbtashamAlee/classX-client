@@ -11,6 +11,7 @@ import {
 import { Listbox, Transition } from '@headlessui/react'
 import {Button} from "@mui/material";
 import {useSelector} from "react-redux";
+import FilePicker from "./file-picker";
 
 const moods = [
   { name: 'Excited', value: 'excited', icon: FireIcon, iconColor: 'text-white', bgColor: 'bg-red-500' },
