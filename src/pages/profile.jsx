@@ -98,7 +98,7 @@ export default function Example() {
                         <div className="flex items-center">
                           <div>
                             <img className="inline-block h-10 w-10 rounded-full"
-                                 src={user?.imageUrl ? user?.imageUrl: `${window.location.origin}/sample.jpg`} alt=""/>
+                                 src={user?.imageUrl ? user?.imageUrl: `${window.location.origin}/Sample_User_Icon.png`} alt=""/>
                           </div>
                           <div className="ml-3">
                             <p className="text-base font-medium text-gray-700 group-hover:text-gray-900">{user?.name}</p>
