@@ -1,5 +1,5 @@
 import styles from "@chatscope/chat-ui-kit-styles/dist/default/styles.min.css";
-import {useState} from "react";
+import {useState,useEffect} from "react";
 import {
   MainContainer,
   ChatContainer,
@@ -18,7 +18,6 @@ import placeholder from '../Sample_User_Icon.png'
 import {Header} from '../components/header'
 import {IconButton} from "@mui/material";
 import AddCommentIcon from '@mui/icons-material/AddComment';
-
 export default function Messenger() {
 
   const [selectedUser,setSelectedUser] = useState({
@@ -36,7 +35,8 @@ export default function Messenger() {
     "lastMessage": "latest message"
   }
   )
-  const conversations = [
+
+  const [conversations,setConversations] = useState([
     {
       "chatId": 1,
       "userName": {
@@ -64,8 +64,22 @@ export default function Messenger() {
         }
       },
       "lastMessage": "hello There"
+    },
+    {
+      "chatId": 2,
+      "userName": {
+        "id": 2,
+        "chatId": 1,
+        "participantId": 1,
+        "removedAt": null,
+        "user": {
+          "name": "faseeh",
+          "imageUrl": null
+        }
+      },
+      "lastMessage": "hello There"
     }
-  ]
+  ])
 
   const [messages,setMessages] = useState([
     {
@@ -101,7 +115,7 @@ export default function Messenger() {
           <Search placeholder="Search..." />
           </div>
           <ConversationList style={{minHeight:"80vh"}}>
-            {
+            { conversations &&
               conversations.map(c => {
                 return (
                   <Conversation key={c.chatId} name={c.userName.user.name} info={c.lastMessage} onClick={()=>{
