@@ -150,9 +150,14 @@ export function Dashboard() {
                     </div>
                   }
                   {role && (role === 'Standard') &&
+                    <React.Fragment>
+                      <div className="mt-8">
+                    <h1 className="font-semibold text-lg">Classes You Teach</h1>
+                      <hr/>
+                      </div>
                     <div className="flex flex-wrap gap-4 mt-6">
                       {classes ?
-                        classes.map((item) => (
+                        classes.filter(c=>c.role==='Teacher').map((item) => (
                           <Card classId={item.id} className="mx-auto" key={item.id}
                                 image={item.imageurl ? item.imageurl : "./class.png"}
                                 classname={item.name || item.class}
@@ -162,6 +167,25 @@ export function Dashboard() {
                         )) : <div>No Classes Found</div>
                       }
                     </div>
+
+                      <div className="mt-8">
+                        <h1 className="font-semibold text-lg">Your Classes</h1>
+                        <hr/>
+                      </div>
+                      <div className="flex flex-wrap gap-4 mt-6">
+                        {classes ?
+                          classes.filter(c=>c.role==='Student').map((item) => (
+                            <Card classId={item.id} className="mx-auto" key={item.id}
+                                  image={item.imageurl ? item.imageurl : "./class.png"}
+                                  classname={item.name || item.class}
+                                  classsection={item.section}
+                                  role={item.role}
+                            />
+                          )) : <div>No Classes Found</div>
+                        }
+                      </div>
+                    </React.Fragment>
+
                   }
                 </div>
               </div>
