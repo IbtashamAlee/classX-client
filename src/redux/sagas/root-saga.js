@@ -33,6 +33,7 @@ import {
   handleGetAssessmentsRequest,
   handleGetPublicAssessmentsRequest
 } from "./handlers/assessments-handler";
+import {handleGetFeedRequest} from "./handlers/feed-handler";
 
 export function* watcherSaga() {
   // auth handler
@@ -72,4 +73,7 @@ export function* watcherSaga() {
   yield takeEvery(ActionTypes.GET_ASSESSMENTS, handleGetAssessmentsRequest);
   yield takeEvery(ActionTypes.GET_PUBLIC_ASSESSMENTS, handleGetPublicAssessmentsRequest);
   yield takeEvery(ActionTypes.CREATE_ASSESSMENT, handleCreateAssessmentRequest);
+
+  // feed-handler
+  yield takeEvery(ActionTypes.GET_FEED, handleGetFeedRequest);
 }

@@ -6,24 +6,20 @@ import {PollCard} from "../components/poll-card";
 import {AssessmentCard} from "../components/assessment-card";
 import {Button, TextField} from "@mui/material";
 import ClassPost from "../components/class-post";
+import {useDispatch, useSelector} from "react-redux";
+import {getFeed} from "../redux/actions/feed-actions";
 
 export function Feed () {
-  const [feed, setFeed] = useState([]);
   const [record, setRecord] = useState(10);
   const [page, setPage] = useState(1);
 
-  let {id} = useParams();
+  let feed = useSelector(state => state.feed.feed)
 
-  const getFeed = () => {
-    Api.execute('/class/'+ id + '/feed?record=' + record + '&page=' + page, 'get').then((res) => {
-      setFeed(res.data);
-    }).catch((err) => {
-      console.log(err);
-    })
-  }
+  let {id} = useParams();
+  let dispatch = useDispatch();
 
   useEffect(() => {
-    getFeed();
+    dispatch(getFeed(id, record, page))
   }, [])
 
   return (

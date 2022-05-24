@@ -3,12 +3,15 @@ import {CalendarIcon} from "@heroicons/react/solid";
 import {Button} from "@mui/material";
 import DoneIcon from '@mui/icons-material/Done';
 import {getEndingDate} from "../functions/date-functions";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {participateInAttendance} from "../redux/actions/attendance-actions";
 import {useParams} from "react-router-dom";
 
 export function MarkAttendanceCard (props) {
   const [isAttendanceTimeEnded, setIsAttendanceTimeEnded] = useState(false);
+  const [isPresent, setIsPresent] = useState(false);
+
+  let user = useSelector((state => state.user.user))
 
   const dispatch = useDispatch();
   const {id} = useParams();
@@ -17,7 +20,11 @@ export function MarkAttendanceCard (props) {
     if (props.attendance.endingTime && new Date(props.attendance.endingTime) < new Date()) {
       setIsAttendanceTimeEnded(true);
     }
-  }, []);
+    let record = props.attendance.attendanceRecord.filter(x => x.userId == user.id)
+    if(record.length) {
+      setIsPresent(true);
+    }
+  }, [dispatch, props.attendance]);
 
   return (
       <div
@@ -32,10 +39,13 @@ export function MarkAttendanceCard (props) {
           </div>
         </div>
         <div className={"flex items-center"}>
-          <Button variant={"contained"} color={"success"} onClick={() => {dispatch(participateInAttendance(id, props.attendance.id))}} disabled={isAttendanceTimeEnded} title={isAttendanceTimeEnded ? "Time's Up :(" : "Mark attendance"}>
-            <DoneIcon className={"mr-2"}/>
-            <span>Mark Present</span>
-          </Button>
+          {isPresent ?
+              <Button variant={"contained"} disabled={isPresent}>Marked Present</Button>:
+              <Button variant={"contained"} color={"success"} onClick={() => {dispatch(participateInAttendance(id, props.attendance.id))}} disabled={isAttendanceTimeEnded} title={isAttendanceTimeEnded ? "Time's Up :(" : "Mark attendance"}>
+                <DoneIcon className={"mr-2"}/>
+                <span>Mark Present</span>
+              </Button>
+          }
         </div>
       </div>
   )
