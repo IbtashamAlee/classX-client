@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import Sidebar from "../components/sidebar";
-import {Outlet} from "react-router-dom";
+import {Outlet, useLocation, useParams} from "react-router-dom";
 import {Header} from "../components/header";
 
 export function ClassDetails (props) {
@@ -8,6 +8,10 @@ export function ClassDetails (props) {
   const hideShowSidebar = () => {
     setSidebarOpen(!sidebarOpen);
   }
+
+  let location = useLocation();
+  let state = location.state;
+
   return (
       <div>
         <Header isSideBarEnabled={true}/>

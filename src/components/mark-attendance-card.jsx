@@ -5,7 +5,7 @@ import DoneIcon from '@mui/icons-material/Done';
 import {getEndingDate} from "../functions/date-functions";
 import {useDispatch, useSelector} from "react-redux";
 import {participateInAttendance} from "../redux/actions/attendance-actions";
-import {useParams} from "react-router-dom";
+import {Link, useLocation, useParams} from "react-router-dom";
 
 export function MarkAttendanceCard (props) {
   const [isAttendanceTimeEnded, setIsAttendanceTimeEnded] = useState(false);
@@ -39,12 +39,20 @@ export function MarkAttendanceCard (props) {
           </div>
         </div>
         <div className={"flex items-center"}>
-          {isPresent ?
-              <Button variant={"contained"} disabled={isPresent}>Marked Present</Button>:
-              <Button variant={"contained"} color={"success"} onClick={() => {dispatch(participateInAttendance(id, props.attendance.id))}} disabled={isAttendanceTimeEnded} title={isAttendanceTimeEnded ? "Time's Up :(" : "Mark attendance"}>
-                <DoneIcon className={"mr-2"}/>
-                <span>Mark Present</span>
-              </Button>
+          {props?.currentRole === "Teacher" || props?.currentRole === "DepartmentAdmin" ?
+              <Link to="attendances">
+                <Button variant={"contained"}>View Attendance</Button>
+              </Link>
+              :
+              <>
+                {isPresent ?
+                    <Button variant={"contained"} disabled={isPresent}>Marked Present</Button>:
+                    <Button variant={"contained"} color={"success"} onClick={() => {dispatch(participateInAttendance(id, props.attendance.id))}} disabled={isAttendanceTimeEnded} title={isAttendanceTimeEnded ? "Time's Up :(" : "Mark attendance"}>
+                      <DoneIcon className={"mr-2"}/>
+                      <span>Mark Present</span>
+                    </Button>
+                }
+              </>
           }
         </div>
       </div>

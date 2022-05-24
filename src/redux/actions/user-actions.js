@@ -35,3 +35,16 @@ export const getUser = () => {
     type: ActionTypes.GET_USER,
   };
 }
+
+export const removeCurrentRole = () => {
+  return {
+    type: ActionTypes.REMOVE_CURRENT_ROLE
+  }
+}
+
+export const setCurrentRole = (role) => {
+  return {
+    type: ActionTypes.SET_CURRENT_ROLE,
+    role: role
+  }
+}

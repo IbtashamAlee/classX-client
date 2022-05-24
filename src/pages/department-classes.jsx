@@ -85,6 +85,7 @@ export function DepartmentClasses() {
                               image={item.imageUrl ?? `${window.location.origin}/class.png`}
                               classname={item.name || item.class}
                               classsection={item.section} classdetails={item.description}
+                              role={item.role}
                         />
                       ))}
                   </div>

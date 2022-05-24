@@ -113,7 +113,7 @@ export function Dashboard() {
                               classes.map(item => (
                                   <Card classId={item.id} className="mx-auto" key={item.id}
                                         pathname = {'/institute/' + item.id}
-                                        state = {{data : item}}
+                                        state = {item}
                                         image={item.imageUrl ?? "./class.png"}
                                         classname={item.name || item.class}
                                   />
@@ -145,6 +145,7 @@ export function Dashboard() {
                                 image={item.imageurl ? item.imageurl : "./class.png"}
                                 classname={item.name || item.class}
                                 classsection={item.section}
+                                role={item.role}
                           />
                         )) : <div>No Classes Found</div>
                       }

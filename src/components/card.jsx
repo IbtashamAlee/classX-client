@@ -29,7 +29,7 @@ export default function MediaCard(props) {
             to={
               { pathname: props.pathname ?? `/class-details/${class_id}` }
             }
-            state ={props.state ?? class_id}
+            state ={{data: props.state, role: props.role}}
         >
           <CardActionArea>
             <CardMedia

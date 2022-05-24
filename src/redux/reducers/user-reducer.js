@@ -33,3 +33,13 @@ export const setUserReducer = (state = {}, action) => {
   }
 }
 
+export const setCurrentRoleReducer = (state = {}, action) => {
+  switch (action.type) {
+    case ActionTypes.SET_CURRENT_ROLE:
+      return {...state, role: action.role}
+    case ActionTypes.REMOVE_CURRENT_ROLE:
+      return {...state, role: ''}
+    default:
+      return state;
+  }
+}
