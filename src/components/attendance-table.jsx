@@ -4,7 +4,7 @@ export default function AttendanceTable(props) {
   return (
       <span>
         {!props.show &&
-            <div className="px-4 sm:px-6 lg:px-8 pb-4">
+            <div className="pb-4">
               <div className="mt-4 flex flex-col">
                 <div className="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
                   <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
@@ -41,11 +41,11 @@ export default function AttendanceTable(props) {
                           Present
                         </span>
                               </td>
-                              <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
-                                <a href="#" className="text-indigo-600 hover:text-indigo-900">
-                                  Edit<span className="sr-only">, {person.user.name}</span>
-                                </a>
-                              </td>
+                              {/*<td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">*/}
+                              {/*  <a href="#" className="text-indigo-600 hover:text-indigo-900">*/}
+                              {/*    Edit<span className="sr-only">, {person.user.name}</span>*/}
+                              {/*  </a>*/}
+                              {/*</td>*/}
                             </tr>
                         ))}
                         </tbody>

@@ -29,6 +29,7 @@ import {CreateAssessment} from "./pages/create-assessment";
 import UserSettings from "./pages/user-settings";
 import LandingPage from "./pages/landing";
 import Messenger from "./pages/messenger";
+import {AttendanceDetails} from "./pages/attendance-details";
 
 export default function App() {
   const dispatch = useDispatch();
@@ -73,7 +74,7 @@ export default function App() {
             <Route path="attendances" element={<AuthorizedRoute> <Attendance/> </AuthorizedRoute>}/>
             <Route path="participants" element={<AuthorizedRoute> <Participants/> </AuthorizedRoute>}/>
             <Route path="settings" element={<AuthorizedRoute> <ClassSettings/> </AuthorizedRoute>}/>
-
+            <Route path="attendance/:attendance_id" element={<AuthorizedRoute> <AttendanceDetails/> </AuthorizedRoute>}/>
             <Route path="*" element={<NotFound/>}/>
           </Route>
 

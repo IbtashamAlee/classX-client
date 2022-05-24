@@ -36,7 +36,7 @@ export function* handleCreateAttendanceRequest(action) {
     const { data } = response;
     yield put({ type: ActionTypes.CREATE_ATTENDANCE_SUCCESS });
     try {
-      const response = yield call(getAttendanceRequest, action.class_id, 10, 1);
+      const response = yield call(getAttendanceRequest, action.class_id, 40, 1);
       const { data } = response;
       yield put({ type: ActionTypes.GET_ATTENDANCE_SUCCESS, data: data?.sort(function(a, b){return b.id - a.id}) });
     } catch (err) {
