@@ -7,7 +7,7 @@ import ClassPost from "../components/class-post";
 import {useDispatch, useSelector} from "react-redux";
 import {getFeed} from "../redux/actions/feed-actions";
 import {removeCurrentRole, setCurrentRole} from "../redux/actions/user-actions";
-import {Button} from "@mui/material";
+import {CreatePoll} from "../components/create-poll";
 
 export function Feed () {
   const [record, setRecord] = useState(10);
@@ -43,7 +43,7 @@ export function Feed () {
         </div>
         {currentRole && currentRole !== "Teacher" || currentRole !== "DepartmentAdmin" &&
             <div className={"flex justify-end mb-4"}>
-              <Button variant={"contained"} color={"info"}>Create Poll</Button>
+              <CreatePoll/>
             </div>
         }
         <div className={"space-y-2"}>
