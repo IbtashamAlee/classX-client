@@ -34,6 +34,7 @@ import {
   handleGetPublicAssessmentsRequest
 } from "./handlers/assessments-handler";
 import {handleGetFeedRequest} from "./handlers/feed-handler";
+import {handlePollParticipateRequest} from "./handlers/poll-handler";
 
 export function* watcherSaga() {
   // auth handler
@@ -76,4 +77,7 @@ export function* watcherSaga() {
 
   // feed-handler
   yield takeEvery(ActionTypes.GET_FEED, handleGetFeedRequest);
+
+  // Poll handler
+  yield takeEvery(ActionTypes.PARTICIPATE_POLL, handlePollParticipateRequest);
 }

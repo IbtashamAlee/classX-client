@@ -36,7 +36,7 @@ export function* handleCreateAssessmentRequest(action) {
     yield put({ type: ActionTypes.CREATE_ASSESSMENT_SUCCESS});
     try {
       const response = yield call(addQuestionInAssessmentRequest, data.assessment.id, action.questions);
-      const { data2 } = response;
+      const { data } = response;
       yield put({ type: ActionTypes.ADD_QUESTIONS_IN_ASSESSMENT_SUCCESS });
     } catch (err) {
       yield put({type: ActionTypes.ADD_QUESTIONS_IN_ASSESSMENT_FAIL})
