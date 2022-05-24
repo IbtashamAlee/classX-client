@@ -8,6 +8,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {getFeed} from "../redux/actions/feed-actions";
 import {removeCurrentRole, setCurrentRole} from "../redux/actions/user-actions";
 import {CreatePoll} from "../components/create-poll";
+import {PostCard} from "../components/post-card";
 
 export function Feed () {
   const [record, setRecord] = useState(10);
@@ -57,6 +58,9 @@ export function Feed () {
                 }
                 {f.type.toLowerCase() === "assessment" &&
                     <AssessmentCard assessment={f} currentRole={currentRole}/>
+                }
+                {f.type.toLowerCase() === "post" &&
+                    <PostCard post={f} currentRole={currentRole}/>
                 }
               </div>
           ))}
