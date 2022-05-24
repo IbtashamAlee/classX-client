@@ -93,6 +93,7 @@ export function FilePicker(props) {
         data: data,
         headers: { "Content-Type": "multipart/form-data" },
       });
+      props.fileReturn(response.data);
     } catch(error) {
       console.log(error)
     }

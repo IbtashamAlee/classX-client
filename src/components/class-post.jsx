@@ -10,6 +10,10 @@ import {
 import { Listbox, Transition } from '@headlessui/react'
 import {Button} from "@mui/material";
 import {FilePicker} from "./file-picker";
+import Api from "../generic-services/api";
+import {useParams} from "react-router-dom";
+import {useDispatch} from "react-redux";
+import {getFeed} from "../redux/actions/feed-actions";
 
 const moods = [
   { name: 'Excited', value: 'excited', icon: FireIcon, iconColor: 'text-white', bgColor: 'bg-red-500' },
@@ -26,6 +30,27 @@ function classNames(...classes) {
 
 export default function ClassPost() {
   const [selected, setSelected] = useState(moods[5]);
+  const [content, setContent] = useState('');
+  const [files, setFiles] = useState([]);
+
+  let {id} = useParams();
+  let dispatch = useDispatch();
+
+  function getFiles (files) {
+    setFiles(files);
+  }
+
+  function createPost() {
+    Api.execute(`/class/${id}/post`, 'post', {
+      content: content,
+      files: files
+    }).then(res => {
+      console.log(res);
+      dispatch(getFeed(id,40, 1));
+    }).catch(err => {
+      console.log(err);
+    })
+  }
 
   return (
       <div className="flex items-start space-x-4">
@@ -41,7 +66,8 @@ export default function ClassPost() {
                   id="comment"
                   className="block w-full py-3 border-0 resize-none focus:ring-0 sm:text-sm"
                   placeholder="Add your comment..."
-                  defaultValue={''}
+                  value={content}
+                  onChange={(e) => {setContent(e.target.value)}}
               />
 
               {/* Spacer element to match the height of the toolbar */}
@@ -56,7 +82,7 @@ export default function ClassPost() {
             <div className="absolute bottom-0 inset-x-0 pl-3 pr-2 py-2 flex justify-between">
               <div className="flex items-center space-x-5">
                 <div className="flex items-center">
-                  <FilePicker/>
+                  <FilePicker fileReturn={getFiles}/>
                 </div>
                 <div className="flex items-center">
                   <Listbox value={selected} onChange={setSelected}>
@@ -131,7 +157,7 @@ export default function ClassPost() {
                 </div>
               </div>
               <div className="flex-shrink-0">
-                <Button variant={"contained"}>Post</Button>
+                <Button variant={"contained"} onClick={createPost}>Post</Button>
               </div>
             </div>
           </form>
