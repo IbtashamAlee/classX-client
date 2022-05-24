@@ -6,6 +6,7 @@ import {getEndingDate} from "../functions/date-functions";
 import {useDispatch, useSelector} from "react-redux";
 import {participateInAttendance} from "../redux/actions/attendance-actions";
 import {Link, useLocation, useParams} from "react-router-dom";
+import placeholder from "../Sample_User_Icon.png";
 
 export function MarkAttendanceCard (props) {
   const [isAttendanceTimeEnded, setIsAttendanceTimeEnded] = useState(false);
@@ -28,7 +29,15 @@ export function MarkAttendanceCard (props) {
 
   return (
       <div
-          className="block p-4 max-w-full bg-white rounded-lg border border-gray-200 shadow-sm hover:bg-gray-100 flex justify-between item-center">
+          className="block p-4 max-w-full bg-white rounded-lg border border-gray-200 flex justify-between item-center flex-col">
+        <div className="flex items-center mb-8">
+          <img src={props.attendance.imageUrl ?? placeholder } className="w-11 rounded-full"/>
+          <div className="ml-5">
+            <p className="text-sm">{props.attendance.user.name}</p>
+            <p className="text-xs text-gray-500"> {props.attendance.startingTime.split('T')[0]}</p>
+          </div>
+        </div>
+        <div className="flex w-full justify-between items-center">
         <div>
           <h5 className="mb-2 font-medium text-gray-900 truncate">{props.attendance.title}</h5>
           <div className="flex items-center text-sm text-gray-500">
@@ -54,6 +63,7 @@ export function MarkAttendanceCard (props) {
                 }
               </>
           }
+        </div>
         </div>
       </div>
   )

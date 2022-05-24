@@ -34,7 +34,7 @@ export default function Attendance() {
           <ul className="divide-y divide-gray-200">
             {positions && positions.length > 0 && positions.map((position) => (
                 <li key={position.id}>
-                  <span className="block hover:bg-gray-50">
+                  <span className="block">
                     <div className="px-4 py-4 flex items-center justify-between sm:px-6">
                       <div className="min-w-0 flex-1 sm:flex sm:items-center sm:justify-between">
                         <div className="truncate">

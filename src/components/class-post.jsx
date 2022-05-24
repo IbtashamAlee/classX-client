@@ -65,7 +65,7 @@ export default function ClassPost() {
                   name="comment"
                   id="comment"
                   className="block w-full py-3 border-0 resize-none focus:ring-0 sm:text-sm"
-                  placeholder="Add your comment..."
+                  placeholder="Post something here......."
                   value={content}
                   onChange={(e) => {setContent(e.target.value)}}
               />
