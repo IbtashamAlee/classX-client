@@ -94,7 +94,7 @@ export default function Example() {
                       </div>
                     </div>
                     <div className="shrink-0 flex border-t border-gray-200 p-4">
-                      <a href="#" className="shrink-0 group block">
+                      <span className="shrink-0 group block">
                         <div className="flex items-center">
                           <div>
                             <img className="inline-block h-10 w-10 rounded-full"
@@ -106,7 +106,7 @@ export default function Example() {
                               profile</p>
                           </div>
                         </div>
-                      </a>
+                      </span>
                     </div>
                   </div>
                 </Transition.Child>

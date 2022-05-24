@@ -34,10 +34,6 @@ export default function Attendance() {
     }
   }
 
-  function createNewAttendance() {
-    dispatch(createAttendance(id));
-  }
-
   return (
       <React.Fragment>
         <div className="text-gray-900 text-2xl font-medium py-4 flex justify-between">

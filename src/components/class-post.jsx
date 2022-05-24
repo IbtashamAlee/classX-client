@@ -4,13 +4,11 @@ import {
   EmojiSadIcon,
   FireIcon,
   HeartIcon,
-  PaperClipIcon,
   ThumbUpIcon,
   XIcon,
 } from '@heroicons/react/solid'
 import { Listbox, Transition } from '@headlessui/react'
-import {Button, IconButton} from "@mui/material";
-import {useSelector} from "react-redux";
+import {Button} from "@mui/material";
 import {FilePicker} from "./file-picker";
 
 const moods = [
@@ -28,8 +26,6 @@ function classNames(...classes) {
 
 export default function ClassPost() {
   const [selected, setSelected] = useState(moods[5]);
-
-  const user = useSelector((state => state.user.user));
 
   return (
       <div className="flex items-start space-x-4">

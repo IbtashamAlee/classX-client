@@ -12,7 +12,7 @@ export function* handleGetAttendanceRequest(action) {
   try {
     const response = yield call(getAttendanceRequest, action.class_id, action.record, action.page);
     const { data } = response;
-    yield put({ type: ActionTypes.GET_ATTENDANCE_SUCCESS, data: data });
+    yield put({ type: ActionTypes.GET_ATTENDANCE_SUCCESS, data: data?.sort(function(a, b){return b.id - a.id}) });
   } catch (err) {
     yield put({type: ActionTypes.GET_ATTENDANCE_FAIL})
     console.log(err);
@@ -38,7 +38,7 @@ export function* handleCreateAttendanceRequest(action) {
     try {
       const response = yield call(getAttendanceRequest, action.class_id, 10, 1);
       const { data } = response;
-      yield put({ type: ActionTypes.GET_ATTENDANCE_SUCCESS, data: data });
+      yield put({ type: ActionTypes.GET_ATTENDANCE_SUCCESS, data: data?.sort(function(a, b){return b.id - a.id}) });
     } catch (err) {
       yield put({type: ActionTypes.GET_ATTENDANCE_FAIL})
       console.log(err);

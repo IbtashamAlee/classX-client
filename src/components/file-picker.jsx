@@ -7,8 +7,6 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import {Slide} from "@mui/material";
 import DialogActions from "@mui/material/DialogActions";
-import {useParams} from "react-router-dom";
-import {useDispatch} from "react-redux";
 import {PaperClipIcon} from "@heroicons/react/solid";
 import axios from "axios";
 import Box from "@mui/material/Box";
@@ -60,10 +58,7 @@ export function FilePicker(props) {
   const [files, setFiles] = useState([]);
   const [value, setValue] = React.useState(0);
 
-  let {id} = useParams();
   let inp = useRef(null);
-
-  let dispatch = useDispatch();
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
