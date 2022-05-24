@@ -1,10 +1,8 @@
 import React, {useEffect, useState} from "react";
 import {MarkAttendanceCard} from "../components/mark-attendance-card";
-import Api from '../generic-services/api'
 import {useParams} from "react-router-dom";
 import {PollCard} from "../components/poll-card";
 import {AssessmentCard} from "../components/assessment-card";
-import {Button, TextField} from "@mui/material";
 import ClassPost from "../components/class-post";
 import {useDispatch, useSelector} from "react-redux";
 import {getFeed} from "../redux/actions/feed-actions";
