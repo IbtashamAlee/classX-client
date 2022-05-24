@@ -3,13 +3,16 @@ import React, {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {getParticipantsInClass, removeParticipantsInClass} from "../redux/actions/participants_actions"
 import AddParticipantsDialog from "../components/add-participants-dialog";
-import {useParams} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import {Button} from "@mui/material";
+import {participateInAttendance} from "../redux/actions/attendance-actions";
+import DoneIcon from "@mui/icons-material/Done";
 
-export function Participants() {
+export function Participants(props) {
   let dispatch = useDispatch();
   let {id} = useParams();
   let participants = useSelector((state => state.participants.participants));
+  let currentRole = useSelector((state => state.currentRole.role));
   let teachers, students, department_admin;
 
   if (participants && participants.length) {
@@ -71,7 +74,12 @@ export function Participants() {
                     <p className="text-sm font-medium text-gray-900">{person.name}</p>
                     <p className="text-sm text-gray-500">{person.userStatus ? person.userStatus: "Hi there, I'm using classX"}</p>
                   </div>
-                  <Button variant="outlined" color="error" onClick={() => {removeParticipant(person.email, "Teacher")}}>Remove</Button>
+                  {currentRole && currentRole === "Teacher" || currentRole === "DepartmentAdmin" ?
+                      <Button variant="outlined" color="error" onClick={() => {removeParticipant(person.email, "Teacher")}}>Remove</Button>
+                      :
+                      <>
+                      </>
+                  }
                 </div>
               </li>
           ))}
@@ -86,7 +94,11 @@ export function Participants() {
                     <p className="text-sm font-medium text-gray-900">{person.name}</p>
                     <p className="text-sm text-gray-500">{person.userStatus ? person.userStatus: "Hi there, I'm using classX"}</p>
                   </div>
-                  <Button variant="outlined" color="error" onClick={() => {removeParticipant(person.email, "Student")}}>Remove</Button>
+                  {currentRole && currentRole === "Teacher" || currentRole === "DepartmentAdmin" ?
+                      <Button variant="outlined" color="error" onClick={() => {removeParticipant(person.email, "Student")}}>Remove</Button>                      :
+                      <>
+                      </>
+                  }
                 </div>
               </li>
           ))}
