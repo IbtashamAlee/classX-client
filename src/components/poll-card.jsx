@@ -8,6 +8,7 @@ import {pollParticipation} from "../redux/actions/poll-actions";
 
 export function PollCard(props) {
   const [isPoolEnded, setIsPoolEnded] = useState(false);
+  const [title, setTitle] = useState("Participate");
 
   const {id} = useParams();
   const dispatch = useDispatch();
@@ -20,16 +21,23 @@ export function PollCard(props) {
   useEffect(() => {
     if (props.poll.endingTime && new Date(props.poll.endingTime) < new Date()) {
       setIsPoolEnded(true);
+      setTitle("Oops poll ended :)")
+    }
+    if (props.poll.hasParticipated) {
+      setTitle("Participated")
     }
   }, [props.poll])
 
   return (
-      <div title={isPoolEnded ? "Oops Pool Ended": "Participate"} className="block p-4 max-w-full bg-white rounded-lg border border-gray-200 shadow-sm hover:bg-gray-100 flex justify-between item-center">
+      <div title={title} className="block p-4 max-w-full bg-white rounded-lg border border-gray-200 shadow-sm hover:bg-gray-100 flex justify-between item-center">
         <div className={"w-full"}>
           <div className={"flex justify-between"}>
             <h5 className="mb-2 font-medium text-gray-900 truncate">{props.poll.statement}</h5>
-            {isPoolEnded &&
-                <h5 className={"text-sm font-medium text-gray-500"}>Ended</h5>
+            {isPoolEnded && !props.poll.hasParticipated &&
+                <h5 className={"text-sm font-medium text-gray-500 my-auto text-center"}>Ended</h5>
+            }
+            {props.poll.hasParticipated &&
+                <h5 className={"text-sm font-medium text-gray-500 my-auto text-center"}>Participated</h5>
             }
           </div>
           <div className="flex items-center text-sm text-gray-500">
@@ -40,7 +48,12 @@ export function PollCard(props) {
           </div>
           <div className={"flex flex-col w-full mt-6 space-y-2"}>
             {props.poll.pollOptions && props.poll.pollOptions.map(op => (
-                <Button variant={"outlined"} key={op.id} disabled={isPoolEnded} onClick={() => {submitParticipatePoll(op.id)}}>{op.option}</Button>
+                <div key={op.id} className={"flex"}>
+                  <Button className={"flex-1 !mr-4"} variant={"outlined"} disabled={isPoolEnded || props.poll.hasParticipated} onClick={() => {submitParticipatePoll(op.id)}}>{op.option}</Button>
+                  {props.poll.hasParticipated &&
+                      <h5 className={"text-sm font-medium text-gray-500 my-auto text-center"}>{op.votes + " votes casted"}</h5>
+                  }
+                </div>
             ))}
           </div>
         </div>
