@@ -12,160 +12,141 @@ import {
   Avatar,
   Conversation,
   ConversationHeader,
-  VoiceCallButton,
-  VideoCallButton,
-  EllipsisButton,
-  TypingIndicator,
   MessageSeparator
 } from "@chatscope/chat-ui-kit-react";
 import placeholder from '../Sample_User_Icon.png'
 import {Header} from '../components/header'
+import {IconButton} from "@mui/material";
+import AddCommentIcon from '@mui/icons-material/AddComment';
+
 export default function Messenger() {
+
+  const [selectedUser,setSelectedUser] = useState({
+    "chatId": 1,
+    "userName": {
+      "id": 2,
+      "chatId": 1,
+      "participantId": 1,
+      "removedAt": null,
+      "user": {
+        "name": "admin",
+        "imageUrl": null
+      }
+    },
+    "lastMessage": "latest message"
+  }
+  )
+  const conversations = [
+    {
+      "chatId": 1,
+      "userName": {
+        "id": 2,
+        "chatId": 1,
+        "participantId": 1,
+        "removedAt": null,
+        "user": {
+          "name": "admin",
+          "imageUrl": null
+        }
+      },
+      "lastMessage": "latest message"
+    },
+    {
+      "chatId": 2,
+      "userName": {
+        "id": 2,
+        "chatId": 1,
+        "participantId": 1,
+        "removedAt": null,
+        "user": {
+          "name": "ibtasham",
+          "imageUrl": null
+        }
+      },
+      "lastMessage": "hello There"
+    }
+  ]
+
+  const [messages,setMessages] = useState([
+    {
+      message: "Hello my friend",
+      direction: "incoming",
+      position: "single",
+      time: "May 12,22 12:04"
+    },
+    {
+      message: "Hello my friend",
+      direction: "incoming",
+      position: "single",
+      time: "May 12,22 12:04"
+    },
+    {
+      message: "Hello my friend",
+      direction: "incoming",
+      position: "single",
+      time: "May 12,22 12:04"
+    }
+  ])
   const [messageInputValue, setMessageInputValue] = useState("");
 
   return (
-    <div className="">
-      <Header/>
-      <MainContainer responsive>
+    <div style={{minHeight:'100vh',display:'flex',flexDirection:'column',justifyContent:'flex-start'}}>
+      <Header style={{flex:1}}/>
+      <MainContainer responsive style={{flex:9,height:'80vh'}}>
         <Sidebar position="left" scrollable={false}>
+          <div className="flex flex-row-reverse">
+          <IconButton variant="contained" style={{margin:"2px 10px 0 10px"}}>
+            <AddCommentIcon/>
+          </IconButton>
           <Search placeholder="Search..." />
-          <ConversationList>
-            <Conversation name="Lilly" lastSenderName="Lilly" info="Yes i can do it for you">
-              <Avatar src={placeholder} name="Lilly" st="available" />
-            </Conversation>
+          </div>
+          <ConversationList style={{minHeight:"80vh"}}>
+            {
+              conversations.map(c => {
+                return (
+                  <Conversation key={c.chatId} name={c.userName.user.name} info={c.lastMessage} onClick={()=>{
+                    setSelectedUser(c)
+                  }}>
+                    <Avatar src={c.userName.user.imageUrl?? `https://picsum.photos/${Math.floor(Math.random()*200)}`} name={c.userName.user.name} />
+                  </Conversation>
+                )
+              })
+            }
 
-            <Conversation name="Joe" lastSenderName="Joe" info="Yes i can do it for you">
-              <Avatar src={placeholder} name="Joe" st="dnd" />
-            </Conversation>
-
-            <Conversation name="Emily" lastSenderName="Emily" info="Yes i can do it for you">
-              <Avatar src={placeholder} name="Emily" />
-            </Conversation>
-
-            <Conversation name="Kai" lastSenderName="Kai" info="Yes i can do it for you">
-              <Avatar src={placeholder} name="Kai" st="unavailable" />
-            </Conversation>
-
-            <Conversation name="Akane" lastSenderName="Akane" info="Yes i can do it for you">
-              <Avatar src={placeholder} name="Akane" st="eager" />
-            </Conversation>
-
-            <Conversation name="Eliot" lastSenderName="Eliot" info="Yes i can do it for you">
-              <Avatar src={placeholder} name="Eliot" st="away" />
-            </Conversation>
-
-            <Conversation name="Zoe" lastSenderName="Zoe" info="Yes i can do it for you">
-              <Avatar src={placeholder} name="Zoe" st="dnd" />
-            </Conversation>
-
-            <Conversation name="Patrik" lastSenderName="Patrik" info="Yes i can do it for you">
-              <Avatar src={placeholder} name="Patrik" st="invisible" />
-            </Conversation>
           </ConversationList>
         </Sidebar>
 
         <ChatContainer>
           <ConversationHeader>
             <ConversationHeader.Back />
-            <Avatar src={placeholder} name="Zoe" />
-            <ConversationHeader.Content userName="Zoe" info="Active 10 mins ago" />
+            <Avatar src={selectedUser.userName.user.imageUrl ?? `https://picsum.photos/${Math.floor(Math.random()*200)}`} name="Zoe" />
+            <ConversationHeader.Content userName={selectedUser.userName.user.name}/>
 
           </ConversationHeader>
-          <MessageList>
-            <MessageSeparator content="Saturday, 30 November 2019" />
-            <Message model={{
-              message: "Hello my friend",
-              sentTime: "15 mins ago",
-              sender: "Zoe",
-              direction: "incoming",
-              position: "single"
-            }}>
-              <Avatar src={placeholder} name="Zoe" />
-            </Message>
-            <Message model={{
-              message: "Hello my friend",
-              sentTime: "15 mins ago",
-              sender: "Patrik",
-              direction: "outgoing",
-              position: "single"
-            }} avatarSpacer />
-            <Message model={{
-              message: "Hello my friend",
-              sentTime: "15 mins ago",
-              sender: "Zoe",
-              direction: "incoming",
-              position: "first"
-            }} avatarSpacer />
-            <Message model={{
-              message: "Hello my friend",
-              sentTime: "15 mins ago",
-              sender: "Zoe",
-              direction: "incoming",
-              position: "normal"
-            }} avatarSpacer />
-            <Message model={{
-              message: "Hello my friend",
-              sentTime: "15 mins ago",
-              sender: "Zoe",
-              direction: "incoming",
-              position: "normal"
-            }} avatarSpacer />
-            <Message model={{
-              message: "Hello my friend",
-              sentTime: "15 mins ago",
-              sender: "Zoe",
-              direction: "incoming",
-              position: "last"
-            }}>
-              <Avatar src={placeholder} name="Zoe" />
-            </Message>
-            <Message model={{
-              message: "Hello my friend",
-              sentTime: "15 mins ago",
-              sender: "Patrik",
-              direction: "outgoing",
-              position: "first"
-            }} />
-            <Message model={{
-              message: "Hello my friend",
-              sentTime: "15 mins ago",
-              sender: "Patrik",
-              direction: "outgoing",
-              position: "normal"
-            }} />
-            <Message model={{
-              message: "Hello my friend",
-              sentTime: "15 mins ago",
-              sender: "Patrik",
-              direction: "outgoing",
-              position: "normal"
-            }} />
-            <Message model={{
-              message: "Hello my friend",
-              sentTime: "15 mins ago",
-              sender: "Patrik",
-              direction: "outgoing",
-              position: "last"
-            }} />
-
-            <Message model={{
-              message: "Hello my friend",
-              sentTime: "15 mins ago",
-              sender: "Zoe",
-              direction: "incoming",
-              position: "first"
-            }} avatarSpacer />
-            <Message model={{
-              message: "Hello my friend",
-              sentTime: "15 mins ago",
-              sender: "Zoe",
-              direction: "incoming",
-              position: "last"
-            }}>
-              <Avatar src={placeholder} name="Zoe" />
-            </Message>
+          <MessageList style={{minHeight:'80vh',maxHeight:'80vh',display:'flex',flexDirection:'column',justifyContent:'flex-end'}}>
+            {
+              messages.map(m=>{
+                return (
+                  <Message style={{marginTop:"1rem"}} model={{
+                    message: m.message,
+                    direction: m.direction,
+                    position: m.position
+                  }}>
+                    <Message.Footer sentTime={m.time} />
+                  </Message>
+                )
+              })
+            }
           </MessageList>
-          <MessageInput placeholder="Type message here" value={messageInputValue} onChange={val => setMessageInputValue(val)} />
+          <MessageInput placeholder="Type message here" value={messageInputValue} onChange={val => setMessageInputValue(val)} onSend={()=>{
+            setMessages([...messages, {
+              message: `${messageInputValue}`,
+              direction: "outgoing",
+              position: "single",
+              time: "May 12,22 12:04"
+            }])
+            setMessageInputValue("")
+          }}/>
         </ChatContainer>
       </MainContainer>
     </div>
