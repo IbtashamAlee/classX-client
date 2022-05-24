@@ -17,9 +17,21 @@ import AddIcon from "@mui/icons-material/Add";
 
 export function Dashboard() {
   const dispatch = useDispatch();
-  const [role, setRole] = useState('Teacher');
+  const [role, setRole] = useState('Standard');
   let roles = useSelector((state => state.roles.roles));
   let classes = useSelector((state => state.classes.classes));
+
+  let roles2 = [];
+
+  if (roles && roles.length) {
+    for (let i = 0; i < roles.length; i++) {
+      if (roles[i] !== "Student" && roles[i] !== "Teacher") {
+        roles2.push(roles[i])
+      }
+    }
+    roles2.push("Standard");
+    console.log(roles2)
+  }
 
   let navigate = useNavigate();
   let location = useLocation();
@@ -39,7 +51,7 @@ export function Dashboard() {
         navigate('/dashboard?tab=InstituteAdmin')
         dispatch(getInstituteClasses());
         break;
-      case "Teacher":
+      case "Standard":
         navigate('/dashboard?tab=Teacher')
         dispatch(getStudentTeacherClasses());
         break;
@@ -80,7 +92,7 @@ export function Dashboard() {
                           setRole(event.target.value)
                         }}
                       >
-                        {roles && roles.map((r) => (
+                        {roles2 && roles2.map((r) => (
                           <MenuItem value={r} key={r}>{r}</MenuItem>
                         ))}
                       </Select>
@@ -137,7 +149,7 @@ export function Dashboard() {
                       }
                     </div>
                   }
-                  {role && (role === 'Teacher' || role === "Student") &&
+                  {role && (role === 'Standard') &&
                     <div className="flex flex-wrap gap-4 mt-6">
                       {classes ?
                         classes.map((item) => (
