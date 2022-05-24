@@ -9,8 +9,9 @@ import {
   XIcon,
 } from '@heroicons/react/solid'
 import { Listbox, Transition } from '@headlessui/react'
-import {Button} from "@mui/material";
+import {Button, IconButton} from "@mui/material";
 import {useSelector} from "react-redux";
+import {FilePicker} from "./file-picker";
 
 const moods = [
   { name: 'Excited', value: 'excited', icon: FireIcon, iconColor: 'text-white', bgColor: 'bg-red-500' },
@@ -59,13 +60,7 @@ export default function ClassPost() {
             <div className="absolute bottom-0 inset-x-0 pl-3 pr-2 py-2 flex justify-between">
               <div className="flex items-center space-x-5">
                 <div className="flex items-center">
-                  <button
-                      type="button"
-                      className="-m-2.5 w-10 h-10 rounded-full flex items-center justify-center text-gray-400 hover:text-gray-500"
-                  >
-                    <PaperClipIcon className="h-5 w-5" aria-hidden="true" />
-                    <span className="sr-only">Attach a file</span>
-                  </button>
+                  <FilePicker/>
                 </div>
                 <div className="flex items-center">
                   <Listbox value={selected} onChange={setSelected}>
