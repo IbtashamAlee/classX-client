@@ -16,7 +16,7 @@ import {
 } from "@chatscope/chat-ui-kit-react";
 import placeholder from '../Sample_User_Icon.png'
 import {Header} from '../components/header'
-import {IconButton} from "@mui/material";
+import {IconButton, TextField} from "@mui/material";
 import AddCommentIcon from '@mui/icons-material/AddComment';
 import Api from "../generic-services/api";
 import {useSelector} from "react-redux";
@@ -81,11 +81,15 @@ export default function Messenger() {
       <Header style={{flex:1}}/>
       <MainContainer responsive style={{flex:9,height:'80vh'}}>
         <Sidebar position="left" scrollable={false}>
-          <div className="flex flex-row-reverse">
-          <IconButton variant="contained" style={{margin:"2px 10px 0 10px"}}>
-            <AddCommentIcon/>
-          </IconButton>
-          <Search placeholder="Search..." />
+          <div className="flex justify-between items-center space-x-2 mx-2 mt-2 pb-4">
+            {/*<Search placeholder="Search..." />*/}
+            <TextField
+                placeholder={"Search..."}
+                fullWidth
+            />
+            <IconButton variant="contained"  className={"w-12 h-12"}>
+              <AddCommentIcon/>
+            </IconButton>
           </div>
           <ConversationList style={{minHeight:"80vh"}}>
             { conversations &&
