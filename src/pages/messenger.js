@@ -18,75 +18,58 @@ import placeholder from '../Sample_User_Icon.png'
 import {Header} from '../components/header'
 import {IconButton} from "@mui/material";
 import AddCommentIcon from '@mui/icons-material/AddComment';
+import Api from "../generic-services/api";
+import {useSelector} from "react-redux";
 export default function Messenger() {
 
   const [selectedUser,setSelectedUser] = useState(null)
-  const [conversations,setConversations] = useState([
-    {
-      "chatId": 1,
-      "userName": {
-        "id": 2,
-        "chatId": 1,
-        "participantId": 1,
-        "removedAt": null,
-        "user": {
-          "name": "admin",
-          "imageUrl": null
-        }
-      },
-      "lastMessage": "latest message"
-    },
-    {
-      "chatId": 2,
-      "userName": {
-        "id": 2,
-        "chatId": 1,
-        "participantId": 1,
-        "removedAt": null,
-        "user": {
-          "name": "ibtasham",
-          "imageUrl": null
-        }
-      },
-      "lastMessage": "hello There"
-    },
-    {
-      "chatId": 2,
-      "userName": {
-        "id": 2,
-        "chatId": 1,
-        "participantId": 1,
-        "removedAt": null,
-        "user": {
-          "name": "faseeh",
-          "imageUrl": null
-        }
-      },
-      "lastMessage": "hello There"
-    }
-  ])
+  const [conversations,setConversations] = useState([])
 
-  const [messages,setMessages] = useState([
-    {
-      message: "Hello my friend",
-      direction: "incoming",
-      position: "single",
-      time: "May 12,22 12:04"
-    },
-    {
-      message: "Hello my friend",
-      direction: "incoming",
-      position: "single",
-      time: "May 12,22 12:04"
-    },
-    {
-      message: "Hello my friend",
-      direction: "incoming",
-      position: "single",
-      time: "May 12,22 12:04"
-    }
-  ])
+  const [messages,setMessages] = useState([])
   const [messageInputValue, setMessageInputValue] = useState("");
+  const [files, setFiles] = useState([]);
+
+  let user = useSelector((state => state.user.user))
+
+  function getChats() {
+    Api.execute("/chat/conversations", "get").then((res) => {
+      console.log(res);
+      setConversations(res.data);
+    }).catch(err => {
+      console.log(err);
+    })
+  }
+
+  function getMessages() {
+    if(selectedUser === null) return;
+    Api.execute("/chat/" + selectedUser.chatId, "get").then((res) => {
+      console.log(res);
+      setMessages(res.data.chatmessage);
+    }).catch(err => {
+      console.log(err);
+    })
+  }
+
+  function sendMessage() {
+    if(selectedUser === null) return;
+    Api.execute("/chat/" + selectedUser.chatId + "/message", "post", {
+      message: messageInputValue,
+      files: files
+    }).then((res) => {
+      console.log(res);
+      getMessages();
+    }).catch(err => {
+      console.log(err);
+    })
+  }
+
+  useEffect(() => {
+    getMessages();
+  }, [selectedUser]);
+
+  useEffect(() => {
+    getChats();
+  }, [])
 
   return (
     <div style={{minHeight:'100vh',display:'flex',flexDirection:'column',justifyContent:'flex-start'}}>
@@ -104,9 +87,9 @@ export default function Messenger() {
               conversations.map(c => {
                 return (
                   <Conversation key={c.chatId} name={c.userName.user.name} info={c.lastMessage} onClick={()=>{
-                    setSelectedUser(c)
+                    setSelectedUser(c);
                   }}>
-                    <Avatar src={c.userName.user.imageUrl?? `https://picsum.photos/${Math.floor(Math.random()*200)}`} name={c.userName.user.name} />
+                    <Avatar src={c.userName.user.imageUrl ?? placeholder} name={c.userName.user.name} />
                   </Conversation>
                 )
               })
@@ -125,7 +108,7 @@ export default function Messenger() {
             <ConversationHeader>
               <ConversationHeader.Back/>
               <Avatar
-                src={selectedUser.userName.user.imageUrl ?? `https://picsum.photos/${Math.floor(Math.random() * 200)}`}
+                src={selectedUser.userName.user.imageUrl ?? placeholder}
                 name="Zoe"/>
               <ConversationHeader.Content userName={selectedUser.userName.user.name}/>
 
@@ -141,8 +124,15 @@ export default function Messenger() {
                 messages.map(m => {
                   return (
                     <Message style={{marginTop: "1rem"}} model={{
-                      message: m.message,
-                      direction: m.direction,
+                      message: m.body,
+                      direction: (user && user.id && m.senderId == user.id) ? 'outgoing':"incoming",
+                      //     () => {
+                      //   if (user && user.id && m.senderId == user.id) {
+                      //     return "outgoing"
+                      //   } else {
+                      //     return "incoming"
+                      //   }
+                      // },
                       position: m.position
                     }}>
                       <Message.Footer sentTime={m.time}/>
@@ -151,16 +141,15 @@ export default function Messenger() {
                 })
               }
             </MessageList>
-            <MessageInput placeholder="Type message here" value={messageInputValue}
-                          onChange={val => setMessageInputValue(val)} onSend={() => {
-              setMessages([...messages, {
-                message: `${messageInputValue}`,
-                direction: "outgoing",
-                position: "single",
-                time: "May 12,22 12:04"
-              }])
-              setMessageInputValue("")
-            }}/>
+            <MessageInput
+                placeholder="Type message here" value={messageInputValue}
+                onChange={val => setMessageInputValue(val)}
+                onSend={() => {
+                  sendMessage();
+                  setMessageInputValue("")
+                  }
+                }
+            />
           </ChatContainer>
         }
       </MainContainer>
