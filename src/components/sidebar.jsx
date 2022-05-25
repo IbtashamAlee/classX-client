@@ -1,13 +1,15 @@
 import React, {Fragment} from 'react';
 import {Dialog, Transition} from '@headlessui/react';
 import {
-  CalendarIcon,
-  FolderIcon,
-  HomeIcon,
-  InboxIcon,
-  UsersIcon,
   XIcon,
 } from '@heroicons/react/outline';
+import PollIcon from '@mui/icons-material/Poll';
+import FeedIcon from '@mui/icons-material/Feed';
+import QuizIcon from '@mui/icons-material/Quiz';
+import PersonIcon from '@mui/icons-material/Person';
+import GroupIcon from '@mui/icons-material/Group';
+import SettingsIcon from '@mui/icons-material/Settings';
+
 import {Link} from "react-router-dom";
 
 function classNames(...classes) {
@@ -16,11 +18,12 @@ function classNames(...classes) {
 
 export default function Sidebar(props) {
   const navigation = [
-    {name: 'Feed', href: ``, icon: HomeIcon, current: true},
-    {name: 'Assessments', href: `assessments`, icon: UsersIcon, current: false},
-    {name: 'Attendances', href: `attendances`, icon: FolderIcon, current: false},
-    {name: 'Participants', href: `participants`, icon: CalendarIcon, current: false},
-    {name: 'Setting', href: `settings`, icon: InboxIcon, current: false},
+    {name: 'Feed', href: ``, icon: FeedIcon, current: true},
+    {name: 'Assessments', href: `assessments`, icon: QuizIcon, current: false},
+    {name: 'Attendances', href: `attendances`, icon: PersonIcon, current: false},
+    {name: 'Polls', href: `polls`, icon: PollIcon, current: false},
+    {name: 'Participants', href: `participants`, icon: GroupIcon, current: false},
+    {name: 'Settings', href: `settings`, icon: SettingsIcon, current: false},
   ]
 
   return (
