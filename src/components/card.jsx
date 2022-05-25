@@ -23,7 +23,7 @@ export default function MediaCard(props) {
   let class_id = props.classId;
 
   return (
-      <Card className={classes.root} variant="outlined" >
+      <Card className={classes.root} variant="outlined shadow rounded-lg" >
         {
         <Link
             to={
