@@ -1,4 +1,3 @@
-/* This example requires Tailwind CSS v2.0+ */
 import React, {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {getParticipantsInClass, removeParticipantsInClass} from "../redux/actions/participants_actions"
@@ -7,6 +6,8 @@ import {Link, useParams} from "react-router-dom";
 import {Button} from "@mui/material";
 import {participateInAttendance} from "../redux/actions/attendance-actions";
 import DoneIcon from "@mui/icons-material/Done";
+import IconButton from '@mui/material/IconButton';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 export function Participants(props) {
   let dispatch = useDispatch();
@@ -75,7 +76,7 @@ export function Participants(props) {
                     <p className="text-sm text-gray-500">{person.userStatus ? person.userStatus: "Hi there, I'm using classX"}</p>
                   </div>
                   {currentRole && currentRole === "Teacher" || currentRole === "DepartmentAdmin" ?
-                      <Button variant="outlined" color="error" onClick={() => {removeParticipant(person.email, "Teacher")}}>Remove</Button>
+                      <IconButton variant="outlined" color="error" onClick={() => {removeParticipant(person.email, "Teacher")}}><DeleteIcon/></IconButton>
                       :
                       <>
                       </>
@@ -95,7 +96,7 @@ export function Participants(props) {
                     <p className="text-sm text-gray-500">{person.userStatus ? person.userStatus: "Hi there, I'm using classX"}</p>
                   </div>
                   {currentRole && currentRole === "Teacher" || currentRole === "DepartmentAdmin" ?
-                      <Button variant="outlined" color="error" onClick={() => {removeParticipant(person.email, "Student")}}>Remove</Button>                      :
+                      <IconButton variant="outlined" color="error" onClick={() => {removeParticipant(person.email, "Student")}}><DeleteIcon/></IconButton>                      :
                       <>
                       </>
                   }

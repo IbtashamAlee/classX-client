@@ -35,7 +35,7 @@ export function Feed () {
   }, [])
 
   return (
-      <div className="lg:max-w-screen-lg mx-4 md:mx-auto mt-8">
+      <div className="lg:max-w-screen-lg mx-4 md:mx-auto mt-8 pb-8">
         <div>
           <ClassPost/>
         </div>

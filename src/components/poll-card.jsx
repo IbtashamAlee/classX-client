@@ -5,6 +5,7 @@ import {getEndingDate} from "../functions/date-functions";
 import {useParams} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {pollParticipation} from "../redux/actions/poll-actions";
+import placeholder from "../Sample_User_Icon.png";
 
 export function PollCard(props) {
   const [isPoolEnded, setIsPoolEnded] = useState(false);
@@ -29,7 +30,14 @@ export function PollCard(props) {
   }, [props.poll])
 
   return (
-      <div title={title} className="block p-4 max-w-full bg-white rounded-lg border border-gray-200 shadow-sm hover:bg-gray-100 flex justify-between item-center">
+      <div title={title} className="block p-4 max-w-full bg-white rounded-lg border border-gray-200 shadow-sm flex justify-between item-center flex-col">
+        <div className="flex items-center mb-8">
+          <img src={props.poll.user.imageUrl ?? placeholder } className="w-11 rounded-full"/>
+          <div className="ml-5">
+            <p className="text-sm">{props.poll.user.name}</p>
+            <p className="text-xs text-gray-500"> {props.poll.startingTime.split('T')[0]}</p>
+          </div>
+        </div>
         <div className={"w-full"}>
           <div className={"flex justify-between"}>
             <h5 className="mb-2 font-medium text-gray-900 truncate">{props.poll.statement}</h5>

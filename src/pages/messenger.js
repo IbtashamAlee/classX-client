@@ -20,22 +20,7 @@ import {IconButton} from "@mui/material";
 import AddCommentIcon from '@mui/icons-material/AddComment';
 export default function Messenger() {
 
-  const [selectedUser,setSelectedUser] = useState({
-    "chatId": 1,
-    "userName": {
-      "id": 2,
-      "chatId": 1,
-      "participantId": 1,
-      "removedAt": null,
-      "user": {
-        "name": "admin",
-        "imageUrl": null
-      }
-    },
-    "lastMessage": "latest message"
-  }
-  )
-
+  const [selectedUser,setSelectedUser] = useState(null)
   const [conversations,setConversations] = useState([
     {
       "chatId": 1,
@@ -129,39 +114,55 @@ export default function Messenger() {
 
           </ConversationList>
         </Sidebar>
+        {
+          !selectedUser &&
+          <div className="flex justify-center items-center min-h-80vh w-full">
+            <h1 className="font-semibold">Select a Chat to continue Chatting</h1>
+          </div>
+        }
+        {selectedUser &&
+          <ChatContainer>
+            <ConversationHeader>
+              <ConversationHeader.Back/>
+              <Avatar
+                src={selectedUser.userName.user.imageUrl ?? `https://picsum.photos/${Math.floor(Math.random() * 200)}`}
+                name="Zoe"/>
+              <ConversationHeader.Content userName={selectedUser.userName.user.name}/>
 
-        <ChatContainer>
-          <ConversationHeader>
-            <ConversationHeader.Back />
-            <Avatar src={selectedUser.userName.user.imageUrl ?? `https://picsum.photos/${Math.floor(Math.random()*200)}`} name="Zoe" />
-            <ConversationHeader.Content userName={selectedUser.userName.user.name}/>
-
-          </ConversationHeader>
-          <MessageList style={{minHeight:'80vh',maxHeight:'80vh',display:'flex',flexDirection:'column',justifyContent:'flex-end'}}>
-            {
-              messages.map(m=>{
-                return (
-                  <Message style={{marginTop:"1rem"}} model={{
-                    message: m.message,
-                    direction: m.direction,
-                    position: m.position
-                  }}>
-                    <Message.Footer sentTime={m.time} />
-                  </Message>
-                )
-              })
-            }
-          </MessageList>
-          <MessageInput placeholder="Type message here" value={messageInputValue} onChange={val => setMessageInputValue(val)} onSend={()=>{
-            setMessages([...messages, {
-              message: `${messageInputValue}`,
-              direction: "outgoing",
-              position: "single",
-              time: "May 12,22 12:04"
-            }])
-            setMessageInputValue("")
-          }}/>
-        </ChatContainer>
+            </ConversationHeader>
+            <MessageList style={{
+              minHeight: '80vh',
+              maxHeight: '80vh',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'flex-end'
+            }}>
+              {
+                messages.map(m => {
+                  return (
+                    <Message style={{marginTop: "1rem"}} model={{
+                      message: m.message,
+                      direction: m.direction,
+                      position: m.position
+                    }}>
+                      <Message.Footer sentTime={m.time}/>
+                    </Message>
+                  )
+                })
+              }
+            </MessageList>
+            <MessageInput placeholder="Type message here" value={messageInputValue}
+                          onChange={val => setMessageInputValue(val)} onSend={() => {
+              setMessages([...messages, {
+                message: `${messageInputValue}`,
+                direction: "outgoing",
+                position: "single",
+                time: "May 12,22 12:04"
+              }])
+              setMessageInputValue("")
+            }}/>
+          </ChatContainer>
+        }
       </MainContainer>
     </div>
   )}
