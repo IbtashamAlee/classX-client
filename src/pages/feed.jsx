@@ -47,7 +47,7 @@ export function Feed () {
               <CreatePoll/>
             </div>
         }
-        <div className={"space-y-2"}>
+        <div className={"space-y-6"}>
           {feed && feed.map(f => (
               <div key={f.type + f.id}>
                 {f.type.toLowerCase() === "attendance" &&

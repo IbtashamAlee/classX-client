@@ -16,7 +16,7 @@ export function PostCard (props) {
   }
 
   return (
-      <div className="flex flex-col p-4 max-w-full bg-white rounded-lg border border-gray-200 shadow-sm flex justify-between item-center">
+      <div className="flex flex-col p-4 max-w-full bg-white rounded-lg border border-gray-200 shadow-sm flex justify-between item-center overflow-auto">
         <div className="flex items-center mb-8">
           <img src={props.post.user.imageUrl ?? placeholder } className="w-11 rounded-full"/>
           <div className="ml-5">
@@ -25,7 +25,7 @@ export function PostCard (props) {
           </div>
         </div>
         <div>
-          <h5 className="mb-2 font-medium text-gray-900 truncate">{props.post.body}</h5>
+          <h5 className="mb-2 font-sm text-gray-900 truncate">{props.post.body}</h5>
         </div>
         <div>
           {props.post.postAttachments?.length ?
