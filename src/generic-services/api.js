@@ -4,9 +4,11 @@ import axios from "axios";
 axios.defaults.headers.common.Authorization = `Bearer ${localStorage.getItem('access_token')}`;
 
 class Api {
-  execute(url,method, dataObject={}) {
+  execute(url,method, dataObject={}, isLoading = true) {
     return new Promise(function (resolve, reject) {
-      document.getElementById("loader").style.display = "flex";
+      if (isLoading) {
+        document.getElementById("loader").style.display = "flex";
+      }
       const authAxios = axios.create({
         headers: {
           Authorization: `Bearer ${localStorage.getItem('access_token')}`

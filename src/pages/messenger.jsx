@@ -29,7 +29,8 @@ export default function Messenger() {
   const [messageInputValue, setMessageInputValue] = useState("");
   const [files, setFiles] = useState([]);
 
-  let user = useSelector((state => state.user.user))
+  let user = useSelector((state => state.user.user));
+  let interval;
 
   function getChats() {
     Api.execute("/chat/conversations", "get").then((res) => {
@@ -42,7 +43,7 @@ export default function Messenger() {
 
   function getMessages() {
     if(selectedUser === null) return;
-    Api.execute("/chat/" + selectedUser.chatId, "get").then((res) => {
+    Api.execute("/chat/" + selectedUser.chatId, "get", {}, false).then((res) => {
       console.log(res);
       setMessages(res.data.chatmessage);
     }).catch(err => {
@@ -55,7 +56,7 @@ export default function Messenger() {
     Api.execute("/chat/" + selectedUser.chatId + "/message", "post", {
       message: messageInputValue,
       files: files
-    }).then((res) => {
+    }, false).then((res) => {
       console.log(res);
       getMessages();
     }).catch(err => {
@@ -63,8 +64,15 @@ export default function Messenger() {
     })
   }
 
+
+
   useEffect(() => {
-    getMessages();
+    interval = setInterval(function () {
+      getMessages();
+    }, 2000);
+    return () => {
+      clearInterval(interval);
+    }
   }, [selectedUser]);
 
   useEffect(() => {
