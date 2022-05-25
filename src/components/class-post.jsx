@@ -46,6 +46,8 @@ export default function ClassPost() {
       files: files
     }).then(res => {
       console.log(res);
+      setFiles([]);
+      setContent('');
       dispatch(getFeed(id,40, 1));
     }).catch(err => {
       console.log(err);
