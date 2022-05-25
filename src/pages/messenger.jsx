@@ -93,7 +93,7 @@ export default function Messenger() {
           </div>
           <ConversationList style={{minHeight:"80vh"}}>
             { conversations &&
-              conversations.map(c => {
+              conversations.filter(con=>con.userName !== undefined).map(c => {
                 return (
                   <Conversation key={c.chatId} name={c.userName.user.name} info={c.lastMessage} onClick={()=>{
                     setSelectedUser(c);
@@ -109,7 +109,7 @@ export default function Messenger() {
         {
           !selectedUser &&
           <div className="flex justify-center items-center min-h-80vh w-full">
-            <h1 className="font-semibold">Select a Chat to continue Chatting</h1>
+            {conversations.length<1 ? <h1 className="font-semibold">No chats to Display</h1> : <h1 className="font-semibold">Select a Chat to continue Chatting</h1>}
           </div>
         }
         {selectedUser &&
