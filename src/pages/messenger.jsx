@@ -33,7 +33,7 @@ export default function Messenger() {
   let interval;
 
   function getChats() {
-    Api.execute("/chat/conversations", "get").then((res) => {
+    Api.execute("/chat/conversations", "get", {}, false).then((res) => {
       console.log(res);
       setConversations(res.data);
     }).catch(err => {
@@ -68,16 +68,13 @@ export default function Messenger() {
 
   useEffect(() => {
     interval = setInterval(function () {
+      getChats();
       getMessages();
     }, 2000);
     return () => {
       clearInterval(interval);
     }
   }, [selectedUser]);
-
-  useEffect(() => {
-    getChats();
-  }, [])
 
   return (
     <div style={{minHeight:'100vh',display:'flex',flexDirection:'column',justifyContent:'flex-start'}}>
