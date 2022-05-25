@@ -76,6 +76,10 @@ export default function Messenger() {
     }
   }, [selectedUser]);
 
+  useEffect(() => {
+    getChats();
+  }, [])
+
   return (
     <div style={{minHeight:'100vh',display:'flex',flexDirection:'column',justifyContent:'flex-start'}}>
       <Header style={{flex:1}}/>
