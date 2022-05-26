@@ -11,12 +11,11 @@ import {
   ConversationList,
   Avatar,
   Conversation,
-  ConversationHeader,
-  MessageSeparator
+  ConversationHeader
 } from "@chatscope/chat-ui-kit-react";
 import placeholder from '../Sample_User_Icon.png'
 import {Header} from '../components/header'
-import {IconButton, TextField} from "@mui/material";
+import {IconButton} from "@mui/material";
 import AddCommentIcon from '@mui/icons-material/AddComment';
 import Api from "../generic-services/api";
 import {useSelector} from "react-redux";
@@ -24,7 +23,7 @@ export default function Messenger() {
 
   const [selectedUser,setSelectedUser] = useState(null)
   const [conversations,setConversations] = useState([])
-
+  const [query,setQuery] = useState('')
   const [messages,setMessages] = useState([])
   const [messageInputValue, setMessageInputValue] = useState("");
   const [files, setFiles] = useState([]);
@@ -33,8 +32,7 @@ export default function Messenger() {
   let interval;
 
   function getChats() {
-    Api.execute("/chat/conversations", "get", {}, false).then((res) => {
-      console.log(res);
+    Api.execute("/chat/conversations?search="+query, "get", {}, false).then((res) => {
       setConversations(res.data);
     }).catch(err => {
       console.log(err);
@@ -74,7 +72,7 @@ export default function Messenger() {
     return () => {
       clearInterval(interval);
     }
-  }, [selectedUser]);
+  }, [selectedUser,query]);
 
   useEffect(() => {
     getChats();
@@ -85,15 +83,11 @@ export default function Messenger() {
       <Header style={{flex:1}}/>
       <MainContainer responsive style={{flex:9,height:'80vh'}}>
         <Sidebar position="left" scrollable={false}>
-          <div className="flex justify-between items-center space-x-2 mx-2 mt-2 pb-4">
-            {/*<Search placeholder="Search..." />*/}
-            <TextField
-                placeholder={"Search..."}
-                fullWidth
-            />
-            <IconButton variant="contained"  className={"w-12 h-12"}>
-              <AddCommentIcon/>
-            </IconButton>
+          <div className="flex flex-row-reverse">
+          <IconButton variant="contained" style={{margin:"2px 10px 0 10px"}}>
+            <AddCommentIcon/>
+          </IconButton>
+          <Search placeholder="Search..." onChange={(e)=>setQuery(e)}/>
           </div>
           <ConversationList style={{minHeight:"80vh"}}>
             { conversations &&
@@ -134,18 +128,11 @@ export default function Messenger() {
               justifyContent: 'flex-end'
             }}>
               {
-                messages.map(m => {
+                messages.map((m,k) => {
                   return (
-                    <Message style={{marginTop: "1rem"}} model={{
+                    <Message key={k} style={{marginTop: "1rem"}} model={{
                       message: m.body,
                       direction: (user && user.id && m.senderId == user.id) ? 'outgoing':"incoming",
-                      //     () => {
-                      //   if (user && user.id && m.senderId == user.id) {
-                      //     return "outgoing"
-                      //   } else {
-                      //     return "incoming"
-                      //   }
-                      // },
                       position: m.position
                     }}>
                       <Message.Footer sentTime={m.time}/>
