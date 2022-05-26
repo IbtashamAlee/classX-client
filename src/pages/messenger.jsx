@@ -19,6 +19,7 @@ import {IconButton} from "@mui/material";
 import AddCommentIcon from '@mui/icons-material/AddComment';
 import Api from "../generic-services/api";
 import {useSelector} from "react-redux";
+import {CreateChat} from "../components/create-chat";
 export default function Messenger() {
 
   const [selectedUser,setSelectedUser] = useState(null)
@@ -83,10 +84,8 @@ export default function Messenger() {
       <Header style={{flex:1}}/>
       <MainContainer responsive style={{flex:9,height:'80vh'}}>
         <Sidebar position="left" scrollable={false}>
-          <div className="flex flex-row-reverse">
-          <IconButton variant="contained" style={{margin:"2px 10px 0 10px"}}>
-            <AddCommentIcon/>
-          </IconButton>
+          <div className="flex flex-row-reverse items-center">
+          <CreateChat/>
           <Search placeholder="Search..." onChange={(e)=>setQuery(e)}/>
           </div>
           <ConversationList style={{minHeight:"80vh"}}>
