@@ -21,6 +21,7 @@ export default function Sidebar(props) {
     {name: 'Feed', href: ``, icon: FeedIcon, current: true},
     // {name: 'Assessments', href: `assessments`, icon: QuizIcon, current: false},
     {name: 'Attendances', href: `attendances`, icon: PersonIcon, current: false},
+    {name: 'Polls', href: `polls`, icon: PollIcon, current: false},
     {name: 'Participants', href: `participants`, icon: GroupIcon, current: false},
     {name: 'Settings', href: `settings`, icon: SettingsIcon, current: false},
   ]

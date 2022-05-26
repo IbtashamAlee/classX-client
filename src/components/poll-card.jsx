@@ -32,7 +32,7 @@ export function PollCard(props) {
   return (
       <div title={title} className="block p-4 max-w-full bg-white rounded-lg border border-gray-200 shadow-sm flex justify-between item-center flex-col">
         <div className="flex items-center mb-8">
-          <img src={props.poll.user.imageUrl ?? placeholder } className="w-11 rounded-full"/>
+          <img src={props.poll.user.imageUrl ?? placeholder } className="w-11 h-11 rounded-full"/>
           <div className="ml-5">
             <p className="text-sm">{props.poll.user.name}</p>
             <p className="text-xs text-gray-500"> {props.poll.startingTime.split('T')[0]}</p>

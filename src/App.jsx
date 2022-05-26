@@ -30,6 +30,7 @@ import UserSettings from "./pages/user-settings";
 import LandingPage from "./pages/landing";
 import Messenger from "./pages/messenger";
 import {AttendanceDetails} from "./pages/attendance-details";
+import {PollsPage} from "./pages/polls-page";
 
 export default function App() {
   const dispatch = useDispatch();
@@ -72,6 +73,7 @@ export default function App() {
           <Route path="/class-details/:id" element={<AuthorizedRoute> <ClassDetails/> </AuthorizedRoute>}>
             <Route index element={<AuthorizedRoute> <Feed/> </AuthorizedRoute>}/>
             <Route path="attendances" element={<AuthorizedRoute> <Attendance/> </AuthorizedRoute>}/>
+            <Route path="polls" element={<AuthorizedRoute> <PollsPage/> </AuthorizedRoute>}/>
             <Route path="participants" element={<AuthorizedRoute> <Participants/> </AuthorizedRoute>}/>
             <Route path="settings" element={<AuthorizedRoute> <ClassSettings/> </AuthorizedRoute>}/>
             <Route path="attendance/:attendance_id" element={<AuthorizedRoute> <AttendanceDetails/> </AuthorizedRoute>}/>
