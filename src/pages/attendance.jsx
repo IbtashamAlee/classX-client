@@ -15,6 +15,8 @@ export default function Attendance() {
   const [record, setRecord] = useState(40);
   const [page, setPage] = useState(1);
 
+  let currentRole = useSelector((state => state.currentRole.role));
+
   useEffect(() => {
     dispatch(getAttendance(id,record, page));
   }, [dispatch]);
@@ -28,7 +30,9 @@ export default function Attendance() {
       <React.Fragment>
         <div className="text-gray-900 text-2xl font-medium py-4 flex justify-between">
           <h1>Attendance</h1>
-          <FormDialog/>
+          {currentRole && (currentRole == "Teacher" || currentRole == "DepartmentAdmin") &&
+              <FormDialog/>
+          }
         </div>
         <div className="bg-white shadow overflow-hidden sm:rounded-md">
           <ul className="divide-y divide-gray-200">
@@ -51,9 +55,11 @@ export default function Attendance() {
                           </div>
                         </div>
                       </div>
-                      <Link to={`/class-details/${id}/attendance/${position.id}`}>
-                        <Button variant={"contained"}>View details</Button>
-                      </Link>
+                      {currentRole && (currentRole == "Teacher" || currentRole == "DepartmentAdmin") &&
+                          <Link to={`/class-details/${id}/attendance/${position.id}`}>
+                            <Button variant={"contained"}>View details</Button>
+                          </Link>
+                      }
                     </div>
                   </span>
                 </li>

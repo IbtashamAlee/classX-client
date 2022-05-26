@@ -46,7 +46,9 @@ export function Participants(props) {
       <div>
         <div className="flex justify-between py-4">
           <div className="text-gray-900 text-2xl font-medium">Participants</div>
-          <AddParticipantsDialog/>
+          {currentRole && (currentRole == "Teacher" || currentRole == "DepartmentAdmin") &&
+              <AddParticipantsDialog/>
+          }
         </div>
         {department_admin && department_admin ?
             <ul className="divide-y divide-gray-200">
