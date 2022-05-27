@@ -19,7 +19,7 @@ function classNames(...classes) {
 export default function Sidebar(props) {
   const navigation = [
     {name: 'Feed', href: ``, icon: FeedIcon, current: true},
-    // {name: 'Assessments', href: `assessments`, icon: QuizIcon, current: false},
+    {name: 'Assessments', href: `assessments`, icon: QuizIcon, current: false},
     {name: 'Attendances', href: `attendances`, icon: PersonIcon, current: false},
     {name: 'Polls', href: `polls`, icon: PollIcon, current: false},
     {name: 'Participants', href: `participants`, icon: GroupIcon, current: false},
