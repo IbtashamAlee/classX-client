@@ -1,6 +1,8 @@
-import { useState } from 'react'
-import { Switch} from '@headlessui/react'
-import { TrashIcon } from '@heroicons/react/solid'
+import { useState } from 'react';
+import { Switch} from '@headlessui/react';
+import { TrashIcon } from '@heroicons/react/solid';
+import { ValidatorForm, TextValidator} from 'react-material-ui-form-validator'
+import {Button} from "@mui/material";
 
 
 const data = {
@@ -25,7 +27,7 @@ export default function ClassSettings() {
         <div className="max-w-screen-xl mx-auto pb-6 px-4 sm:px-6 lg:pb-16 lg:px-8">
           <div className="bg-white rounded-lg shadow overflow-hidden">
             <div className="divide-y divide-gray-200 lg:grid lg:grid-cols-9 lg:divide-y-0 lg:divide-x">
-              <form className="divide-y divide-gray-200 lg:col-span-9" action="#" method="POST">
+              <ValidatorForm className="divide-y divide-gray-200 lg:col-span-9" action="#" method="POST">
                 {/* Profile section */}
                 <div className="py-6 px-4 sm:p-6 lg:pb-8">
                   <div>
@@ -37,38 +39,26 @@ export default function ClassSettings() {
 
                   <div className="mt-6 flex flex-col lg:flex-row">
                     <div className="flex-grow space-y-6">
-                      <div>
-                        <label htmlFor="username" className="block text-sm font-medium text-gray-700">
-                          Class Name
-                        </label>
-                        <div className="mt-1 rounded-md shadow-sm flex">
-                          <input
+                      <div className={"space-y-4"}>
+                        <TextValidator
                             type="text"
                             name="classname"
                             id="classname"
                             autoComplete="classname"
-                            className="focus:ring-sky-500 focus:border-sky-500 flex-grow block w-full min-w-0 rounded-none rounded-r-md sm:text-sm border-gray-300"
+                            label={"Class Name"}
+                            className="w-full"
                             defaultValue={data.name}
-                          />
-                        </div>
-                      </div>
-
-                      <div>
-                        <label htmlFor="about" className="block text-sm font-medium text-gray-700">
-                          Description
-                        </label>
-                        <div className="mt-1">
-                          <textarea
+                        />
+                        <TextValidator
                             id="about"
                             name="about"
-                            rows={3}
-                            className="shadow-sm focus:ring-sky-500 focus:border-sky-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md"
+                            minRows={2}
+                            maxRows={4}
+                            multiline
+                            label={"Description"}
+                            className="w-full"
                             defaultValue={data.description}
-                          />
-                        </div>
-                        <p className="mt-2 text-sm text-gray-500">
-                          Brief description of class
-                        </p>
+                        />
                       </div>
                     </div>
 
@@ -125,118 +115,26 @@ export default function ClassSettings() {
                 </div>
 
                 {/* Privacy section */}
-                <div className="pt-6 divide-y divide-gray-200">
-                  <div className="px-4 sm:px-6">
-                    <div>
-                      <h2 className="text-lg leading-6 font-medium text-gray-900">SETTINGS</h2>
-                    </div>
-                    <ul role="list" className="mt-2 divide-y divide-gray-200">
-                      <Switch.Group as="li" className="py-4 flex items-center justify-between">
-                        <div className="flex flex-col">
-                          <Switch.Label as="p" className="text-sm font-medium text-gray-900" passive>
-                            Send Notifications to All Users
-                          </Switch.Label>
-                          <Switch.Description className="text-sm text-gray-500">
-                            Nulla amet tempus sit accumsan. Aliquet turpis sed sit lacinia.
-                          </Switch.Description>
-                        </div>
-                        <Switch
-                          checked={availableToHire}
-                          onChange={setAvailableToHire}
-                          className={classNames(
-                            availableToHire ? 'bg-teal-500' : 'bg-gray-200',
-                            'ml-4 relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500'
-                          )}
-                        >
-                          <span
-                            aria-hidden="true"
-                            className={classNames(
-                              availableToHire ? 'translate-x-5' : 'translate-x-0',
-                              'inline-block h-5 w-5 rounded-full bg-white shadow transform ring-0 transition ease-in-out duration-200'
-                            )}
-                          />
-                        </Switch>
-                      </Switch.Group>
-                      <Switch.Group as="li" className="py-4 flex items-center justify-between">
-                        <div className="flex flex-col">
-                          <Switch.Label as="p" className="text-sm font-medium text-gray-900" passive>
-                            Allow Adding participants
-                          </Switch.Label>
-                          <Switch.Description className="text-sm text-gray-500">
-                            Pharetra morbi dui mi mattis tellus sollicitudin cursus pharetra.
-                          </Switch.Description>
-                        </div>
-                        <Switch
-                          checked={privateAccount}
-                          onChange={setPrivateAccount}
-                          className={classNames(
-                            privateAccount ? 'bg-teal-500' : 'bg-gray-200',
-                            'ml-4 relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500'
-                          )}
-                        >
-                          <span
-                            aria-hidden="true"
-                            className={classNames(
-                              privateAccount ? 'translate-x-5' : 'translate-x-0',
-                              'inline-block h-5 w-5 rounded-full bg-white shadow transform ring-0 transition ease-in-out duration-200'
-                            )}
-                          />
-                        </Switch>
-                      </Switch.Group>
-                      <Switch.Group as="li" className="py-4 flex items-center justify-between">
-                        <div className="flex flex-col">
-                          <Switch.Label as="p" className="text-sm font-medium text-gray-900" passive>
-                            Allow commenting
-                          </Switch.Label>
-                          <Switch.Description className="text-sm text-gray-500">
-                            Integer amet, nunc hendrerit adipiscing nam. Elementum ame
-                          </Switch.Description>
-                        </div>
-                        <Switch
-                          checked={allowCommenting}
-                          onChange={setAllowCommenting}
-                          className={classNames(
-                            allowCommenting ? 'bg-teal-500' : 'bg-gray-200',
-                            'ml-4 relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500'
-                          )}
-                        >
-                          <span
-                            aria-hidden="true"
-                            className={classNames(
-                              allowCommenting ? 'translate-x-5' : 'translate-x-0',
-                              'inline-block h-5 w-5 rounded-full bg-white shadow transform ring-0 transition ease-in-out duration-200'
-                            )}
-                          />
-                        </Switch>
-                      </Switch.Group>
-                    </ul>
-                  </div>
+                <div className="pt-3 divide-y divide-gray-200">
 
-                  <div className="mt-4 py-4 px-4 flex justify-end sm:px-6">
-                    <button
-                      type="button"
-                      className="bg-white border border-gray-300 rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
+                  <div className="mt-2 py-4 px-4 flex justify-between sm:px-6 space-x-2">
+                    <Button
+                        variant={"outlined"}
+                        color={"error"}
                     >
-                      Cancel
-                    </button>
-                    <button
+                      <TrashIcon className="-ml-1 mr-3 h-5 w-5" aria-hidden="true" />
+                      <p>Delete Class</p>
+                    </Button>
+                    <Button
                       type="submit"
+                      variant={"contained"}
                       className="ml-5 bg-sky-700 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:bg-sky-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
                     >
                       Save
-                    </button>
-                  </div>
-                  <div className="flex justify-center items-center my-1 py-2">
-                    <button
-                      type="button"
-                      className="w-2/6 inline-flex items-center ml-20 mr-20 px-6 py-2 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-red-400 hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 flex justify-center items-center"
-                    >
-                      <TrashIcon className="-ml-1 mr-3 h-5 w-5" aria-hidden="true" />
-                      <p>Delete</p>
-                    </button>
+                    </Button>
                   </div>
                 </div>
-              </form>
+              </ValidatorForm>
             </div>
           </div>
         </div>
