@@ -14,6 +14,7 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import PropTypes from "prop-types";
+import { LoadingButton } from '@mui/lab';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -55,6 +56,7 @@ function a11yProps(index) {
 
 export function FilePicker(props) {
   const [open, setOpen] = React.useState(false);
+  const [loading, setLoading] = React.useState(false);
   const [files, setFiles] = useState([]);
   const [value, setValue] = React.useState(0);
 
@@ -69,22 +71,26 @@ export function FilePicker(props) {
   };
 
   const handleClose = () => {
+    if (props.close) props.close();
+    console.log("Hi")
+    setFiles([]);
+    setLoading(false);
     setOpen(false);
   };
 
   const handleSelectedFiles = (e) => {
     let names = [];
     for (let i = 0; i < inp.current.files.length; i++) {
-      console.log(inp.current.files[i].name);
       names.push(inp.current.files[i].name);
     }
     setFiles(names);
   }
 
   async function submit(){
+    setLoading(true);
     const data = new FormData();
     for (let i = 0; i < inp.current.files.length; i++) {
-      data.append('file', document.getElementById('file-upload').files[i]);
+      data.append('file', inp.current.files[i]);
     }
     try {
       const response = await axios({
@@ -94,6 +100,7 @@ export function FilePicker(props) {
         headers: { "Content-Type": "multipart/form-data" },
       });
       props.fileReturn(response.data);
+      handleClose();
     } catch(error) {
       console.log(error)
     }
@@ -108,7 +115,7 @@ export function FilePicker(props) {
           <PaperClipIcon className="h-5 w-5" aria-hidden="true" />
           <span className="sr-only">Attach a file</span>
         </IconButton>
-        <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title"
+        <Dialog open={props.open ? props.open : open} onClose={handleClose} aria-labelledby="form-dialog-title"
                 fullWidth
                 TransitionComponent={Transition}
         >
@@ -149,7 +156,7 @@ export function FilePicker(props) {
                             className="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
                         >
                           <span>Upload a files</span>
-                          <input id="file-upload" ref={inp} name="file-upload" type="file" className="sr-only" multiple
+                          <input id="file-upload" ref={inp} name="file-upload" type={props.type ? props.type : "file"} className="sr-only" multiple={props.multiple ? props.multiple : true}
                                  onChange={event => {
                                    setFiles([]);
                                    handleSelectedFiles(event)
@@ -178,7 +185,8 @@ export function FilePicker(props) {
               </TabPanel>
             </Box>
             <DialogActions>
-              <Button variant={"contained"} onClick={submit}> Upload</Button>
+              <LoadingButton loading={loading} variant={"contained"} onClick={submit}> Upload</LoadingButton>
+              <LoadingButton variant={"outlined"} onClick={handleClose}> Close </LoadingButton>
             </DialogActions>
           </DialogContent>
         </Dialog>
