@@ -29,7 +29,7 @@ export function MarkAttendanceCard (props) {
 
   return (
       <div
-          className="block p-4 max-w-full bg-white rounded-lg border border-gray-200 flex justify-between item-center flex-col">
+          className="block p-4 max-w-full bg-white rounded-lg border-2 border-gray-200 flex justify-between item-center flex-col">
         <div className="flex items-center mb-8">
           <img src={props.attendance.imageUrl ?? placeholder } className="w-11 rounded-full"/>
           <div className="ml-5">
