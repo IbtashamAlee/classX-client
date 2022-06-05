@@ -1,4 +1,4 @@
-import React, {useRef, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import IconButton from "@mui/material/IconButton";
@@ -15,6 +15,7 @@ import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import PropTypes from "prop-types";
 import { LoadingButton } from '@mui/lab';
+import Api from "../generic-services/api";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -59,6 +60,7 @@ export function FilePicker(props) {
   const [loading, setLoading] = React.useState(false);
   const [files, setFiles] = useState([]);
   const [value, setValue] = React.useState(0);
+  const [myFiles, setMyFiles] = useState([]);
 
   let inp = useRef(null);
 
@@ -86,6 +88,14 @@ export function FilePicker(props) {
     setFiles(names);
   }
 
+  function getMyFiles() {
+    Api.execute('/file', 'get', {}, false).then(res => {
+      setMyFiles(res.data);
+    }).catch(err => {
+      console.log(err);
+    })
+  }
+
   async function submit(){
     setLoading(true);
     const data = new FormData();
@@ -104,8 +114,12 @@ export function FilePicker(props) {
     } catch(error) {
       console.log(error)
     }
-
   }
+
+  useEffect(() => {
+    getMyFiles();
+  }, [])
+
   return (
       <div>
         <IconButton
