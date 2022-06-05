@@ -40,7 +40,7 @@ export function PollCard(props) {
   }, [props.poll])
 
   return (
-      <div title={title} className="block p-4 max-w-full bg-white rounded-lg border border-gray-200 shadow-sm flex justify-between item-center flex-col">
+      <div title={title} className="block p-4 max-w-full bg-white rounded-lg border-2 border-gray-200 shadow-sm flex justify-between item-center flex-col">
         <div className="flex items-center mb-8">
           <img src={props.poll.user.imageUrl ?? placeholder } className="w-11 h-11 rounded-full"/>
           <div className="ml-5">
@@ -75,10 +75,11 @@ export function PollCard(props) {
             ))}
           </div>
           {/*comment section*/}
+          <hr className="mt-2"/>
+          <h5 className="mt-2 mb-2 text-md text-gray-900">Comments</h5>
           {
             props.poll.pollComments?.length > 0 ?
               <div>
-                <h5 className="mt-2 text-md text-gray-900 truncate">Comments</h5>
                 {props.poll.pollComments.slice(0,initialComment??props.poll.pollComments.length).map(com => {
                   return (<div className="flex flex-row mt-2" key={com.id}>
                     <img src={com?.user?.imageUrl ?? placeholder} className="w-8 h-8 rounded-full"/>
@@ -105,21 +106,21 @@ export function PollCard(props) {
                   !initialComment &&
                   <Button style={{marginTop:'3px',textDecoration:'underline',backgroundColor:'transparent'}} size='small' onClick={()=>setInitialComments(2)}>show less</Button>
                 }
-                <div className="flex flex-row mt-2">
-                  <img src="https://picsum.photos/200" className="w-8 h-8 rounded-full"/>
-                  <div className="ml-2 shadow rounded-2xl bg-slate-50 px-2 w-full flex flex-row justify-between">
-                    <input type='text' placeholder="write your comment here" value={comment} onChange={(e)=>setComment(e.target.value)} className="text-sm h-10 w-full border-0 bg-transparent"/>
-                    <IconButton style={{padding:0}} onClick={()=>postComment(props.poll.id)} disabled={comment.length<1}>
-                      <SendIcon style={{width:'1.3rem'}} className="rotate-[-45deg]"/>
-                    </IconButton>
-                  </div>
-                </div>
               </div>
               :
               <div>
                 <></>
               </div>
           }
+          <div className="flex flex-row mt-2">
+            <img src="https://picsum.photos/200" className="w-8 h-8 rounded-full"/>
+            <div className="ml-2 shadow rounded-2xl bg-slate-50 px-2 w-full flex flex-row justify-between">
+              <input type='text' placeholder="write your comment here" value={comment} onChange={(e)=>setComment(e.target.value)} className="text-sm h-10 w-full border-0 bg-transparent"/>
+              <IconButton style={{padding:0}} onClick={()=>postComment(props.poll.id)} disabled={comment.length<1}>
+                <SendIcon style={{width:'1.3rem'}} className="rotate-[-45deg]"/>
+              </IconButton>
+            </div>
+          </div>
         </div>
       </div>
   )
