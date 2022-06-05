@@ -1,4 +1,4 @@
-import React, {Fragment} from 'react';
+import React, {Fragment, useState} from 'react';
 import {Dialog, Transition} from '@headlessui/react';
 import {
   XIcon,
@@ -17,14 +17,21 @@ function classNames(...classes) {
 }
 
 export default function Sidebar(props) {
-  const navigation = [
+  const [navigation, setNavigation] = useState([
     {name: 'Feed', href: ``, icon: FeedIcon, current: true},
     {name: 'Assessments', href: `assessments`, icon: QuizIcon, current: false},
     {name: 'Attendances', href: `attendances`, icon: PersonIcon, current: false},
     {name: 'Polls', href: `polls`, icon: PollIcon, current: false},
     {name: 'Participants', href: `participants`, icon: GroupIcon, current: false},
     {name: 'Settings', href: `settings`, icon: SettingsIcon, current: false},
-  ]
+  ])
+
+  const changeNavigation = (name) => {
+    navigation.forEach(n => {
+      n.current = n.name === name;
+    })
+    props.setSidebarOpen();
+  }
 
   return (
       <>
@@ -82,7 +89,7 @@ export default function Sidebar(props) {
                   <div className="mt-5 flex-1 h-0 overflow-y-auto">
                     <nav className="px-2 space-y-1">
                       {navigation.map((item) => (
-                          <Link to={item.href} key={item.name}>
+                          <Link to={item.href} key={item.name} onClick={() => {changeNavigation(item.name)}}>
                             <span
                                 className={classNames(
                                     item.current
@@ -128,6 +135,7 @@ export default function Sidebar(props) {
                       <Link
                           key={item.name}
                           to={item.href}
+                          onClick={() => {changeNavigation(item.name)}}
                       >
                         <span
                             className={classNames(
