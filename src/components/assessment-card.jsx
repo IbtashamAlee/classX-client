@@ -6,15 +6,42 @@ import placeholder from "../Sample_User_Icon.png";
 import IconButton from "@mui/material/IconButton";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import SendIcon from "@mui/icons-material/Send";
+import Api from "../generic-services/api";
+import {useSelector} from "react-redux";
 
 export function AssessmentCard(props) {
+  let user = useSelector((state => state.user.user))
+  const [Comments,setComments] = useState(props.assessment.assessmentComments)
   let [comment, setComment] = useState('')
   let [initialComment, setInitialComments] = useState(2)
 
+  const handleKeypress = e => {
+    if (e.charCode === 13) {
+      postComment();
+    }
+  };
 
-  function postComment(postId) {
-    console.log('postId', postId);
-    console.log('comment', comment)
+  function postComment() {
+    const postId = props.assessment.id
+    Api.execute(`/class/assessment/${postId}/comment`, 'post', {
+      comment
+    }).then(res => {
+      setComments([res.data.classAssessmentComment,...Comments])
+      setComment('')
+    }).catch(err => {
+      console.log(err);
+    })
+  }
+
+  function deleteComment(commentId){
+    Api.execute(`/class/assessment/comment/${commentId}`, 'put')
+      .then(res => {
+        console.log('deleted');
+        const temp = Comments.filter(c=> c.id !== commentId);
+        setComments(temp)
+      }).catch(err => {
+      console.log(err);
+    })
   }
 
   return (
@@ -47,9 +74,9 @@ export function AssessmentCard(props) {
       <hr className="mt-2"/>
       <h5 className="mt-2 text-md text-gray-900 truncate">Comments</h5>
       {
-        props.assessment.assessmentComments?.length > 0 ?
+        Comments?.length > 0 ?
           <div>
-            {props.assessment.assessmentComments.slice(0, initialComment ?? props.assessment.assessmentComments.length).map(com => {
+            {Comments.slice(0, initialComment ?? Comments.length).map(com => {
               return (<div className="flex flex-row mt-2" key={com.id}>
                 <img src={com?.user?.imageUrl ?? placeholder} className="w-8 h-8 rounded-full"/>
                 <div className="ml-2 shadow rounded-2xl bg-slate-50 px-2 py-1 w-full flex flex-row justify-between">
@@ -58,8 +85,8 @@ export function AssessmentCard(props) {
                     <p className="text-xs text-gray-600 truncate">{com.body}</p>
                   </div>
                   {/*check if comment is of current user give delete access (if com.user.id === current_user_id*/}
-                  {true &&
-                  <IconButton style={{padding: 0}}>
+                  {user.id === com.user.id &&
+                  <IconButton style={{padding: 0}} onClick={()=>deleteComment(com.id)}>
                     <RemoveCircleOutlineIcon className="text-red-500" style={{height: '1.3rem'}}/>
                   </IconButton>
                   }
@@ -68,7 +95,7 @@ export function AssessmentCard(props) {
             })
             }
             {
-              initialComment && props.assessment.assessmentComments.length > initialComment &&
+              initialComment && Comments.length > initialComment &&
               <Button style={{marginTop: '3px', textDecoration: 'underline', backgroundColor: 'transparent'}}
                       size='small' onClick={() => setInitialComments(null)}>show all comments</Button>
             }
@@ -87,7 +114,7 @@ export function AssessmentCard(props) {
       <div className="flex flex-row mt-2">
         <img src="https://picsum.photos/200" className="w-8 h-8 rounded-full"/>
         <div className="ml-2 shadow rounded-2xl bg-slate-50 px-2 w-full flex flex-row justify-between">
-          <input type='text' placeholder="write your comment here" value={comment}
+          <input type='text' onKeyPress={handleKeypress} placeholder="write your comment here" value={comment}
                  onChange={(e) => setComment(e.target.value)} className="text-sm h-10 w-full border-0 bg-transparent"/>
           <IconButton style={{padding: 0}} onClick={() => postComment(props.assessment.id)}
                       disabled={comment.length < 1}>

@@ -2,26 +2,56 @@ import React, {useEffect, useState} from 'react';
 import {CalendarIcon} from "@heroicons/react/solid";
 import {Button} from "@mui/material";
 import {getEndingDate} from "../functions/date-functions";
-import {useParams} from "react-router-dom";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {pollParticipation} from "../redux/actions/poll-actions";
 import placeholder from "../Sample_User_Icon.png";
 import IconButton from "@mui/material/IconButton";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import SendIcon from "@mui/icons-material/Send";
+import Api from "../generic-services/api";
 
 export function PollCard(props) {
+  let user = useSelector((state => state.user.user))
+  const [Comments,setComments] = useState(props.poll.pollComments)
   const [isPoolEnded, setIsPoolEnded] = useState(false);
   const [title, setTitle] = useState("Participate");
   let [comment,setComment] = useState('')
   let [initialComment,setInitialComments] = useState(2)
 
-  const {id} = useParams();
+
+  // const {id} = useParams();
   const dispatch = useDispatch();
 
-  function postComment(postId){
+  const handleKeypress = e => {
+    if (e.charCode === 13) {
+      postComment();
+    }
+  };
+
+  function postComment(){
+    const postId = props.poll.id
     console.log('postId',postId);
     console.log('comment',comment)
+    Api.execute(`/class/poll/${postId}/comment`, 'post', {
+      comment
+    }).then(res => {
+      console.log(res.data.pollComment);
+      setComments([res.data.pollComment,...Comments])
+      setComment('')
+    }).catch(err => {
+      console.log(err);
+    })
+  }
+
+  function deleteComment(commentId){
+    Api.execute(`/class/poll/comment/${commentId}`, 'put')
+      .then(res => {
+      console.log('deleted');
+      const temp = Comments.filter(c=> c.id !== commentId);
+      setComments(temp)
+    }).catch(err => {
+      console.log(err);
+    })
   }
 
   const submitParticipatePoll = (selectedOptionId) => {
@@ -42,7 +72,7 @@ export function PollCard(props) {
   return (
       <div title={title} className="block p-4 max-w-full bg-white rounded-lg border-2 border-gray-200 shadow-sm flex justify-between item-center flex-col">
         <div className="flex items-center mb-8">
-          <img src={props.poll.user.imageUrl ?? placeholder } className="w-11 h-11 rounded-full"/>
+          <img src={props.poll.user.imageUrl ?? placeholder } alt="profile" className="w-11 h-11 rounded-full"/>
           <div className="ml-5">
             <p className="text-sm">{props.poll.user.name}</p>
             <p className="text-xs text-gray-500"> {props.poll.startingTime.split('T')[0]}</p>
@@ -78,19 +108,19 @@ export function PollCard(props) {
           <hr className="mt-2"/>
           <h5 className="mt-2 mb-2 text-md text-gray-900">Comments</h5>
           {
-            props.poll.pollComments?.length > 0 ?
+            Comments?.length > 0 ?
               <div>
-                {props.poll.pollComments.slice(0,initialComment??props.poll.pollComments.length).map(com => {
+                {Comments.slice(0,initialComment??Comments.length).map(com => {
                   return (<div className="flex flex-row mt-2" key={com.id}>
-                    <img src={com?.user?.imageUrl ?? placeholder} className="w-8 h-8 rounded-full"/>
+                    <img src={com?.user?.imageUrl ?? placeholder} alt="profile" className="w-8 h-8 rounded-full"/>
                     <div className="ml-2 shadow rounded-2xl bg-slate-50 px-2 py-1 w-full flex flex-row justify-between">
                       <div className="flex flex-col">
                         <p className="text-xs text-gray-900 font-medium">{com.user.name}</p>
                         <p className="text-xs text-gray-600 truncate">{com.body}</p>
                       </div>
                       {/*check if comment is of current user give delete access (if com.user.id === current_user_id*/}
-                      {true &&
-                      <IconButton style={{padding: 0}}>
+                      {user.id === com.user.id &&
+                      <IconButton style={{padding: 0}} onClick={()=>deleteComment(com.id)}>
                         <RemoveCircleOutlineIcon className="text-red-500" style={{height: '1.3rem'}}/>
                       </IconButton>
                       }
@@ -99,7 +129,7 @@ export function PollCard(props) {
                 })
                 }
                 {
-                  initialComment && props.poll.pollComments.length > initialComment &&
+                  initialComment && Comments.length > initialComment &&
                   <Button style={{marginTop:'3px',textDecoration:'underline',backgroundColor:'transparent'}} size='small' onClick={()=>setInitialComments(null)}>show all comments</Button>
                 }
                 {
@@ -113,9 +143,9 @@ export function PollCard(props) {
               </div>
           }
           <div className="flex flex-row mt-2">
-            <img src="https://picsum.photos/200" className="w-8 h-8 rounded-full"/>
+            <img src="https://picsum.photos/200" alt="profile" className="w-8 h-8 rounded-full"/>
             <div className="ml-2 shadow rounded-2xl bg-slate-50 px-2 w-full flex flex-row justify-between">
-              <input type='text' placeholder="write your comment here" value={comment} onChange={(e)=>setComment(e.target.value)} className="text-sm h-10 w-full border-0 bg-transparent"/>
+              <input type='text' onKeyPress={handleKeypress} placeholder="write your comment here" value={comment} onChange={(e)=>setComment(e.target.value)} className="text-sm h-10 w-full border-0 bg-transparent"/>
               <IconButton style={{padding:0}} onClick={()=>postComment(props.poll.id)} disabled={comment.length<1}>
                 <SendIcon style={{width:'1.3rem'}} className="rotate-[-45deg]"/>
               </IconButton>
