@@ -12,6 +12,7 @@ function classNames(...classes) {
 export default function UserSettings() {
   const [data, setdata] = useState({})
 
+
   useEffect(() => {
     api.execute('/user/me')
       .then((res) => {
@@ -19,10 +20,9 @@ export default function UserSettings() {
         setdata(res.data)
       })
   }, [])
+  /* This example requires Tailwind CSS v2.0+ */
 
   const [availableToHire, setAvailableToHire] = useState(true)
-  const [privateAccount, setPrivateAccount] = useState(false)
-  const [allowCommenting, setAllowCommenting] = useState(true)
 
   return (
     <div>
@@ -152,7 +152,6 @@ export default function UserSettings() {
                   </div>
                 </div>
 
-                {/* Privacy section */}
                 <div className="pt-6 divide-y divide-gray-200">
                   <div className="px-4 sm:px-6">
                     <div>
@@ -188,6 +187,7 @@ export default function UserSettings() {
                     </ul>
                   </div>
 
+
                   <div className="mt-4 py-4 px-4 flex justify-end sm:px-6">
                     <button
                       type="button"
@@ -202,6 +202,7 @@ export default function UserSettings() {
                       Save
                     </button>
                   </div>
+
                   <div className="flex justify-center items-center my-1 py-2">
                     <button
                       type="button"
