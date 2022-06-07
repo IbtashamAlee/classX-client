@@ -174,13 +174,6 @@ export default function Example() {
                           OS
                         </th>
 
-                        <th
-                          scope="col"
-                          className="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900"
-                        >
-                          User Agent
-                        </th>
-
                       </tr>
                       </thead>
                       <tbody className="divide-y divide-gray-200 bg-white">
@@ -208,11 +201,7 @@ export default function Example() {
                           <td
                             className="whitespace-nowrap px-2 py-2 text-sm text-gray-500">{session.browser_family + ' / ' + session.browser_version}</td>
                           <td
-                            className="whitespace-nowrap px-2 py-2 text-sm text-gray-500">{session.os_family + ' / ' + session.os_version}</td>
-                          <td title={session.userAgent}
-                              className="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900 cursor-help">
-                            {session.userAgent.slice(0, 30) + '...'}
-                          </td>
+                            className="whitespace-nowrap px-2 py-2 text-sm text-gray-500">{session.os_family + ' ' + session.os_version}</td>
                         </tr>
                       ))}
                       </tbody>

@@ -1,5 +1,6 @@
 import { Fragment } from 'react'
 import { Popover, Transition } from '@headlessui/react'
+import { ChevronRightIcon, ExternalLinkIcon } from '@heroicons/react/solid'
 import {
   ChatAltIcon,
   DocumentReportIcon,
@@ -7,17 +8,145 @@ import {
   InboxIcon,
   PencilAltIcon,
   UsersIcon,
+  MenuIcon,
   XIcon,
 } from '@heroicons/react/outline'
 
-const navigation = {
-  main: [
+
+
+const navigation = [
+  { name: 'Product', href: '#' },
+  { name: 'Features', href: '#' },
+  { name: 'Marketplace', href: '#' },
+  { name: 'Company', href: '#' },
+]
+const features = [
+  {
+    name: 'Unlimited Classes',
+    description: 'Ac tincidunt sapien vehicula erat auctor pellentesque rhoncus. Et magna sit morbi lobortis.',
+    icon: InboxIcon,
+  },
+  {
+    name: 'Manage Class Participants',
+    description: 'Ac tincidunt sapien vehicula erat auctor pellentesque rhoncus. Et magna sit morbi lobortis.',
+    icon: UsersIcon,
+  },
+  {
+    name: 'Create Class Posts',
+    description: 'Ac tincidunt sapien vehicula erat auctor pellentesque rhoncus. Et magna sit morbi lobortis.',
+    icon: PencilAltIcon,
+  },
+  {
+    name: 'Interactive Polls',
+    description: 'Ac tincidunt sapien vehicula erat auctor pellentesque rhoncus. Et magna sit morbi lobortis.',
+    icon: DocumentReportIcon,
+  },
+  {
+    name: 'Commenting',
+    description: 'Ac tincidunt sapien vehicula erat auctor pellentesque rhoncus. Et magna sit morbi lobortis.',
+    icon: ChatAltIcon,
+  },
+  {
+    name: 'Connect with Users',
+    description: 'Ac tincidunt sapien vehicula erat auctor pellentesque rhoncus. Et magna sit morbi lobortis.',
+    icon: HeartIcon,
+  },
+  {
+    name: 'Automated Attendance',
+    description: 'Ac tincidunt sapien vehicula erat auctor pellentesque rhoncus. Et magna sit morbi lobortis.',
+    icon: ChatAltIcon,
+  },
+  {
+    name: 'Automated Assessments',
+    description: 'Ac tincidunt sapien vehicula erat auctor pellentesque rhoncus. Et magna sit morbi lobortis.',
+    icon: HeartIcon,
+  },
+
+]
+
+const blogPosts = [
+  {
+    id: 1,
+    title: 'Boost your conversion rate',
+    href: '#',
+    date: 'Mar 16, 2020',
+    datetime: '2020-03-16',
+    category: { name: 'Article', href: '#' },
+    imageUrl:
+      'https://images.unsplash.com/photo-1496128858413-b36217c2ce36?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1679&q=80',
+    preview:
+      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto accusantium praesentium eius, ut atque fuga culpa, similique sequi cum eos quis dolorum.',
+    author: {
+      name: 'Roel Aufderehar',
+      imageUrl:
+        'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+      href: '#',
+    },
+    readingLength: '6 min',
+  },
+  {
+    id: 2,
+    title: 'How to use search engine optimization to drive sales',
+    href: '#',
+    date: 'Mar 10, 2020',
+    datetime: '2020-03-10',
+    category: { name: 'Video', href: '#' },
+    imageUrl:
+      'https://images.unsplash.com/photo-1547586696-ea22b4d4235d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1679&q=80',
+    preview:
+      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit facilis asperiores porro quaerat doloribus, eveniet dolore. Adipisci tempora aut inventore optio animi., tempore temporibus quo laudantium.',
+    author: {
+      name: 'Brenna Goyette',
+      imageUrl:
+        'https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+      href: '#',
+    },
+    readingLength: '4 min',
+  },
+  {
+    id: 3,
+    title: 'Improve your customer experience',
+    href: '#',
+    date: 'Feb 12, 2020',
+    datetime: '2020-02-12',
+    category: { name: 'Case Study', href: '#' },
+    imageUrl:
+      'https://images.unsplash.com/photo-1492724441997-5dc865305da7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1679&q=80',
+    preview:
+      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint harum rerum voluptatem quo recusandae magni placeat saepe molestiae, sed excepturi cumque corporis perferendis hic.',
+    author: {
+      name: 'Daniela Metz',
+      imageUrl:
+        'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+      href: '#',
+    },
+    readingLength: '11 min',
+  },
+]
+const footerNavigation = {
+  solutions: [
+    { name: 'Marketing', href: '#' },
+    { name: 'Analytics', href: '#' },
+    { name: 'Commerce', href: '#' },
+    { name: 'Insights', href: '#' },
+  ],
+  support: [
+    { name: 'Pricing', href: '#' },
+    { name: 'Documentation', href: '#' },
+    { name: 'Guides', href: '#' },
+    { name: 'API Status', href: '#' },
+  ],
+  company: [
     { name: 'About', href: '#' },
     { name: 'Blog', href: '#' },
     { name: 'Jobs', href: '#' },
     { name: 'Press', href: '#' },
-    { name: 'Accessibility', href: '#' },
     { name: 'Partners', href: '#' },
+  ],
+  legal: [
+    { name: 'Claim', href: '#' },
+    { name: 'Privacy', href: '#' },
+    { name: 'Terms', href: '#' },
   ],
   social: [
     {
@@ -84,257 +213,284 @@ const navigation = {
   ],
 }
 
-const features = [
-  {
-    name: 'Unlimited Classes',
-    description: 'Ac tincidunt sapien vehicula erat auctor pellentesque rhoncus. Et magna sit morbi lobortis.',
-    icon: InboxIcon,
-  },
-  {
-    name: 'Manage Class Participants',
-    description: 'Ac tincidunt sapien vehicula erat auctor pellentesque rhoncus. Et magna sit morbi lobortis.',
-    icon: UsersIcon,
-  },
-  {
-    name: 'Create Class Posts',
-    description: 'Ac tincidunt sapien vehicula erat auctor pellentesque rhoncus. Et magna sit morbi lobortis.',
-    icon: PencilAltIcon,
-  },
-  {
-    name: 'Interactive Polls',
-    description: 'Ac tincidunt sapien vehicula erat auctor pellentesque rhoncus. Et magna sit morbi lobortis.',
-    icon: DocumentReportIcon,
-  },
-  {
-    name: 'Commenting',
-    description: 'Ac tincidunt sapien vehicula erat auctor pellentesque rhoncus. Et magna sit morbi lobortis.',
-    icon: ChatAltIcon,
-  },
-  {
-    name: 'Connect with Users',
-    description: 'Ac tincidunt sapien vehicula erat auctor pellentesque rhoncus. Et magna sit morbi lobortis.',
-    icon: HeartIcon,
-  },
-  {
-    name: 'Automated Attendance',
-    description: 'Ac tincidunt sapien vehicula erat auctor pellentesque rhoncus. Et magna sit morbi lobortis.',
-    icon: ChatAltIcon,
-  },
-  {
-    name: 'Automated Assessments',
-    description: 'Ac tincidunt sapien vehicula erat auctor pellentesque rhoncus. Et magna sit morbi lobortis.',
-    icon: HeartIcon,
-  },
-
-]
-
-function classNames(...classes) {
-  return classes.filter(Boolean).join(' ')
-}
-
 export default function LandingPage() {
   return (
-    <div className="flex justify-center">
-    <div className="bg-white max-w-screen-2xl">
-      <header>
-        <Popover className="relative bg-white">
-          <div className="flex justify-between items-center max-w-full mx-auto px-4 py-6 sm:px-6 md:justify-start md:space-x-10 lg:px-8">
-            <div className="flex justify-start lg:w-0 lg:flex-1">
-              <a href="#">
-                <span className="sr-only">ClassX</span>
-                <img
-                  className="h-24 w-auto sm:h-16"
-                  src="./logo.svg"
-                  alt=""
-                />
-              </a>
-            </div>
-            <div className="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
-              <a href="/signin" className="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900">
-                Sign in
-              </a>
-              <a
-                href="/signup"
-                className="ml-8 whitespace-nowrap inline-flex items-center justify-center bg-gradient-to-r from-purple-600 to-indigo-600 bg-origin-border px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white hover:from-purple-700 hover:to-indigo-700"
-              >
-                Sign up
-              </a>
-            </div>
-          </div>
-
-          <Transition
-            as={Fragment}
-            enter="duration-200 ease-out"
-            enterFrom="opacity-0 scale-95"
-            enterTo="opacity-100 scale-100"
-            leave="duration-100 ease-in"
-            leaveFrom="opacity-100 scale-100"
-            leaveTo="opacity-0 scale-95"
-          >
-            <Popover.Panel
-              focus
-              className="absolute z-30 top-0 inset-x-0 p-2 transition transform origin-top-right md:hidden"
+    <div className="bg-white">
+      <div className="relative overflow-hidden">
+        <Popover as="header" className="relative">
+          <div className="bg-gray-900 pt-6">
+            <nav
+              className="relative max-w-7xl mx-auto flex items-center justify-between px-4 sm:px-6"
+              aria-label="Global"
             >
-              <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 bg-white divide-y-2 divide-gray-50">
-                <div className="pt-5 pb-6 px-5">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <img
-                        className="h-8 w-auto"
-                        src="https://tailwindui.com/img/logos/workflow-mark-purple-600-to-indigo-600.svg"
-                        alt="Workflow"
-                      />
-                    </div>
-                    <div className="-mr-2">
-                      <Popover.Button className="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
-                        <span className="sr-only">Close menu</span>
-                        <XIcon className="h-6 w-6" aria-hidden="true" />
-                      </Popover.Button>
-                    </div>
-                  </div>
 
-                </div>
-                <div className="py-6 px-5">
-                  <div className="grid grid-cols-2 gap-4">
-                    <a href="#" className="text-base font-medium text-gray-900 hover:text-gray-700">
-                      Pricing
-                    </a>
-                    <a href="#" className="text-base font-medium text-gray-900 hover:text-gray-700">
-                      Partners
-                    </a>
-                    <a href="#" className="text-base font-medium text-gray-900 hover:text-gray-700">
-                      Company
-                    </a>
-                  </div>
-                  <div className="mt-6">
-                    <a
-                      href="/signup"
-                      className="w-full flex items-center justify-center bg-gradient-to-r from-purple-600 to-indigo-600 bg-origin-border px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white hover:from-purple-700 hover:to-indigo-700"
-                    >
-                      Sign up
-                    </a>
-                    <p className="mt-6 text-center text-base font-medium text-gray-500">
-                      Existing customer?
-                      <a href="/signin" className="text-gray-900">
-                        Sign in
-                      </a>
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </Popover.Panel>
-          </Transition>
-        </Popover>
-      </header>
-
-      <main>
-        {/* Hero section */}
-        <div className="relative">
-          <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gray-100" />
-          <div className="max-w-full mx-auto">
-            <div className="relative shadow-xl  sm:overflow-hidden rounded-t-md">
-              <div className="absolute inset-0">
-                <img
-                  className="h-full w-full object-cover"
-                  src="https://thumbs.dreamstime.com/b/vector-illustration-classroom-school-empty-interior-class-board-desks-children-flat-cartoon-style-127196328.jpg"
-                  alt="classroom"
-                />
-                <div className="absolute inset-0 bg-gradient-to-r from-purple-700 to-indigo-600 mix-blend-multiply" />
-              </div>
-              <div className="relative py-16 sm:py-24 lg:py-32">
-                <h1 className="text-center text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl">
-                  <span className="block text-white">Take control of your</span>
-                  <span className="block text-indigo-200">Classes</span>
-                </h1>
-                <p className="mt-6 max-w-lg mx-auto text-center text-xl text-indigo-200 sm:max-w-3xl">
-                  Manage You online classes efficiently with classX
-                </p>
-                <div className="mt-10 max-w-[50%] mx-auto sm:max-w-none sm:flex sm:justify-center">
-                  <div className="space-y-4 sm:space-y-0 sm:mx-auto sm:inline-grid sm:grid-cols-1 sm:gap-5">
-                    <a
-                      href="/signin"
-                      className="flex items-center justify-center px-4 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-indigo-700 bg-white hover:bg-indigo-50 sm:px-8"
-                    >
-                      Get started
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Logo Cloud */}
-
-        {/* Gradient Feature Section */}
-        <div className=" rounded-b-md bg-gradient-to-r from-purple-800 to-indigo-700">
-          <div className="max-w-4xl mx-auto px-4 py-16 sm:px-6 sm:pt-20 sm:pb-24 lg:max-w-full lg:pt-24 lg:px-8">
-            <h2 className="text-3xl font-extrabold text-white tracking-tight">A Platform built exclusively for you</h2>
-            <p className="mt-4 max-w-3xl text-lg text-purple-200">
-              Manage yor classes on the go
-            </p>
-            <div className="mt-12 grid grid-cols-1 gap-x-6 gap-y-12 sm:grid-cols-2 lg:mt-16 lg:grid-cols-4 lg:gap-x-8 lg:gap-y-16">
-              {features.map((feature) => (
-                <div key={feature.name}>
-                  <div>
-                    <span className="flex items-center justify-center h-12 w-12 rounded-md bg-white bg-opacity-10">
-                      <feature.icon className="h-6 w-6 text-white" aria-hidden="true" />
-                    </span>
-                  </div>
-                  <div className="mt-6">
-                    <h3 className="text-lg font-medium text-white">{feature.name}</h3>
-                    <p className="mt-2 text-base text-purple-200">{feature.description}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* CTA Section */}
-        <div className="bg-white">
-          <div className="mt-10 max-w-4xl mx-auto px-4 sm:px-6 sm:py-24 lg:max-w-full lg:px-8 lg:flex lg:items-center lg:justify-between">
-            <h2 className="text-4xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">
-              <span className="block">Ready to get started?</span>
-              <span className="-mb-1 pb-1 block bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent">
-                Create an account.
-              </span>
-            </h2>
-            <div className="max-w-[50%] sm:max-w-none mt-6 space-y-4 sm:space-y-0 sm:flex sm:space-x-5">
-              <a
-                href="/signup"
-                className=" mt-4 flex items-center justify-center px-4 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-indigo-800 bg-indigo-50 hover:bg-indigo-100"
-              >
-                Get started
-              </a>
-            </div>
-          </div>
-        </div>
-      </main>
-
-      <footer className="bg-white">
-        <div className="max-w-7xl mx-auto py-12 px-4 overflow-hidden sm:px-6 lg:px-8">
-          <nav className="-mx-5 -my-2 flex flex-wrap justify-center" aria-label="Footer">
-            {navigation.main.map((item) => (
-              <div key={item.name} className="px-5 py-2">
-                <a href={item.href} className="text-base text-gray-500 hover:text-gray-900">
-                  {item.name}
+              <div className="w-full hidden md:flex md:items-center justify-end md:space-x-6">
+                <a href="/signin" className="text-base font-medium text-white hover:text-gray-300">
+                  Log in
+                </a>
+                <a
+                  href="/signup"
+                  className="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-white bg-gray-600 hover:bg-gray-700"
+                >
+                  Signup
                 </a>
               </div>
-            ))}
-          </nav>
-          <div className="mt-8 flex justify-center space-x-6">
-            {navigation.social.map((item) => (
-              <a key={item.name} href={item.href} className="text-gray-400 hover:text-gray-500">
-                <span className="sr-only">{item.name}</span>
-                <item.icon className="h-6 w-6" aria-hidden="true" />
-              </a>
-            ))}
+            </nav>
           </div>
-          <p className="mt-8 text-center text-base text-gray-400">&copy; {new Date().getFullYear()} ClassX, Inc. All rights reserved.</p>
-        </div>
-      </footer>
-    </div>
+
+        </Popover>
+        <main>
+          <div className="pt-10 bg-gray-900 sm:pt-16 lg:pt-8 lg:pb-14 lg:overflow-hidden min-h-full">
+            <div className="mx-auto max-w-7xl lg:px-8">
+              <div className="lg:grid lg:grid-cols-2 lg:gap-8">
+                <div className="mx-auto max-w-md px-4 sm:max-w-2xl sm:px-6 sm:text-center lg:px-0 lg:text-left lg:flex lg:items-center lg:flex-col">
+                  <div className="lg:py-24">
+                    <h1 className="mt-4 text-4xl tracking-tight font-extrabold text-white sm:mt-5 sm:text-6xl lg:mt-6 xl:text-6xl">
+                      <span className="block">A better way to</span>
+                      <span className="pb-3 block bg-clip-text text-transparent bg-gradient-to-r from-teal-200 to-cyan-400 sm:pb-5">
+                        Manage your Classes
+                      </span>
+                    </h1>
+                    <p className="text-base text-gray-300 sm:text-xl lg:text-lg xl:text-xl">
+                      Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui Lorem cupidatat commodo. Elit
+                      sunt amet fugiat veniam occaecat fugiat.
+                    </p>
+
+                  </div>
+                  <div className="rounded-md shadow mt-12">
+                    <a
+                      href="/signin"
+                      className="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-gray-900 bg-white hover:bg-gray-50"
+                    >
+                      Get Started
+                      <ExternalLinkIcon className="-mr-1 ml-3 h-5 w-5 text-gray-400" aria-hidden="true" />
+                    </a>
+                  </div>
+                </div>
+                <div className="mt-12 -mb-16 sm:-mb-48 lg:m-0 lg:relative">
+                  <div className="mx-auto max-w-md px-4 sm:max-w-2xl sm:px-6 lg:max-w-none lg:px-0">
+                    {/* Illustration taken from Lucid Illustrations: https://lucid.pixsellz.io/ */}
+                    <img
+                      className="w-full lg:absolute lg:inset-y-0 lg:left-0 lg:h-full lg:w-auto lg:max-w-none"
+                      src="https://tailwindui.com/img/component-images/cloud-illustration-teal-cyan.svg"
+                      alt=""
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Feature section with grid */}
+          <div className="relative bg-white py-16 sm:py-24 lg:py-32">
+            <div className="mx-auto max-w-md px-4 text-center sm:max-w-3xl sm:px-6 lg:px-8 lg:max-w-7xl">
+              <h2 className="text-base font-semibold tracking-wider text-cyan-600 uppercase">Manage Efficiently</h2>
+              <p className="mt-2 text-3xl font-extrabold text-gray-900 tracking-tight sm:text-4xl">
+                Everything you need to manage your class
+              </p>
+              <div className="mt-12">
+                <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+                  {features.map((feature) => (
+                    <div key={feature.name} className="pt-6">
+                      <div className="flow-root bg-gray-50 rounded-lg px-6 pb-8">
+                        <div className="-mt-6">
+                          <div>
+                            <span className="inline-flex items-center justify-center p-3 bg-gradient-to-r from-teal-500 to-cyan-600 rounded-md shadow-lg">
+                              <feature.icon className="h-6 w-6 text-white" aria-hidden="true" />
+                            </span>
+                          </div>
+                          <h3 className="mt-8 text-lg font-medium text-gray-900 tracking-tight">{feature.name}</h3>
+                          <p className="mt-5 text-base text-gray-500">{feature.description}</p>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Testimonial section */}
+          <div className="pb-16 bg-gradient-to-r from-teal-500 to-cyan-600 lg:pb-0 lg:z-10 lg:relative">
+            <div className="lg:mx-auto lg:max-w-7xl lg:px-8 lg:grid lg:grid-cols-3 lg:gap-8">
+              <div className="relative lg:-my-8">
+                <div aria-hidden="true" className="absolute inset-x-0 top-0 h-1/2 bg-white lg:hidden" />
+                <div className="mx-auto max-w-md px-4 sm:max-w-3xl sm:px-6 lg:p-0 lg:h-full">
+                  <div className="aspect-w-10 aspect-h-6 rounded-xl shadow-xl overflow-hidden sm:aspect-w-16 sm:aspect-h-7 lg:aspect-none lg:h-full">
+                    <img
+                      className="object-cover lg:h-full lg:w-full"
+                      src="https://images.unsplash.com/photo-1520333789090-1afc82db536a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2102&q=80"
+                      alt=""
+                    />
+                  </div>
+                </div>
+              </div>
+              <div className="mt-12 lg:m-0 lg:col-span-2 lg:pl-8">
+                <div className="mx-auto max-w-md px-4 sm:max-w-2xl sm:px-6 lg:px-0 lg:py-20 lg:max-w-none">
+                  <blockquote>
+                    <div>
+                      <svg
+                        className="h-12 w-12 text-white opacity-25"
+                        fill="currentColor"
+                        viewBox="0 0 32 32"
+                        aria-hidden="true"
+                      >
+                        <path d="M9.352 4C4.456 7.456 1 13.12 1 19.36c0 5.088 3.072 8.064 6.624 8.064 3.36 0 5.856-2.688 5.856-5.856 0-3.168-2.208-5.472-5.088-5.472-.576 0-1.344.096-1.536.192.48-3.264 3.552-7.104 6.624-9.024L9.352 4zm16.512 0c-4.8 3.456-8.256 9.12-8.256 15.36 0 5.088 3.072 8.064 6.624 8.064 3.264 0 5.856-2.688 5.856-5.856 0-3.168-2.304-5.472-5.184-5.472-.576 0-1.248.096-1.44.192.48-3.264 3.456-7.104 6.528-9.024L25.864 4z" />
+                      </svg>
+                      <p className="mt-6 text-2xl font-medium text-white">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed urna nulla vitae laoreet augue.
+                        Amet feugiat est integer dolor auctor adipiscing nunc urna, sit.
+                      </p>
+                    </div>
+                    <footer className="mt-6">
+                      <p className="text-base font-medium text-white">Judith Black</p>
+                      <p className="text-base font-medium text-cyan-100">CEO at PureInsights</p>
+                    </footer>
+                  </blockquote>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Blog section */}
+          <div className="relative bg-gray-50 py-16 sm:py-24 lg:py-32">
+            <div className="relative">
+              <div className="text-center mx-auto max-w-md px-4 sm:max-w-3xl sm:px-6 lg:px-8 lg:max-w-7xl">
+                <p className="mt-2 text-3xl font-extrabold text-gray-900 tracking-tight sm:text-4xl">
+                  Why ClassX ?
+                </p>
+                <p className="mt-5 mx-auto max-w-prose text-xl text-gray-500">
+                  Phasellus lorem quam molestie id quisque diam aenean nulla in. Accumsan in quis quis nunc, ullamcorper
+                  malesuada. Eleifend condimentum id viverra nulla.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* CTA Section */}
+          <div className="relative bg-gray-900">
+            <div className="relative h-56 bg-indigo-600 sm:h-72 md:absolute md:left-0 md:h-full md:w-1/2">
+              <img
+                className="w-full h-full object-cover"
+                src="https://images.unsplash.com/photo-1525130413817-d45c1d127c42?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1920&q=60&sat=-100"
+                alt=""
+              />
+              <div
+                aria-hidden="true"
+                className="absolute inset-0 bg-gradient-to-r from-teal-500 to-cyan-600 mix-blend-multiply"
+              />
+            </div>
+            <div className="relative mx-auto max-w-md px-4 py-12 sm:max-w-7xl sm:px-6 sm:py-20 md:py-28 lg:px-8 lg:py-32">
+              <div className="md:ml-auto md:w-1/2 md:pl-10">
+                <h2 className="text-base font-semibold uppercase tracking-wider text-gray-300">
+                  Award winning support
+                </h2>
+                <p className="mt-2 text-white text-3xl font-extrabold tracking-tight sm:text-4xl">We’re here to help</p>
+                <p className="mt-3 text-lg text-gray-300">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Et, egestas tempus tellus etiam sed. Quam a
+                  scelerisque amet ullamcorper eu enim et fermentum, augue. Aliquet amet volutpat quisque ut interdum
+                  tincidunt duis.
+                </p>
+                <div className="mt-8">
+                  <div className="inline-flex rounded-md shadow">
+                    <a
+                      href="/signin"
+                      className="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-gray-900 bg-white hover:bg-gray-50"
+                    >
+                      Get Started
+                      <ExternalLinkIcon className="-mr-1 ml-3 h-5 w-5 text-gray-400" aria-hidden="true" />
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </main>
+        <footer className="bg-gray-50" aria-labelledby="footer-heading">
+          <h2 id="footer-heading" className="sr-only">
+            Footer
+          </h2>
+          <div className="max-w-md mx-auto pt-12 px-4 sm:max-w-7xl sm:px-6 lg:pt-16 lg:px-8">
+            <div className="xl:grid xl:grid-cols-3 xl:gap-8">
+              <div className="space-y-8 xl:col-span-1">
+                <img
+                  className="h-10"
+                  src="https://tailwindui.com/img/logos/workflow-mark-gray-300.svg"
+                  alt="Company name"
+                />
+                <p className="text-gray-500 text-base">
+                  Making the world a better place through constructing elegant hierarchies.
+                </p>
+                <div className="flex space-x-6">
+                  {footerNavigation.social.map((item) => (
+                    <a key={item.name} href={item.href} className="text-gray-400 hover:text-gray-500">
+                      <span className="sr-only">{item.name}</span>
+                      <item.icon className="h-6 w-6" aria-hidden="true" />
+                    </a>
+                  ))}
+                </div>
+              </div>
+              <div className="mt-12 grid grid-cols-2 gap-8 xl:mt-0 xl:col-span-2">
+                <div className="md:grid md:grid-cols-2 md:gap-8">
+                  <div>
+                    <h3 className="text-sm font-semibold text-gray-400 tracking-wider uppercase">Solutions</h3>
+                    <ul role="list" className="mt-4 space-y-4">
+                      {footerNavigation.solutions.map((item) => (
+                        <li key={item.name}>
+                          <a href={item.href} className="text-base text-gray-500 hover:text-gray-900">
+                            {item.name}
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div className="mt-12 md:mt-0">
+                    <h3 className="text-sm font-semibold text-gray-400 tracking-wider uppercase">Support</h3>
+                    <ul role="list" className="mt-4 space-y-4">
+                      {footerNavigation.support.map((item) => (
+                        <li key={item.name}>
+                          <a href={item.href} className="text-base text-gray-500 hover:text-gray-900">
+                            {item.name}
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+                <div className="md:grid md:grid-cols-2 md:gap-8">
+                  <div>
+                    <h3 className="text-sm font-semibold text-gray-400 tracking-wider uppercase">Company</h3>
+                    <ul role="list" className="mt-4 space-y-4">
+                      {footerNavigation.company.map((item) => (
+                        <li key={item.name}>
+                          <a href={item.href} className="text-base text-gray-500 hover:text-gray-900">
+                            {item.name}
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div className="mt-12 md:mt-0">
+                    <h3 className="text-sm font-semibold text-gray-400 tracking-wider uppercase">Legal</h3>
+                    <ul role="list" className="mt-4 space-y-4">
+                      {footerNavigation.legal.map((item) => (
+                        <li key={item.name}>
+                          <a href={item.href} className="text-base text-gray-500 hover:text-gray-900">
+                            {item.name}
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="mt-12 border-t border-gray-200 py-8">
+              <p className="text-base text-gray-400 xl:text-center">&copy; 2020 Workflow, Inc. All rights reserved.</p>
+            </div>
+          </div>
+        </footer>
+      </div>
     </div>
   )
 }
