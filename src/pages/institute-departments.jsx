@@ -42,7 +42,7 @@ export function InstituteDepartments() {
                       data.departments.map(item => (
                         <Card classId={item.id} className="mx-auto" key={item.id}
                               pathname ={'/department/'+item.id+'/settings'}
-                              image={item.imageUrl ?? "./class.png"}
+                              image={item.imageUrl ?? "./class.jpg"}
                               classname={item.name || item.class}
                               classsection={item.section} classdetails={item?.institute?.name}
                         />
