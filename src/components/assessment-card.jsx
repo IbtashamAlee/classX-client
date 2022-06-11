@@ -48,7 +48,7 @@ export function AssessmentCard(props) {
     <div
       className="block p-4 max-w-full bg-white rounded-lg border-2 border-gray-200 shadow-sm flex flex-col justify-between item-center">
       <div className="flex items-center mb-8">
-        <img src={props.assessment.user.imageUrl ?? placeholder} className="w-11 rounded-full"/>
+        <img src={props.assessment.user.imageUrl ?? placeholder} className="w-10 h-10 rounded-full"/>
         <div className="ml-5">
           <p className="text-sm">{props.assessment.user.name}</p>
           <p className="text-xs text-gray-500"> {props.assessment.startingTime.split('T')[0]}</p>

@@ -141,7 +141,7 @@ export function FilePicker(props) {
             type="button"
             onClick={handleClickOpen}
         >
-          <PaperClipIcon className="h-5 w-5" aria-hidden="true" />
+          <PaperClipIcon className="h-5 w-5" aria-hidden="true" style={{transform:'rotate(45deg)'}}/>
           <span className="sr-only">Attach a file</span>
         </IconButton>
         <Dialog open={props.open ? props.open : open} onClose={handleClose} aria-labelledby="form-dialog-title"

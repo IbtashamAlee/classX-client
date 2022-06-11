@@ -126,7 +126,7 @@ export function Dashboard() {
                                   <Card classId={item.id} className="mx-auto" key={item.id}
                                         pathname = {'/institute/' + item.id}
                                         state = {item}
-                                        image={item.imageUrl ?? "./class.png"}
+                                        image={item.imageUrl ?? "./class.jpg"}
                                         classname={item.name || item.class}
                                   />
                               ))
@@ -141,7 +141,7 @@ export function Dashboard() {
                         classes.map((item) => (
                           <Card classId={item.id} className="mx-auto" key={item.id}
                                 pathname ={'/department/' + item.id}
-                                image={item.imageUrl ?? "./class.png"}
+                                image={item.imageUrl ?? "./class.jpg"}
                                 classname={item.name || item.class}
                                 classsection={item.section} classdetails={item?.institute?.name}
                           />
@@ -159,7 +159,7 @@ export function Dashboard() {
                       {classes ?
                         classes.filter(c=>c.role==='Teacher').map((item) => (
                           <Card classId={item.id} className="mx-auto" key={item.id}
-                                image={item.imageurl ? item.imageurl : "./class.png"}
+                                image={item.imageurl ? item.imageurl : "./class.jpg"}
                                 classname={item.name || item.class}
                                 classsection={item.section}
                                 role={item.role}
@@ -176,7 +176,7 @@ export function Dashboard() {
                         {classes ?
                           classes.filter(c=>c.role==='Student').map((item) => (
                             <Card classId={item.id} className="mx-auto" key={item.id}
-                                  image={item.imageurl ? item.imageurl : "./class.png"}
+                                  image={item.imageurl ? item.imageurl : "./class.jpg"}
                                   classname={item.name || item.class}
                                   classsection={item.section}
                                   role={item.role}

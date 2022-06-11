@@ -80,7 +80,7 @@ export function PollCard(props) {
         </div>
         <div className={"w-full"}>
           <div className={"flex justify-between"}>
-            <h5 className="mb-2 font-medium text-gray-900 truncate">{props.poll.statement}</h5>
+            <h5 className="mb-2 font-medium text-gray-900 truncate w-5/">{props.poll.statement}</h5>
             {isPoolEnded && !props.poll.hasParticipated &&
                 <h5 className={"text-sm font-medium text-gray-500 my-auto text-center"}>Ended</h5>
             }

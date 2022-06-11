@@ -82,7 +82,7 @@ export function DepartmentClasses() {
                     {classes &&
                       classes.map(item => (
                         <Card classId={item.id} className="mx-auto" key={item.id}
-                              image={item.imageUrl ?? `${window.location.origin}/class.png`}
+                              image={item.imageUrl ?? `${window.location.origin}/class.jpg`}
                               classname={item.name || item.class}
                               classsection={item.section} classdetails={item.description}
                               role={item.role}
