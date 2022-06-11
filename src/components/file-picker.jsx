@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, {useRef, useState} from "react";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import IconButton from "@mui/material/IconButton";
@@ -16,6 +16,7 @@ import Typography from "@mui/material/Typography";
 import PropTypes from "prop-types";
 import { LoadingButton } from '@mui/lab';
 import Api from "../generic-services/api";
+import {Close} from "@mui/icons-material";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -61,6 +62,7 @@ export function FilePicker(props) {
   const [files, setFiles] = useState([]);
   const [value, setValue] = React.useState(0);
   const [myFiles, setMyFiles] = useState([]);
+  const [recentSelectedFiles, setRecentSelectedFiles] = useState([]);
 
   let inp = useRef(null);
 
@@ -69,15 +71,17 @@ export function FilePicker(props) {
   };
 
   const handleClickOpen = () => {
+    getMyFiles();
     setOpen(true);
   };
 
   const handleClose = () => {
     if (props.close) props.close();
-    console.log("Hi")
     setFiles([]);
     setLoading(false);
     setOpen(false);
+    setMyFiles([]);
+    setRecentSelectedFiles([]);
   };
 
   const handleSelectedFiles = (e) => {
@@ -116,9 +120,20 @@ export function FilePicker(props) {
     }
   }
 
-  useEffect(() => {
-    getMyFiles();
-  }, [])
+  function selectedRecentFilesManipulation(file, type) {
+    if(type === 'add') {
+      setRecentSelectedFiles([...recentSelectedFiles, file]);
+      setMyFiles((prevState) =>
+          prevState.filter((prevItem) => prevItem !== file)
+      );
+    }
+    else if (type === 'remove') {
+      setRecentSelectedFiles((prevState) =>
+          prevState.filter((prevItem) => prevItem !== file)
+      );
+      setMyFiles([...recentSelectedFiles, file]);
+    }
+  }
 
   return (
       <div>
@@ -170,7 +185,7 @@ export function FilePicker(props) {
                             className="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
                         >
                           <span>Upload a files</span>
-                          <input id="file-upload" ref={inp} name="file-upload" type={props.type ? props.type : "file"} className="sr-only" multiple={props.multiple ? props.multiple : true}
+                          <input id="file-upload" ref={inp} name="file-upload" type={"file"} accept="image/x-png,image/gif,image/jpeg" className="sr-only" multiple={props.multiple ? props.multiple : true}
                                  onChange={event => {
                                    setFiles([]);
                                    handleSelectedFiles(event)
@@ -195,7 +210,24 @@ export function FilePicker(props) {
                 </div>
               </TabPanel>
               <TabPanel value={value} index={1}>
-                Item Two
+                <div className={"space-y-2"}>
+                  {myFiles.map(f => (
+                      <div className={"py-2 px-4 flex justify-between border border-gray-200 rounded items-center"}>
+                        <h4 className={"text-gray-600 flex flex-nowrap"}>{f.originalName}</h4>
+                        <Button variant={"contained"} onClick={() => {selectedRecentFilesManipulation(f, 'add')}}>Select</Button>
+                      </div>
+                  ))}
+                </div>
+                <div className={"border-t-2 border-gray-200 my-4"}></div>
+                <div className={"space-y-2"}>
+                  <h3 className={"text-gray-800 font-semibold text-lg"}>Selected Files</h3>
+                  {recentSelectedFiles.map(f => (
+                      <div className={"py-1 px-4 flex justify-between border border-gray-200 rounded items-center"}>
+                        <h4 className={"text-gray-600 flex flex-nowrap"}>{f.originalName}</h4>
+                        <IconButton onClick={() => {selectedRecentFilesManipulation(f, 'remove')}}><Close/></IconButton>
+                      </div>
+                  ))}
+                </div>
               </TabPanel>
             </Box>
             <DialogActions>
