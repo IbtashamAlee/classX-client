@@ -9,11 +9,13 @@ import FormLabel from '@mui/material/FormLabel';
 import Checkbox from '@mui/material/Checkbox';
 import {FilePicker} from "../components/file-picker";
 import {Button} from "@mui/material";
-import {useState} from "react";
+import {useEffect, useState} from "react";
+import api from '../generic-services/api'
 
 const assessment = {
   id: 3
 }
+
 
 const BpIcon = styled('span')(({ theme }) => ({
   borderRadius: '50%',
@@ -76,7 +78,23 @@ function BpRadio(props) {
 }
 
 
+
 export default function AttemptAssessment() {
+  const [questions,setQuestions] = useState([])
+  const [current,setCurrent] = useState(null)
+
+  useEffect(()=>{
+    api.execute("/class/assessment/"+assessment.id,'get')
+      .then((res)=>{
+        setQuestions(res.data.assessment.question)
+        localStorage.getItem("current") ? setCurrent(localStorage.getItem("current")) : localStorage.setItem("current",1)
+      })
+  },[])
+
+  useEffect(()=>{
+    console.log(current)
+  },[current])
+
   const [content, setContent] = useState('');
   const [files, setFiles] = useState([]);
 
