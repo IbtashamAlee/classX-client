@@ -3,6 +3,8 @@ import { TrashIcon } from '@heroicons/react/solid';
 import { ValidatorForm, TextValidator} from 'react-material-ui-form-validator'
 import {Button} from "@mui/material";
 import {FilePicker} from "../components/file-picker";
+import Api from "../generic-services/api";
+import {useParams} from "react-router-dom";
 
 
 const data = {
@@ -15,10 +17,21 @@ const data = {
 export default function ClassSettings() {
   const [isOpen, setIsOpen] = useState(false);
 
+  let {id} = useParams();
+
   let handleClose = () => {
-    console.log("Hi2")
     setIsOpen(!isOpen);
     console.log(isOpen)
+  }
+
+  let changeProfileImage = (files) => {
+    Api.execute('/class/'+ id + '/profile-pic', 'post', {
+      imageUrl: files[0].publicUrl
+    }).then(res => {
+      // get Class settings
+    }).catch(err => {
+      console.log(err);
+    })
   }
 
   return (
@@ -105,7 +118,7 @@ export default function ClassSettings() {
                         </label>
                       </div>
                       {isOpen &&
-                          <FilePicker open={isOpen}  close={handleClose}/>
+                          <FilePicker open={isOpen}  close={handleClose} fileReturn={changeProfileImage}/>
                       }
                     </div>
                   </div>

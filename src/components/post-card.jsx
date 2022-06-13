@@ -63,14 +63,14 @@ export function PostCard (props) {
         </div>
         <div>
 
-          {props.post.postAttachments?.length>0  &&
+          {props.post.postAttachments?.length > 0  &&
               <div>
                 <div className={"text-gray-500 text-sm space-y-2"}>
                   <hr className="mt-2"/>
                   {props.post.postAttachments?.map(p => (
-                    <div className="flex w-full mt-5">
+                    <div className="flex w-full mt-5" key={p.file.id}>
                       <div className="flex flex-col justify-center mr-2">
-                    <AttachmentIcon className="rotate-45 text-gray-300"/>
+                      <AttachmentIcon className="rotate-45 text-gray-300"/>
                       </div>
                         <div className="w-full pl-1 border border-indigo-50 rounded flex justify-between">
                         <div key={p.file.id} className="flex flex-col justify-center">

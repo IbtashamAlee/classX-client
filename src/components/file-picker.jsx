@@ -185,12 +185,22 @@ export function FilePicker(props) {
                             className="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
                         >
                           <span>Upload a files</span>
-                          <input id="file-upload" ref={inp} name="file-upload" type={"file"} accept="image/x-png,image/gif,image/jpeg" className="sr-only" multiple={props.multiple ? props.multiple : true}
-                                 onChange={event => {
-                                   setFiles([]);
-                                   handleSelectedFiles(event)
-                                 }}
-                          />
+                          {!props.accept &&
+                              <input id="file-upload" ref={inp} name="file-upload" type={"file"} className="sr-only" multiple
+                                     onChange={event => {
+                                       setFiles([]);
+                                       handleSelectedFiles(event)
+                                     }}
+                              />
+                          }
+                          {props.accept &&
+                              <input id="file-upload" ref={inp} name="file-upload" type={"file"} accept="image/x-png,image/gif,image/jpeg" className="sr-only"
+                                     onChange={event => {
+                                       setFiles([]);
+                                       handleSelectedFiles(event)
+                                     }}
+                              />
+                          }
                         </label>
                         <p className="pl-1 my-auto text-center">or drag and drop</p>
                       </div>

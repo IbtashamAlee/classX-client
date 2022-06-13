@@ -36,7 +36,7 @@ export function PollsPage(props) {
         </div>
         <div className={"flex flex-col space-y-4"}>
           {polls && polls.map(p => (
-              <PollCard poll={p}/>
+              <PollCard poll={p} key={p}/>
           ))}
         </div>
       </div>
