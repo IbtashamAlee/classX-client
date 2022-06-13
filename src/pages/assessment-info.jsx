@@ -1,28 +1,18 @@
 import {Header} from "../components/header";
-import {Fragment} from 'react'
-const assessment = {
-  id: 3,
-  classId: 12,
-  assessmentId: 16,
-  deletedAt: null,
-  allowResubmission: false,
-  startingTime: "2022-05-24T20:59:46.879Z",
-  endingTime: "2022-05-25T20:59:46.879Z",
-  isMultiTimer: false,
-  QuestionsToDisplay: 2,
-  createdBy: 1,
-  assessment: {
-    name: "QUIZ 1",
-    body: "This is quiz 1 ..please submit on time"
-  },
-  assessmentComments: [],
-  user: {
-    imageUrl: "https://picsum.photos/200/300",
-    name: "admin"
-  }
-}
+import {Fragment, useEffect} from 'react'
+import {useLocation, useNavigate} from "react-router-dom"
+import {Button} from '@mui/material'
 
 export default function AttemptInfo() {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const assessment = location?.state?.assessment ?? null
+
+  useEffect(()=>{
+    console.log(assessment)
+    if(!assessment) navigate('/')
+  })
+
   return (
     <Fragment>
       <Header/>
@@ -36,12 +26,9 @@ export default function AttemptInfo() {
 
         <div className="mt-8 flex justify-center">
           <div className="inline-flex rounded-md shadow">
-            <a
-              href="/attempt-assesment"
-              className="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700"
-            >
-              Get started
-            </a>
+            <Button variant="contained" onClick={()=>{
+              navigate('/attempt-assessment',{state : {id:assessment.id}})
+            }}>Get Started</Button>
           </div>
         </div>
         <div className="flex flex-row items-start justify-end mx-5 mt-5">
