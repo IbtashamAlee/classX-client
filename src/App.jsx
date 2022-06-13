@@ -31,6 +31,9 @@ import LandingPage from "./pages/landing";
 import Messenger from "./pages/messenger";
 import {AttendanceDetails} from "./pages/attendance-details";
 import {PollsPage} from "./pages/polls-page";
+import AttemptInfo from "./pages/assessment-info";
+import AttemptAssessment from "./pages/attempt-assessment";
+import {ClassAssessmentPage} from "./pages/class-assessments";
 
 export default function App() {
   const dispatch = useDispatch();
@@ -76,9 +79,14 @@ export default function App() {
             <Route path="polls" element={<AuthorizedRoute> <PollsPage/> </AuthorizedRoute>}/>
             <Route path="participants" element={<AuthorizedRoute> <Participants/> </AuthorizedRoute>}/>
             <Route path="settings" element={<AuthorizedRoute> <ClassSettings/> </AuthorizedRoute>}/>
+            <Route path="assessments" element={<AuthorizedRoute> <ClassAssessmentPage/> </AuthorizedRoute>}/>
             <Route path="attendance/:attendance_id" element={<AuthorizedRoute> <AttendanceDetails/> </AuthorizedRoute>}/>
             <Route path="*" element={<NotFound/>}/>
           </Route>
+
+          <Route path="assessment-info" element={<AuthorizedRoute> <AttemptInfo/> </AuthorizedRoute>}/>
+          <Route path="assessment-info" element={<AuthorizedRoute> <AttemptInfo/> </AuthorizedRoute>}/>
+          <Route path="attempt-assessment" element={<AuthorizedRoute> <AttemptAssessment/> </AuthorizedRoute>}/>
 
           <Route path="assessments" element={<AuthorizedRoute> <Assessments/> </AuthorizedRoute>}/>
           <Route path="signup" element={<EnrouteToDashboard> <Signup/> </EnrouteToDashboard>}/>
@@ -102,42 +110,6 @@ export default function App() {
 function Layout() {
   return (
     <LandingPage/>
-      // <div>
-      //   {/* A "layout route" is a good place to put markup you want to
-      //     share across all the pages on your site, like navigation. */}
-      //   <nav>
-      //     <ul>
-      //       <li>
-      //         <Link to="/">Home</Link>
-      //       </li>
-      //       <li>
-      //         <Link to="/signin">Sign in</Link>
-      //       </li>
-      //       <li>
-      //         <Link to="/signup">Sign up</Link>
-      //       </li>
-      //       <li>
-      //         <Link to="/dashboard">Dashboard</Link>
-      //       </li>
-      //       <li>
-      //         <Link to="/institute/request">Request institute</Link>
-      //       </li>
-      //       <li>
-      //         <Link to="/verify">Verify page</Link>
-      //       </li>
-      //       <li>
-      //         <Link to="/nothing-here">Nothing Here</Link>
-      //       </li>
-      //     </ul>
-      //   </nav>
-      //
-      //   <hr/>
-      //
-      //   {/* An <Outlet> renders whatever child route is currently active,
-      //     so you can think about this <Outlet> as a placeholder for
-      //     the child routes we defined above. */}
-      //   <Outlet/>
-      // </div>
   );
 }
 
