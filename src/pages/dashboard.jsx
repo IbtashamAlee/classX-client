@@ -35,10 +35,6 @@ export function Dashboard() {
 
   let navigate = useNavigate();
   let location = useLocation();
-  if(location.search) {
-    let tab = location.search.split('=');
-    console.log(tab)
-  }
 
   useEffect(() => {
     dispatch(clearClasses());
@@ -66,6 +62,12 @@ export function Dashboard() {
   }, [dispatch, role]);
 
   useEffect(() => {
+    if(location.search) {
+      let tab = location.search.split('=');
+      if (tab[1]) {
+        setRole(tab[1])
+      }
+    }
     dispatch(getRoles());
   }, []);
 
