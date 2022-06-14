@@ -32,7 +32,7 @@ export function PollCard(props) {
     const postId = props.poll.id
     console.log('postId',postId);
     console.log('comment',comment)
-    Api.execute(`/class/poll/${postId}/comment`, 'post', {
+    Api.execute(`/api/class/poll/${postId}/comment`, 'post', {
       comment
     }).then(res => {
       console.log(res.data.pollComment);
@@ -44,7 +44,7 @@ export function PollCard(props) {
   }
 
   function deleteComment(commentId){
-    Api.execute(`/class/poll/comment/${commentId}`, 'put')
+    Api.execute(`/api/class/poll/comment/${commentId}`, 'put')
       .then(res => {
       console.log('deleted');
       const temp = Comments.filter(c=> c.id !== commentId);

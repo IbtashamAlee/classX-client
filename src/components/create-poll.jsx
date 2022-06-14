@@ -61,7 +61,7 @@ export function CreatePoll (props) {
   }
 
   function saveQuestions() {
-    Api.execute(`/class/${id}/poll`, 'post', {
+    Api.execute(`/api/class/${id}/poll`, 'post', {
       statement: statement,
       pollOptions: options
     }).then((res) => {

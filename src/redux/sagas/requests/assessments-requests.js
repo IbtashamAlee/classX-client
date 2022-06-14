@@ -1,15 +1,15 @@
 import Api from "../../../generic-services/api";
 
 export function getAssessmentsRequest() {
-  return Api.execute("/assessment", "get")
+  return Api.execute("/api/assessment", "get")
 }
 
 export function getPublicAssessmentsRequest() {
-  return Api.execute("/assessment/public", "get")
+  return Api.execute("/api/assessment/public", "get")
 }
 
 export function createAssessmentRequest(name, body, isPublic, questions) {
-  return Api.execute("/assessment", "post", {
+  return Api.execute("/api/assessment", "post", {
     name: name,
     body: body,
     isPublic: isPublic,
@@ -18,7 +18,7 @@ export function createAssessmentRequest(name, body, isPublic, questions) {
 }
 
 export function addQuestionInAssessmentRequest(id, questions) {
-  return Api.execute(`/assessment/${id}/question`, "post", {
+  return Api.execute(`/api/assessment/${id}/question`, "post", {
     questions: questions
   })
 }

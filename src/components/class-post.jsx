@@ -41,7 +41,7 @@ export default function ClassPost() {
   }
 
   function createPost() {
-    Api.execute(`/class/${id}/post`, 'post', {
+    Api.execute(`/api/class/${id}/post`, 'post', {
       content: content,
       files: files
     }).then(res => {

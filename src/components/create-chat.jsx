@@ -34,7 +34,7 @@ export function CreateChat (props) {
 
   function searchUsers() {
     if (!search) return;
-    Api.execute(`/user/public?search=${search}`, 'get', {}, false).then((res) => {
+    Api.execute(`/api/user/public?search=${search}`, 'get', {}, false).then((res) => {
       setUsers(res.data);
     }).catch(err => {
       console.log(err);
@@ -42,9 +42,9 @@ export function CreateChat (props) {
   }
 
   function newChat(email) {
-    Api.execute(`/chat`, 'post', {}, false).then((res) => {
+    Api.execute(`/api/chat`, 'post', {}, false).then((res) => {
 
-      Api.execute(`/chat/${res.data.id}/participants`, 'post', {
+      Api.execute(`/api/chat/${res.data.id}/participants`, 'post', {
         users: [
             email
         ]

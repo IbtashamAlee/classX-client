@@ -21,11 +21,10 @@ export default function ClassSettings() {
 
   let handleClose = () => {
     setIsOpen(!isOpen);
-    console.log(isOpen)
   }
 
   let changeProfileImage = (files) => {
-    Api.execute('/class/'+ id + '/profile-pic', 'post', {
+    Api.execute('/class/'+ id + '/profile-pic', 'put', {
       imageUrl: files[0].publicUrl
     }).then(res => {
       // get Class settings

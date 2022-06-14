@@ -1,4 +1,4 @@
-import React, {useRef, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import IconButton from "@mui/material/IconButton";
@@ -65,6 +65,7 @@ export function FilePicker(props) {
   const [recentSelectedFiles, setRecentSelectedFiles] = useState([]);
 
   let inp = useRef(null);
+  let inp2 = useRef(null);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -74,6 +75,10 @@ export function FilePicker(props) {
     getMyFiles();
     setOpen(true);
   };
+
+  useEffect(() => {
+    getMyFiles();
+  }, [props.open])
 
   const handleClose = () => {
     if (props.close) props.close();
@@ -93,11 +98,16 @@ export function FilePicker(props) {
   }
 
   function getMyFiles() {
-    Api.execute('/file', 'get', {}, false).then(res => {
+    Api.execute('/api/file', 'get', {}, false).then(res => {
       setMyFiles(res.data);
     }).catch(err => {
       console.log(err);
     })
+  }
+
+  const handleSelection = () => {
+    props.fileReturn(recentSelectedFiles);
+    handleClose();
   }
 
   async function submit(){
@@ -131,7 +141,7 @@ export function FilePicker(props) {
       setRecentSelectedFiles((prevState) =>
           prevState.filter((prevItem) => prevItem !== file)
       );
-      setMyFiles([...recentSelectedFiles, file]);
+      setMyFiles([...myFiles, file]);
     }
   }
 
@@ -194,7 +204,7 @@ export function FilePicker(props) {
                               />
                           }
                           {props.accept &&
-                              <input id="file-upload" ref={inp} name="file-upload" type={"file"} accept="image/x-png,image/gif,image/jpeg" className="sr-only"
+                              <input id="file-upload" ref={inp2} name="file-upload" type={"file"} accept="image/x-png,image/gif,image/jpeg" className="sr-only"
                                      onChange={event => {
                                        setFiles([]);
                                        handleSelectedFiles(event)
@@ -218,6 +228,10 @@ export function FilePicker(props) {
                       </div> : <></>
                   }
                 </div>
+                <DialogActions>
+                  <LoadingButton loading={loading} variant={"contained"} onClick={submit}> Upload</LoadingButton>
+                  <LoadingButton variant={"outlined"} onClick={handleClose}> Close </LoadingButton>
+                </DialogActions>
               </TabPanel>
               <TabPanel value={value} index={1}>
                 <div className={"space-y-2"}>
@@ -238,12 +252,12 @@ export function FilePicker(props) {
                       </div>
                   ))}
                 </div>
+                <DialogActions>
+                  <LoadingButton loading={loading} variant={"contained"} onClick={handleSelection}>Select</LoadingButton>
+                  <LoadingButton variant={"outlined"} onClick={handleClose}> Close </LoadingButton>
+                </DialogActions>
               </TabPanel>
             </Box>
-            <DialogActions>
-              <LoadingButton loading={loading} variant={"contained"} onClick={submit}> Upload</LoadingButton>
-              <LoadingButton variant={"outlined"} onClick={handleClose}> Close </LoadingButton>
-            </DialogActions>
           </DialogContent>
         </Dialog>
       </div>

@@ -29,7 +29,7 @@ export function PostCard (props) {
 
   function postComment() {
     const postId = props.post.id
-    Api.execute(`/class/post/${postId}/comment`, 'post', {
+    Api.execute(`/api/class/post/${postId}/comment`, 'post', {
       comment
     }).then(res => {
       setComments([res.data.postComment,...Comments])
@@ -40,7 +40,7 @@ export function PostCard (props) {
   }
 
   function deleteComment(commentId){
-    Api.execute(`/class/post/comment/${commentId}`, 'put')
+    Api.execute(`/api/class/post/comment/${commentId}`, 'put')
       .then(res => {
         console.log('deleted');
         const temp = Comments.filter(c=> c.id !== commentId);

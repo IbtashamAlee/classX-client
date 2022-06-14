@@ -25,7 +25,7 @@ export function AssessmentCard(props) {
 
   function postComment() {
     const postId = props.assessment.id
-    Api.execute(`/class/assessment/${postId}/comment`, 'post', {
+    Api.execute(`/api/class/assessment/${postId}/comment`, 'post', {
       comment
     }).then(res => {
       setComments([res.data.classAssessmentComment,...Comments])
@@ -36,7 +36,7 @@ export function AssessmentCard(props) {
   }
 
   function deleteComment(commentId){
-    Api.execute(`/class/assessment/comment/${commentId}`, 'put')
+    Api.execute(`/api/class/assessment/comment/${commentId}`, 'put')
       .then(res => {
         console.log('deleted');
         const temp = Comments.filter(c=> c.id !== commentId);
