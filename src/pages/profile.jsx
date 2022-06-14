@@ -3,7 +3,7 @@ import {Header} from "../components/header";
 import {useSelector} from "react-redux";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import IconButton from "@mui/material/IconButton";
-import api from "../generic-services/api";
+import Api from "../generic-services/api";
 
 const profile = {
   name: 'Ricardo Cooper',
@@ -32,7 +32,7 @@ export default function Example() {
   const [sessions, setSessions] = useState([])
 
   function removeSession(sessionId) {
-    api.execute('/auth/logout', 'put', {
+    Api.execute('/api/auth/logout', 'put', {
       sessionId: sessionId
     })
       .then((res) => {
@@ -43,7 +43,7 @@ export default function Example() {
   }
 
   useEffect(() => {
-    api.execute('/auth/sessions')
+    Api.execute('/api/auth/sessions')
       .then((res) => {
         setSessions(res.data)
       })
