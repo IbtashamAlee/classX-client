@@ -1,8 +1,4 @@
-import React, {Fragment, useState} from 'react';
-import {Dialog, Transition} from '@headlessui/react';
-import {
-  XIcon,
-} from '@heroicons/react/outline';
+import React, {useState} from 'react';
 import PollIcon from '@mui/icons-material/Poll';
 import FeedIcon from '@mui/icons-material/Feed';
 import QuizIcon from '@mui/icons-material/Quiz';

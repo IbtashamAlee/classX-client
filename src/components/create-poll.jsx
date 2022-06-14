@@ -69,6 +69,7 @@ export function CreatePoll (props) {
       setStatement("");
       setOptions([]);
       dispatch(getFeed(id,40, 1));
+      if (props.getPolls) props.getPolls();
     }).catch(err => {
       console.log(err);
     })

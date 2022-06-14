@@ -13,8 +13,8 @@ export function PollsPage(props) {
   let {id} = useParams();
 
   function getPolls() {
-    Api.execute(`/class/${id}/poll?records=100&page=1`).then(res => {
-      setPolls(res.data);
+    Api.execute(`/api/class/${id}/poll?records=100&page=1`).then(res => {
+      setPolls(res.data?.reverse());
     }).catch(err => {
       console.log(err);
     })
@@ -30,7 +30,7 @@ export function PollsPage(props) {
           <h1>Polls</h1>
           {currentRole && (currentRole == "Teacher" || currentRole == "DepartmentAdmin") &&
               <div className={"flex justify-end mb-4"}>
-                <CreatePoll/>
+                <CreatePoll getPolls={getPolls}/>
               </div>
           }
         </div>
