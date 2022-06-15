@@ -30,7 +30,6 @@ export function Dashboard() {
       }
     }
     roles2.push("Standard");
-    console.log(roles2)
   }
 
   let navigate = useNavigate();
@@ -64,8 +63,10 @@ export function Dashboard() {
   useEffect(() => {
     if(location.search) {
       let tab = location.search.split('=');
-      if (tab[1]) {
+      if (tab[1] && tab[1].toLowerCase() !== 'teacher' && tab[1].toLowerCase() !== 'Student') {
         setRole(tab[1])
+      } else {
+        setRole('Standard');
       }
     }
     dispatch(getRoles());
