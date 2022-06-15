@@ -9,3 +9,9 @@ export const getFeed = (class_id, record, page, navigate = null) => {
     navigate: navigate
   };
 };
+
+export const clearFeed = () => {
+  return {
+    type: ActionTypes.CLEAR_FEED
+  }
+}
