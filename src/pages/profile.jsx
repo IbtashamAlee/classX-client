@@ -4,23 +4,11 @@ import {useSelector} from "react-redux";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import IconButton from "@mui/material/IconButton";
 import Api from "../generic-services/api";
+import {useNavigate} from 'react-router-dom';
 
 const profile = {
-  name: 'Ricardo Cooper',
-  imageUrl:
-    'https://media.istockphoto.com/photos/doctor-holding-digital-tablet-at-meeting-room-picture-id1189304032?k=20&m=1189304032&s=612x612&w=0&h=ovTNnR0JX2cRZkzMBed9exRO_PamZLlysLDFkXesr4Q=',
   coverImageUrl:
-    'https://images.unsplash.com/photo-1444628838545-ac4016a5418a?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80',
-  fields: {
-    Phone: '(555) 123-4567',
-    Email: 'ricardocooper@example.com',
-    Title: 'Senior Front-End Developer',
-    Team: 'Product Development',
-    Location: 'San Francisco',
-    Sits: 'Oasis, 4th floor',
-    Salary: '$145,000',
-    Birthday: 'June 8, 1990',
-  },
+    'https://images.unsplash.com/photo-1444628838545-ac4016a5418a?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80'
 }
 
 
@@ -30,14 +18,19 @@ function classNames(...classes) {
 
 export default function Example() {
   const [sessions, setSessions] = useState([])
+  const navigate = useNavigate()
 
-  function removeSession(sessionId) {
+  function removeSession(sessionId, isCurrent=false) {
     Api.execute('/api/auth/logout', 'put', {
       sessionId: sessionId
     })
       .then((res) => {
         const temp = sessions.filter(s => s.id !== sessionId)
         setSessions(temp)
+        if(isCurrent) {
+          localStorage.removeItem('access_token');
+          navigate('/signin');
+        }
       })
       .catch(e => console.log(e))
   }
@@ -186,7 +179,8 @@ export default function Example() {
                           <td
                             className="relative whitespace-nowrap py-2 pl-3 pr-4 text-right text-sm font-medium sm:pr-6 flex justify-center items-center">
                             <IconButton style={{padding: 0}} onClick={() => {
-                              removeSession(session.id)
+                              if(localStorage.getItem('access_token'))
+                              removeSession(session.id, localStorage.getItem('access_token') === session.token)
                             }}>
                               <RemoveCircleOutlineIcon className="text-red-500" style={{height: '1.3rem'}}/>
                             </IconButton>
