@@ -18,8 +18,6 @@ export function Feed () {
   let feed = useSelector(state => state.feed.feed)
   let currentRole = useSelector(state => state.current_class.role)
 
-  console.log(currentRole)
-
   let {id} = useParams();
   let dispatch = useDispatch();
 

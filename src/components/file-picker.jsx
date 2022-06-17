@@ -236,7 +236,7 @@ export function FilePicker(props) {
               <TabPanel value={value} index={1}>
                 <div className={"space-y-2"}>
                   {myFiles.map(f => (
-                      <div className={"py-2 px-4 flex justify-between border border-gray-200 rounded items-center"}>
+                      <div key={f.id} className={"py-2 px-4 flex justify-between border border-gray-200 rounded items-center"}>
                         <h4 className={"text-gray-600 flex flex-nowrap"}>{f.originalName}</h4>
                         <Button variant={"contained"} onClick={() => {selectedRecentFilesManipulation(f, 'add')}}>Select</Button>
                       </div>
@@ -246,7 +246,7 @@ export function FilePicker(props) {
                 <div className={"space-y-2"}>
                   <h3 className={"text-gray-800 font-semibold text-lg"}>Selected Files</h3>
                   {recentSelectedFiles.map(f => (
-                      <div className={"py-1 px-4 flex justify-between border border-gray-200 rounded items-center"}>
+                      <div key={f.id} className={"py-1 px-4 flex justify-between border border-gray-200 rounded items-center"}>
                         <h4 className={"text-gray-600 flex flex-nowrap"}>{f.originalName}</h4>
                         <IconButton onClick={() => {selectedRecentFilesManipulation(f, 'remove')}}><Close/></IconButton>
                       </div>
