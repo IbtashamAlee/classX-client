@@ -21,22 +21,8 @@ export function Feed () {
   let {id} = useParams();
   let dispatch = useDispatch();
 
-  let location = useLocation();
-
-  const getCurrentClass = () => {
-    Api.execute('/api/class/' + id).then(res => {
-      dispatch(setCurrentClass(res.data))
-      dispatch(setCurrentRole(res.data?.role))
-    }).catch(err => {
-      console.log(err);
-    })
-  }
-
   useEffect(() => {
-    dispatch(removeCurrentClass());
-    dispatch(removeCurrentRole());
     dispatch(getFeed(id, record, page));
-    getCurrentClass();
   }, [])
 
   return (
