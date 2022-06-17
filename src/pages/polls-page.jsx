@@ -8,7 +8,7 @@ import {useSelector} from "react-redux";
 export function PollsPage(props) {
   const [polls, setPolls] = useState([]);
 
-  let currentRole = useSelector((state => state.currentRole.role));
+  let currentRole = useSelector((state => state.current_class.role));
 
   let {id} = useParams();
 

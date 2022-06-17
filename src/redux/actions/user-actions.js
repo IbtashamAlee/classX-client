@@ -36,6 +36,19 @@ export const getUser = () => {
   };
 }
 
+export const removeCurrentClass = () => {
+  return {
+    type: ActionTypes.REMOVE_CURRENT_CLASS
+  }
+}
+
+export const setCurrentClass = (c) => {
+  return {
+    type: ActionTypes.SET_CURRENT_CLASS,
+    class: c
+  }
+}
+
 export const removeCurrentRole = () => {
   return {
     type: ActionTypes.REMOVE_CURRENT_ROLE

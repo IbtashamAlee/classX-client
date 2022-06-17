@@ -6,7 +6,7 @@ import {AssessmentCard} from "../components/assessment-card";
 import ClassPost from "../components/class-post";
 import {useDispatch, useSelector} from "react-redux";
 import {getFeed} from "../redux/actions/feed-actions";
-import {removeCurrentRole, setCurrentRole} from "../redux/actions/user-actions";
+import {setCurrentClass, removeCurrentClass, setCurrentRole, removeCurrentRole} from "../redux/actions/user-actions";
 import {CreatePoll} from "../components/create-poll";
 import {PostCard} from "../components/post-card";
 import Api from "../generic-services/api";
@@ -16,31 +16,29 @@ export function Feed () {
   const [page, setPage] = useState(1);
 
   let feed = useSelector(state => state.feed.feed)
-  let currentRole = useSelector(state => state.currentRole.role)
+  let currentRole = useSelector(state => state.current_class.role)
+
+  console.log(currentRole)
 
   let {id} = useParams();
   let dispatch = useDispatch();
 
   let location = useLocation();
 
-  const getCurrentRoleOfClass = () => {
+  const getCurrentClass = () => {
     Api.execute('/api/class/' + id).then(res => {
+      dispatch(setCurrentClass(res.data))
       dispatch(setCurrentRole(res.data?.role))
     }).catch(err => {
-      if (localStorage.getItem("current_role") && !location.state?.role) {
-        dispatch(setCurrentRole(localStorage.getItem("current_role")))
-      } else {
-        localStorage.setItem("current_role", location.state?.role);
-        dispatch(setCurrentRole(location.state?.role))
-      }
       console.log(err);
     })
   }
 
   useEffect(() => {
+    dispatch(removeCurrentClass());
     dispatch(removeCurrentRole());
     dispatch(getFeed(id, record, page));
-    getCurrentRoleOfClass();
+    getCurrentClass();
   }, [])
 
   return (

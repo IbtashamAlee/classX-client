@@ -9,7 +9,7 @@ import {AssessmentCard} from "../components/assessment-card";
 export function ClassAssessmentPage(props) {
   const [assessments, setAssessments] = useState([]);
 
-  let currentRole = useSelector((state => state.currentRole.role));
+  let currentRole = useSelector((state => state.current_class.role));
 
   let {id} = useParams();
 

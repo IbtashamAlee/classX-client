@@ -13,7 +13,7 @@ export function Participants(props) {
   let dispatch = useDispatch();
   let {id} = useParams();
   let participants = useSelector((state => state.participants.participants));
-  let currentRole = useSelector((state => state.currentRole.role));
+  let currentRole = useSelector((state => state.current_class.role));
   let teachers, students, department_admin;
 
   if (participants && participants.length) {

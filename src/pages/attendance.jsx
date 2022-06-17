@@ -15,7 +15,7 @@ export default function Attendance() {
   const [record, setRecord] = useState(40);
   const [page, setPage] = useState(1);
 
-  let currentRole = useSelector((state => state.currentRole.role));
+  let currentRole = useSelector((state => state.current_class.role));
 
   useEffect(() => {
     dispatch(getAttendance(id,record, page));
