@@ -14,7 +14,7 @@ export function ClassAssessmentPage(props) {
   let {id} = useParams();
 
   function getAssessments() {
-    Api.execute(`/class/${id}/assessment?records=100&page=1`).then(res => {
+    Api.execute(`/api/class/${id}/assessment?records=100&page=1`).then(res => {
       setAssessments(res.data);
     }).catch(err => {
       console.log(err);

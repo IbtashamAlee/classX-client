@@ -84,7 +84,7 @@ export default function AttemptAssessment() {
   const assessment = location.state ?? null;
 
   useEffect(() => {
-    api.execute("/class/assessment/" + assessment.id, 'get')
+    api.execute("/api/class/assessment/" + assessment.id, 'get')
       .then((res) => {
         setQuestions(res.data.assessment.question)
         localStorage.getItem("current" + assessment.id) ? setCurrent(localStorage.getItem("current" + assessment.id)) : localStorage.setItem("current" + assessment.id, 0)
