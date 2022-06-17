@@ -12,7 +12,7 @@ export function NotFound() {
                 <span className="sr-only">Workflow</span>
                 <img
                     className="h-48 w-auto"
-                    src="../logo.svg"
+                    src={window.location.origin + '/' + '404.svg'}
                     alt=""
                 />
               </a>
@@ -20,7 +20,6 @@ export function NotFound() {
             <div className="py-16">
               <div className="text-center">
                 <p className="text-sm font-semibold text-indigo-600 uppercase tracking-wide">404 error</p>
-                <h1 className="mt-2 text-4xl font-extrabold text-gray-900 tracking-tight sm:text-5xl">Page not found.</h1>
                 <p className="mt-2 text-base text-gray-500">Sorry, we couldn’t find the page you’re looking for.</p>
                 <div className="mt-6">
                   <Link to="/">
