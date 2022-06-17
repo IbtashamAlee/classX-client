@@ -27,7 +27,7 @@ class Api {
       }).catch((err) =>{
         document.getElementById("loader").style.display = "none";
         if (err.response.status === 401) {
-          // auth.logout();
+          //navigate user to signin screen here
         }
         reject(err);
       })
