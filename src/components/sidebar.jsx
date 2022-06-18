@@ -1,4 +1,4 @@
-import React, {Fragment, useState} from 'react';
+import React, {Fragment, useEffect, useState} from 'react';
 import {Dialog, Transition} from '@headlessui/react';
 import {
   XIcon,
@@ -10,7 +10,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import GroupIcon from '@mui/icons-material/Group';
 import SettingsIcon from '@mui/icons-material/Settings';
 
-import {Link} from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -24,14 +24,22 @@ export default function Sidebar(props) {
     {name: 'Polls', href: `polls`, icon: PollIcon, current: false},
     {name: 'Participants', href: `participants`, icon: GroupIcon, current: false},
     {name: 'Settings', href: `settings`, icon: SettingsIcon, current: false},
-  ])
+  ]);
+
+  let location = useLocation();
 
   const changeNavigation = (name) => {
     navigation.forEach(n => {
-      n.current = n.name === name;
+      n.current = n.name?.toLowerCase() === name?.toLowerCase();
     })
     props.setSidebarOpen();
   }
+
+  useEffect(() => {
+    if (location.pathname.split('/')[3]) {
+      changeNavigation(location.pathname.split('/')[3])
+    }
+  }, [])
 
   return (
       <>
