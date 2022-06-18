@@ -7,6 +7,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {Link, useParams} from "react-router-dom";
 import {createAttendance, getAttendance} from "../redux/actions/attendance-actions";
 import {TextValidator, ValidatorForm} from "react-material-ui-form-validator";
+import {CreateAttendance} from "../components/create-attendance";
 
 export default function Attendance() {
   let dispatch = useDispatch();
@@ -31,7 +32,7 @@ export default function Attendance() {
         <div className="text-gray-900 text-2xl font-medium py-4 flex justify-between">
           <h1>Attendance</h1>
           {currentRole && (currentRole == "Teacher" || currentRole == "DepartmentAdmin") &&
-              <FormDialog/>
+              <CreateAttendance/>
           }
         </div>
         <div className="bg-white shadow overflow-hidden sm:rounded-md">
@@ -68,48 +69,4 @@ export default function Attendance() {
         </div>
       </React.Fragment>
   )
-}
-
-function FormDialog(props) {
-  const [open, setOpen] = React.useState(false);
-  const [title, setTitle] = useState('');
-  const dispatch = useDispatch();
-  let {id} = useParams();
-
-  const handleClickOpenClose = () => {
-    setOpen(!open);
-  };
-
-  const handleSubmit = () => {
-    dispatch(createAttendance(id, title));
-    handleClickOpenClose();
-  };
-
-  return (
-      <div>
-        <Button variant="contained" onClick={handleClickOpenClose}>
-          Create Attendance
-        </Button>
-        <Dialog open={open} onClose={handleClickOpenClose}>
-          <DialogTitle>Create Attendance</DialogTitle>
-          <DialogContent className="!pb-2 !pt-4">
-            <ValidatorForm onSubmit={handleSubmit} className={"w-96"}>
-              <TextValidator
-                  id="title"
-                  label="Title"
-                  value={title}
-                  onChange={e => setTitle(e.target.value)}
-                  fullWidth
-                  validators={['required']}
-                  errorMessages={['This field is required']}
-              />
-              <DialogActions className="mt-4">
-                <Button onClick={handleClickOpenClose}>Cancel</Button>
-                <Button type={"submit"}>Create</Button>
-              </DialogActions>
-            </ValidatorForm>
-          </DialogContent>
-        </Dialog>
-      </div>
-  );
 }

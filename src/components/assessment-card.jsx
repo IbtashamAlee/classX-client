@@ -50,7 +50,7 @@ export function AssessmentCard(props) {
     <div
       className="block p-4 max-w-full bg-white rounded-lg border-2 border-gray-200 shadow-sm flex flex-col justify-between item-center">
       <div className="flex items-center mb-8">
-        <img src={props.assessment.user.imageUrl ?? placeholder} className="w-10 h-10 rounded-full"/>
+        <img src={props.assessment.user.imageUrl ?? placeholder} className="w-10 h-10 rounded-full object-cover"/>
         <div className="ml-5">
           <p className="text-sm">{props.assessment.user.name}</p>
           <p className="text-xs text-gray-500"> {props.assessment.startingTime.split('T')[0]}</p>
@@ -84,7 +84,7 @@ export function AssessmentCard(props) {
           <div>
             {Comments.slice(0, initialComment ?? Comments.length).map(com => {
               return (<div className="flex flex-row mt-2" key={com.id}>
-                <img src={com?.user?.imageUrl ?? placeholder} className="w-8 h-8 rounded-full"/>
+                <img src={com?.user?.imageUrl ?? placeholder} className="w-8 h-8 min-w-8 min-h-8 rounded-full object-cover"/>
                 <div className="ml-2 shadow rounded-2xl bg-slate-50 px-2 py-1 w-full flex flex-row justify-between">
                   <div className="flex flex-col">
                     <p className="text-xs text-gray-900 font-medium">{com.user.name}</p>
@@ -118,7 +118,7 @@ export function AssessmentCard(props) {
           </div>
       }
       <div className="flex flex-row mt-2">
-        <img src="https://picsum.photos/200" className="w-8 h-8 rounded-full"/>
+        <img src={user.imageUrl} className="w-8 h-8 min-w-8 min-h-8 rounded-full object-cover"/>
         <div className="ml-2 shadow rounded-2xl bg-slate-50 px-2 w-full flex flex-row justify-between">
           <input type='text' onKeyPress={handleKeypress} placeholder="write your comment here" value={comment}
                  onChange={(e) => setComment(e.target.value)} className="text-sm h-10 w-full border-0 bg-transparent"/>

@@ -10,6 +10,7 @@ import {setCurrentClass, removeCurrentClass, setCurrentRole, removeCurrentRole} 
 import {CreatePoll} from "../components/create-poll";
 import {PostCard} from "../components/post-card";
 import Api from "../generic-services/api";
+import {CreateAttendance} from "../components/create-attendance";
 
 export function Feed () {
   const [record, setRecord] = useState(10);
@@ -34,8 +35,9 @@ export function Feed () {
           <hr/>
         </div>
         {currentRole && currentRole !== "Teacher" || currentRole !== "DepartmentAdmin" &&
-            <div className={"flex justify-end mb-4"}>
+            <div className={"flex justify-end mb-4 space-x-2"}>
               <CreatePoll/>
+              <CreateAttendance/>
             </div>
         }
         <div className={"space-y-6"}>
