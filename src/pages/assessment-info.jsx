@@ -13,6 +13,11 @@ export default function AttemptInfo() {
     if(!assessment) navigate('/')
   })
 
+  function getDateTime(clockDate) {
+    let date = new Date(clockDate);
+    return date.getDate() + "-" + parseInt(date.getMonth() + 1)+ "-" + date.getFullYear() + ' ending at '+ date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();;
+  }
+
   return (
     <Fragment>
       <Header/>
@@ -32,7 +37,7 @@ export default function AttemptInfo() {
           </div>
         </div>
         <div className="flex flex-row items-start justify-end mx-5 mt-5">
-        <p className="underline">ENDING TIME : {assessment.endingTime.split('T')[1]}</p>
+        <p className="underline">{getDateTime(assessment.endingTime)}</p>
         </div>
         </div>
     </div>
