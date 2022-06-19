@@ -7,6 +7,13 @@ import {AddQuestionDialog} from "../components/add-question-dialog";
 import {useDispatch} from "react-redux";
 import {useNavigate} from "react-router-dom";
 import {createAssessment} from "../redux/actions/assessments-actions";
+import TableContainer from "@mui/material/TableContainer";
+import Paper from "@mui/material/Paper";
+import Table from "@mui/material/Table";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import TableCell from "@mui/material/TableCell";
+import TableBody from "@mui/material/TableBody";
 
 export function CreateAssessment() {
   const [name, setName] = useState('');
@@ -26,7 +33,9 @@ export function CreateAssessment() {
   }
 
   function addQuestions(q) {
-    setQuestions(q);
+    q.forEach(e => {
+      setQuestions((questions) => [...questions, e]);
+    })
   }
 
   return (
@@ -59,13 +68,40 @@ export function CreateAssessment() {
             </Button>
          </ValidatorForm>
           <AddQuestionDialog addQuestions={addQuestions}/>
-          <Stack direction="row" spacing={1} className={"mt-6"}>
-            {questions && questions.map(question => (
-                <Tooltip title={question.statement}>
-                  <Chip label={question.statement} variant="contained" onDelete={() => {removeQuestion(question.statement)}} />
-                </Tooltip>
-            ))}
-          </Stack>
+          <div className={"mt-4 text-lg text-gray-800"}>Added Questions</div>
+          <TableContainer component={Paper}>
+            <Table sx={{ minWidth: 650 }} aria-label="simple table">
+              <TableHead>
+                <TableRow>
+                  <TableCell>Statement</TableCell>
+                  <TableCell align="right">Type</TableCell>
+                  <TableCell align="right">Time&nbsp;(sec)</TableCell>
+                  <TableCell align="right">Score</TableCell>
+                  <TableCell align="right">Options</TableCell>
+                  <TableCell align="right">Action</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {questions && questions.map((row) => (
+                    <TableRow
+                        key={row.name}
+                        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                    >
+                      <TableCell component="th" scope="row">
+                        {row.statement}
+                      </TableCell>
+                      <TableCell align="right">{row.options.length > 0 ? "MCQs" : "Blank"}</TableCell>
+                      <TableCell align="right">{row.duration}</TableCell>
+                      <TableCell align="right">{row.score}</TableCell>
+                      <TableCell align="right">{row.options.length}</TableCell>
+                      <TableCell align="right">
+                        <Button variant={"outlined"} color={"error"} onClick={() => {removeQuestion(row.statement)}}> Delete</Button>
+                      </TableCell>
+                    </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
         </div>
       </div>
   )

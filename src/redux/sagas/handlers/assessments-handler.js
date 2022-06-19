@@ -11,7 +11,7 @@ export function* handleGetAssessmentsRequest(action) {
   try {
     const response = yield call(getAssessmentsRequest);
     const { data } = response;
-    yield put({ type: ActionTypes.GET_ASSESSMENTS_SUCCESS, data: data });
+    yield put({ type: ActionTypes.GET_ASSESSMENTS_SUCCESS, data: data.reverse() });
   } catch (err) {
     yield put({type: ActionTypes.GET_ASSESSMENTS_FAIL})
     console.log(err);
@@ -22,7 +22,7 @@ export function* handleGetPublicAssessmentsRequest(action) {
   try {
     const response = yield call(getPublicAssessmentsRequest);
     const { data } = response;
-    yield put({ type: ActionTypes.GET_PUBLIC_ASSESSMENTS_SUCCESS, data: data });
+    yield put({ type: ActionTypes.GET_PUBLIC_ASSESSMENTS_SUCCESS, data: data.reverse() });
   } catch (err) {
     yield put({type: ActionTypes.GET_PUBLIC_ASSESSMENTS_FAIL})
     console.log(err);
@@ -44,7 +44,7 @@ export function* handleCreateAssessmentRequest(action) {
       yield put({type: ActionTypes.ADD_QUESTIONS_IN_ASSESSMENT_FAIL})
       console.log(err);
     }
-    //action.navigate('')
+    action.navigate('/assessments')
   } catch (err) {
     yield put({type: ActionTypes.CREATE_ASSESSMENT_FAIL})
     console.log(err);

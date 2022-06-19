@@ -10,10 +10,29 @@ import DialogActions from "@mui/material/DialogActions";
 import {useParams} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import Checkbox from "@mui/material/Checkbox";
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
+
+function createData(name, calories, fat, carbs, protein) {
+  return { name, calories, fat, carbs, protein };
+}
+
+const rows = [
+  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
+  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
+  createData('Eclair', 262, 16.0, 24, 6.0),
+  createData('Cupcake', 305, 3.7, 67, 4.3),
+  createData('Gingerbread', 356, 16.0, 49, 3.9),
+];
 
 export function AddQuestionDialog (props) {
   const [open, setOpen] = React.useState(false);
@@ -22,14 +41,16 @@ export function AddQuestionDialog (props) {
   const [isTrue, setIsTrue] = useState(false);
   const [options, setOptions] = useState([]);
   const [option, setOption] = useState('');
-  const [duration, setDuration] = useState('600');
+  const [duration, setDuration] = useState('60');
   const [score, setScore] = useState('10');
+  const [isOpenEnded, setIsOpenEnded] = useState(false);
 
   let {id} = useParams();
   let dispatch = useDispatch();
 
-  const handleClickOpen = () => {
+  const handleClickOpen = (openEnded = false) => {
     setOpen(true);
+    setIsOpenEnded(openEnded);
   };
 
   const handleClose = () => {
@@ -52,13 +73,14 @@ export function AddQuestionDialog (props) {
     let q = {
       statement: statement,
       score: score,
-      duration: duration,
+      duration: duration * 1000,
       options: options
     }
     setOptions([]);
     setStatement('');
     setIsTrue(false);
     setQuestions([...questions, q])
+    saveQuestions();
   }
 
   function removeOption(value) {
@@ -78,8 +100,8 @@ export function AddQuestionDialog (props) {
 
   return (
       <div>
-        <Button color={"success"} variant={"outlined"} onClick={handleClickOpen} className={"!mr-4"}>Add multiple choice question</Button>
-        <Button color={"success"} variant={"outlined"} onClick={handleClickOpen}>Add open ended question</Button>
+        <Button color={"success"} variant={"outlined"} onClick={() => {handleClickOpen(false)}} className={"!mr-4"}>Add multiple choice question</Button>
+        <Button color={"success"} variant={"outlined"} onClick={() => {handleClickOpen(true)}}>Add open ended question</Button>
         <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title"
                 fullWidth
                 maxWidth={'lg'}
@@ -93,7 +115,7 @@ export function AddQuestionDialog (props) {
             <div className={"flex justify-center items-center"}>
 
             </div>
-            <ValidatorForm onSubmit={saveQuestions} className="space-y-4 mt-4">
+            <ValidatorForm onSubmit={addQuestion} className="space-y-4 mt-4">
               <TextValidator
                   id="statement"
                   label="Question Statement"
@@ -106,22 +128,8 @@ export function AddQuestionDialog (props) {
               />
               <div className={"flex space-x-2 items-center"}>
                 <TextValidator
-                    id="option"
-                    label="Option"
-                    placeholder={"Add option"}
-                    className={"!w-96"}
-                    value={option}
-                    onChange={e => setOption(e.target.value)}
-                    fullWidth
-                    validators={['required']}
-                    errorMessages={['This field is required']}
-                />
-                <FormGroup>
-                  <FormControlLabel control={<Checkbox checked={isTrue} name={"isTrue"} onChange={() => {setIsTrue(!isTrue)}}/>} label="Mark Correct" />
-                </FormGroup>
-                <TextValidator
                     id="duration"
-                    label="Duration"
+                    label="Duration (s)"
                     value={duration}
                     onChange={e => setDuration(e.target.value)}
                     fullWidth
@@ -137,29 +145,29 @@ export function AddQuestionDialog (props) {
                     validators={['required']}
                     errorMessages={['This field is required']}
                 />
-                <Button color="primary" variant={"outlined"} onClick={addOption}>
-                  Add Option
-                </Button>
               </div>
+              {!isOpenEnded &&
+                  <div className={"flex space-x-2 items-center"}>
+                    <TextValidator
+                        id="option"
+                        label="Option"
+                        placeholder={"Add option"}
+                        className={"!w-96"}
+                        value={option}
+                        onChange={e => setOption(e.target.value)}
+                        fullWidth
+                    />
+                    <FormGroup>
+                      <FormControlLabel control={<Checkbox checked={isTrue} name={"isTrue"} onChange={() => {setIsTrue(!isTrue)}}/>} label="Mark Correct" />
+                    </FormGroup>
+                    <Button color="primary" variant={"outlined"} onClick={addOption}>
+                      Add Option
+                    </Button>
+                  </div>}
               <Stack direction="row" spacing={1}>
                 {options && options.map(option => (
-                    <Tooltip title={option.isCorrect ?  "Correct" : "Incorrect"}>
+                    <Tooltip title={option.isCorrect ?  "Correct" : "Incorrect"} key={option.value}>
                       <Chip label={option.value} variant="contained" onDelete={() => {removeOption(option.value)}} />
-                    </Tooltip>
-                ))}
-              </Stack>
-              <div className={"flex space-x-2"}>
-                <Button onClick={handleClose} color="primary">
-                  Clear
-                </Button>
-                <Button color="primary" variant={"outlined"} onClick={addQuestion}>
-                  Add Question
-                </Button>
-              </div>
-              <Stack direction="row" spacing={1}>
-                {questions && questions.map(question => (
-                    <Tooltip title={question.statement}>
-                      <Chip label={question.statement} variant="contained" onDelete={() => {removeQuestion(question.statement)}} />
                     </Tooltip>
                 ))}
               </Stack>
@@ -167,8 +175,8 @@ export function AddQuestionDialog (props) {
                 <Button onClick={handleClose} color="primary">
                   Cancel
                 </Button>
-                <Button color="primary" onClick={saveQuestions}>
-                  Save Questions
+                <Button color="primary" type={"submit"} disabled={!statement}>
+                  Add Question
                 </Button>
               </DialogActions>
             </ValidatorForm>
