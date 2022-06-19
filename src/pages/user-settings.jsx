@@ -4,29 +4,20 @@ import {KeyIcon} from '@heroicons/react/solid'
 import {Header} from "../components/header";
 import api from '../generic-services/api'
 import placeholder from '../Sample_User_Icon.png';
+import {useSelector} from "react-redux";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
 export default function UserSettings() {
-  const [data, setdata] = useState({})
+  const [data,setData]  = useState(useSelector(state => state.user.user))
+  const [allowEmail, setAllowEmail] = useState(true)
 
-
-  useEffect(() => {
-    api.execute('/user/me')
-      .then((res) => {
-        console.log(res.data)
-        setdata(res.data)
-      })
-  }, [])
-  /* This example requires Tailwind CSS v2.0+ */
-
-  const [availableToHire, setAvailableToHire] = useState(true)
-
-  return (
+  return(
     <div>
       <Header/>
+      {data &&
       <main className="mt-10">
         <div className="max-w-screen-xl mx-auto pb-6 px-4 sm:px-6 lg:pb-16 lg:px-8">
           <div className="bg-white rounded-lg shadow overflow-hidden">
@@ -90,7 +81,7 @@ export default function UserSettings() {
                             name="about"
                             rows={3}
                             className="shadow-sm focus:ring-sky-500 focus:border-sky-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md"
-                            defaultValue={data.description}
+                            defaultValue={data.userStatus}
                           />
                         </div>
                         <p className="mt-2 text-sm text-gray-500">
@@ -168,17 +159,17 @@ export default function UserSettings() {
                           </Switch.Description>
                         </div>
                         <Switch
-                          checked={availableToHire}
-                          onChange={setAvailableToHire}
+                          checked={allowEmail}
+                          onChange={setAllowEmail}
                           className={classNames(
-                            availableToHire ? 'bg-teal-500' : 'bg-gray-200',
+                            allowEmail ? 'bg-teal-500' : 'bg-gray-200',
                             'ml-4 relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500'
                           )}
                         >
                           <span
                             aria-hidden="true"
                             className={classNames(
-                              availableToHire ? 'translate-x-5' : 'translate-x-0',
+                              allowEmail ? 'translate-x-5' : 'translate-x-0',
                               'inline-block h-5 w-5 rounded-full bg-white shadow transform ring-0 transition ease-in-out duration-200'
                             )}
                           />
@@ -206,7 +197,7 @@ export default function UserSettings() {
                   <div className="flex justify-center items-center my-1 py-2">
                     <button
                       type="button"
-                      className="w-2/6 inline-flex items-center ml-20 mr-20 px-6 py-2 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-[#6366F1] hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 flex justify-center items-center"
+                      className="mx-3 w-full sm:w-2/4 lg:w-2/6 inline-flex items-center my-1 px-6 py-2 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-[#6366F1] hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 flex justify-center items-center"
                     >
                       <KeyIcon className="-ml-1 mr-3 h-5 w-5" aria-hidden="true"/>
                       <p>RESET PASSWORD ?</p>
@@ -218,6 +209,8 @@ export default function UserSettings() {
           </div>
         </div>
       </main>
+      }
     </div>
+
   )
 }
