@@ -30,13 +30,15 @@ export function* handleGetPublicAssessmentsRequest(action) {
 }
 
 export function* handleCreateAssessmentRequest(action) {
+  let a;
   try {
     const response = yield call(createAssessmentRequest, action.name, action.body, action.isPublic, action.questions);
     const { data } = response;
+    a = data;
     yield put({ type: ActionTypes.CREATE_ASSESSMENT_SUCCESS});
     try {
-      const response = yield call(addQuestionInAssessmentRequest, data.assessment.id, action.questions);
-      const { data } = response;
+      const response = yield call(addQuestionInAssessmentRequest, a.assessment.id, action.questions);
+      const { data2 } = response;
       yield put({ type: ActionTypes.ADD_QUESTIONS_IN_ASSESSMENT_SUCCESS });
     } catch (err) {
       yield put({type: ActionTypes.ADD_QUESTIONS_IN_ASSESSMENT_FAIL})
