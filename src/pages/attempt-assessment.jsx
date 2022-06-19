@@ -208,6 +208,7 @@ export default function AttemptAssessment() {
                 onClick={() => {
                   localStorage.setItem("current" + assessment.id, current - 1 + 2)
                   setCurrent(current - 1 + 2)
+                  setContent('')
                 }}
               >
                 Next
