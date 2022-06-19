@@ -34,6 +34,7 @@ export default function Messenger() {
 
   function getChats() {
     Api.execute("/api/chat/conversations?search="+query, "get", {}, false).then((res) => {
+      console.log(res.data)
       setConversations(res.data);
     }).catch(err => {
       console.log(err);
@@ -91,8 +92,9 @@ export default function Messenger() {
           <ConversationList style={{minHeight:"80vh"}}>
             { conversations &&
               conversations.filter(con=>con.userName !== undefined).map(c => {
+                console.log(c.unreadMessages)
                 return (
-                  <Conversation key={c.chatId} name={c.userName.user.name} info={c.lastMessage} onClick={()=>{
+                  <Conversation key={c.chatId} name={c.userName.user.name} unreadCnt={c?.userName?.unreadMessages} info={c.lastMessage} onClick={()=>{
                     setSelectedUser(c);
                   }}>
                     <Avatar src={c.userName.user.imageUrl ?? placeholder} name={c.userName.user.name} />
