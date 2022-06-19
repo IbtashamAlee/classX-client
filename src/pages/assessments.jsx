@@ -7,16 +7,29 @@ import {useNavigate, useParams} from "react-router-dom";
 import {getAssessments, getPublicAssessments} from "../redux/actions/assessments-actions";
 import {Header} from "../components/header";
 import {Link} from 'react-router-dom'
+import Api from "../generic-services/api";
 
 export function Assessments() {
   let dispatch = useDispatch();
   let {id} = useParams();
+
   let public_assessments = useSelector((state => state.assessments.public_assessments));
   let assessments = useSelector((state => state.assessments.assessments));
+
   const [record, setRecord] = useState(10);
   const [page, setPage] = useState(1);
 
-  let navigate = useNavigate()
+  let navigate = useNavigate();
+
+  let forkPublicAssessment = (id) => {
+    Api.execute('/api/assessment/' + id + "/fork", 'post').then(res => {
+      dispatch(getAssessments());
+      dispatch(getPublicAssessments());
+    }).catch(err => {
+      console.log(err);
+    })
+  }
+
 
   useEffect(() => {
     dispatch(getAssessments());
@@ -95,7 +108,7 @@ export function Assessments() {
                         </div>
                       </div>
                     </div>
-                    <Button variant={"contained"}>Fork</Button>
+                    <Button variant={"contained"} onClick={() => {forkPublicAssessment(position.id)}}>Fork</Button>
                   </div>
                 </span>
                     </li>
