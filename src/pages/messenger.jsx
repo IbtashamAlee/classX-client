@@ -33,7 +33,7 @@ export default function Messenger() {
   let interval;
 
   function getChats() {
-    Api.execute("/chat/conversations?search="+query, "get", {}, false).then((res) => {
+    Api.execute("/api/chat/conversations?search="+query, "get", {}, false).then((res) => {
       setConversations(res.data);
     }).catch(err => {
       console.log(err);
@@ -42,7 +42,7 @@ export default function Messenger() {
 
   function getMessages() {
     if(selectedUser === null) return;
-    Api.execute("/chat/" + selectedUser.chatId, "get", {}, false).then((res) => {
+    Api.execute("/api/chat/" + selectedUser.chatId, "get", {}, false).then((res) => {
       console.log(res);
       setMessages(res.data.chatmessage);
     }).catch(err => {
@@ -52,7 +52,7 @@ export default function Messenger() {
 
   function sendMessage() {
     if(selectedUser === null) return;
-    Api.execute("/chat/" + selectedUser.chatId + "/message", "post", {
+    Api.execute("/api/chat/" + selectedUser.chatId + "/message", "post", {
       message: messageInputValue,
       files: files
     }, false).then((res) => {
