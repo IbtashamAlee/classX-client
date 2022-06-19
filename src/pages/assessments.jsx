@@ -3,8 +3,7 @@ import {Button, IconButton} from "@mui/material";
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {useParams} from "react-router-dom";
-import {getAttendance} from "../redux/actions/attendance-actions";
+import {useNavigate, useParams} from "react-router-dom";
 import {getAssessments, getPublicAssessments} from "../redux/actions/assessments-actions";
 import {Header} from "../components/header";
 import {Link} from 'react-router-dom'
@@ -17,6 +16,8 @@ export function Assessments() {
   const [record, setRecord] = useState(10);
   const [page, setPage] = useState(1);
 
+  let navigate = useNavigate()
+
   useEffect(() => {
     dispatch(getAssessments());
     dispatch(getPublicAssessments());
@@ -27,16 +28,6 @@ export function Assessments() {
     if (isPublic) return date.getDate() + "-" + parseInt(date.getMonth() + 1)+ "-" + date.getFullYear() + ' created at '+ date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
     else return date.getDate() + "-" + parseInt(date.getMonth() + 1)+ "-" + date.getFullYear() + ' ending at '+ date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
 
-  }
-
-  function handleClick(e) {
-    let value = e.target.value;
-    console.log(value)
-    if (document.getElementById(value).classList.contains('hidden')) {
-      document.getElementById(value).classList.remove('hidden')
-    } else {
-      document.getElementById(value).classList.add('hidden');
-    }
   }
 
   return (
@@ -72,9 +63,11 @@ export function Assessments() {
                         </div>
                       </div>
                     </div>
-                    <IconButton value={position.id} onClick={(e) => {handleClick(e)}} className="!ml-3">
+                    <Link to={"/assessment/" + position.id}>
+                      <IconButton value={position.id} className="!ml-3">
                       <ArrowForwardIosIcon className="text-gray-400 pointer-events-none" />
                     </IconButton>
+                    </Link>
                   </div>
                 </span>
                     </li>

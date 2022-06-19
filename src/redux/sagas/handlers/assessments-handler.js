@@ -44,7 +44,7 @@ export function* handleCreateAssessmentRequest(action) {
       yield put({type: ActionTypes.ADD_QUESTIONS_IN_ASSESSMENT_FAIL})
       console.log(err);
     }
-    action.navigate('/assessments')
+    action.navigate('/assessment/' + a.assessment.id)
   } catch (err) {
     yield put({type: ActionTypes.CREATE_ASSESSMENT_FAIL})
     console.log(err);

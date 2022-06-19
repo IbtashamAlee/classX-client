@@ -34,6 +34,7 @@ import {PollsPage} from "./pages/polls-page";
 import AttemptInfo from "./pages/assessment-info";
 import AttemptAssessment from "./pages/attempt-assessment";
 import {ClassAssessmentPage} from "./pages/class-assessments";
+import {EditAssessment} from "./pages/edit-assessment";
 
 export default function App() {
   const dispatch = useDispatch();
@@ -98,6 +99,9 @@ export default function App() {
           <Route path="/institute/:id/settings" element={<AuthorizedRoute> <InstituteSettings/> </AuthorizedRoute>}/>
 
           <Route path="/assessment/create" element={<AuthorizedRoute> <CreateAssessment/> </AuthorizedRoute>}/>
+
+          <Route path="/assessment/:id" element={<AuthorizedRoute> <EditAssessment/> </AuthorizedRoute>}/>
+
           <Route path="verify" element={<AccountVerify/>}/>
           <Route path="institute/request" element={ <AuthorizedRoute> <CreateInstitute/> </AuthorizedRoute>}/>
           <Route path="forgot-password" element={<EnrouteToDashboard> <ForgotPassword/> </EnrouteToDashboard>}/>

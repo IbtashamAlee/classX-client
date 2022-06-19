@@ -17,6 +17,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import Api from "../generic-services/api";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -76,11 +77,21 @@ export function AddQuestionDialog (props) {
       duration: duration * 1000,
       options: options
     }
-    setOptions([]);
-    setStatement('');
-    setIsTrue(false);
-    setQuestions([...questions, q])
-    saveQuestions();
+
+    //setQuestions([...questions, q])
+
+    Api.execute('/api/assessment/'+ id + '/question', 'post', {
+      questions: [q]
+    }).then(res => {
+      setOptions([]);
+      setStatement('');
+      setIsTrue(false);
+      props.getAssessment();
+      handleClose();
+    }).catch(err => {
+      console.log(err);
+    })
+    //saveQuestions();
   }
 
   function removeOption(value) {
