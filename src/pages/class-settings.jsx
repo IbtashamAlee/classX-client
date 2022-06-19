@@ -35,7 +35,7 @@ export default function ClassSettings() {
   }, [current_class])
 
   let changeProfileImage = (files) => {
-    Api.execute('/class/'+ id + '/profile-pic', 'put', {
+    Api.execute('/api/class/'+ id + '/profile-pic', 'put', {
       imageUrl: files[0].publicUrl
     }).then(res => {
       // get Class settings

@@ -119,7 +119,7 @@ export function FilePicker(props) {
     try {
       const response = await axios({
         method: "post",
-        url: "/file/multiple",
+        url: "/api/file/multiple",
         data: data,
         headers: { "Content-Type": "multipart/form-data" },
       });

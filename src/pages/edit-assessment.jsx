@@ -45,7 +45,7 @@ export function EditAssessment(props) {
             <div>
               <h3 className={"text-xs md:text-sm text-gray-400"}>Assessment Title</h3>
               <h1 className={"text-2xl text-gray-900 flex flex-col"}>{assessment.name}
-                <p className={"text-xs md:text-sm text-gray-400"}>{assessment.isPublic && "(This is a public assessment)"}</p>
+                <p className={"text-xs md:text-sm text-gray-400"}>{assessment.isPublic && "(Forked from public assessments)"}</p>
               </h1>
             </div>
             <AddQuestionDialog getAssessment={getSpecificAssessment}/>
