@@ -76,7 +76,7 @@ export function EditAssessment(props) {
                         {row.statement}
                       </TableCell>
                       <TableCell align="right">{row.option.length > 0 ? "MCQs" : "Open Ended"}</TableCell>
-                      <TableCell align="right">{row.duration}</TableCell>
+                      <TableCell align="right">{row.duration / 1000}</TableCell>
                       <TableCell align="right">{row.score}</TableCell>
                       <TableCell align="right">{row.option.length}</TableCell>
                       <TableCell align="right">
