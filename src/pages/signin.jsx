@@ -5,6 +5,7 @@ import Carousel from 'react-material-ui-carousel'
 import {Link, useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {signinUser} from "../redux/actions/auth-actions";
+import logo from '../logo.svg'
 
 export function Signin() {
   const [email, setEmail] = useState('');
@@ -51,7 +52,7 @@ export function Signin() {
               <div>
                 <img
                     className="h-12 w-auto"
-                    src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
+                    src = {logo}
                     alt="Workflow"
                 />
                 <h2 className="mt-6 text-3xl font-extrabold text-gray-900">Sign in</h2>

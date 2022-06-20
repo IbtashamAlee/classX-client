@@ -98,7 +98,7 @@ export function Header(props) {
           className={`flex-1 flex justify-between px-4 md:px-0 mx-4 md:mx-16`}>
           <div className={`flex px-4 md:px-0 items-center`}>
             <ArrowBackIcon onClick={() => {navigate(-1);}} className={"text-gray-500"}/>
-            <img className="hidden md:flex w-16 ml-4 mb-1" src={window.location.origin + '/logo.svg'} onClick={() => {
+            <img className="hidden md:flex w-10 h-10 ml-4 mb-1" src={window.location.origin + '/logo.svg'} onClick={() => {
               navigate('/');
             }}/>
           </div>

@@ -143,7 +143,7 @@ export function PollCard(props) {
               </div>
           }
           <div className="flex flex-row mt-2 items-center">
-            <img src={user.imageUrl} alt="profile" className="w-8 h-8 min-w-8 min-h-8 rounded-full object-cover"/>
+            <img src={user.imageUrl ?? placeholder} alt="profile" className="w-8 h-8 min-w-8 min-h-8 rounded-full object-cover"/>
             <div className="ml-2 shadow rounded-2xl bg-slate-50 px-2 w-full flex flex-row justify-between">
               <input type='text' onKeyPress={handleKeypress} placeholder="write your comment here" value={comment} onChange={(e)=>setComment(e.target.value)} className="text-sm h-10 w-full border-0 bg-transparent"/>
               <IconButton style={{padding:0}} onClick={()=>postComment(props.poll.id)} disabled={comment.length<1}>
