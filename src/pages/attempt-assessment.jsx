@@ -12,6 +12,7 @@ import {Button} from "@mui/material";
 import api from '../generic-services/api'
 import done from '../done.svg';
 import {useNavigate, useLocation} from 'react-router-dom';
+import Api from "../generic-services/api";
 
 const BpIcon = styled('span')(({theme}) => ({
   borderRadius: '50%',
@@ -80,18 +81,23 @@ export default function AttemptAssessment() {
   const [isMCQ, setIsMCQ] = useState(false)
   let navigate = useNavigate();
   const location = useLocation();
-  const assessment = location.state ?? null;
+  let state = location.state ?? null;
+  let assessment_id = state.id;
+  let class_id = location.state.class_id
 
   const [content, setContent] = useState('');
   const [files, setFiles] = useState([]);
+  let totalSeconds = 0;
 
-  let nextbtn = useRef(null);
-  var totalSeconds = 0;
-
+  const [timeInterval, setTimeInterval] = useState();
   const secondsRef = React.useRef();
   const minutesRef = React.useRef();
   let hoursRef = React.useRef();
-  const [timeInterval, setTimeInterval] = useState();
+  let nextbtn = useRef(null);
+
+  const [selectedOptions, setSelectedOptions] = useState([]);
+  const [answer, setAnswer] = useState('');
+  const [questionId, setQuestionId] = useState('');
 
   function getFiles(files) {
     setFiles(files);
@@ -110,7 +116,6 @@ export default function AttemptAssessment() {
     }
   }
 
-
   function setTime()
   {
     if(!secondsRef.current.getAttribute('value')) return
@@ -125,10 +130,41 @@ export default function AttemptAssessment() {
     hoursRef.current.innerHTML = pad(parseInt((totalSeconds/60)/60))
 
     if (totalSeconds === 0) {
-      localStorage.setItem("current" + assessment.id, current - 1 + 2)
+      localStorage.setItem("current" + assessment_id, current - 1 + 2)
       setCurrent(current - 1 + 2)
       setContent('');
+      setAnswer('');
+      setSelectedOptions([]);
     }
+  }
+
+  const setMcqs = (op, isRadio) => {
+    if (op === undefined) return
+
+    if (isRadio) {
+      if (!selectedOptions.includes(op)) {
+        setSelectedOptions((selectedOptions) => [...[], {id: op}])
+      }
+    } else {
+      if (!selectedOptions.includes(op)) {
+        setSelectedOptions((selectedOptions) => [...selectedOptions, {id: op}])
+      }
+    }
+  }
+
+  let submitAnswer = () => {
+    Api.execute('/api/class/' + class_id + "/assessment/" + assessment_id + "/question/" + questionId + "/response", 'post', {
+      options: selectedOptions,
+      answer: content
+    }).then(res => {
+      localStorage.setItem("current" + assessment_id, current - 1 + 2)
+      setCurrent(current - 1 + 2)
+      setContent('');
+      setSelectedOptions([]);
+      console.log(res)
+    }).catch(err => {
+      console.log(err);
+    })
   }
 
   useEffect(() => {
@@ -138,19 +174,21 @@ export default function AttemptAssessment() {
 
 
   useEffect(() => {
-    api.execute("/api/class/assessment/" + assessment.id, 'get')
+    api.execute("/api/class/assessment/" + assessment_id, 'get')
         .then((res) => {
           setQuestions(res.data.assessment.question)
-          localStorage.getItem("current" + assessment.id) ? setCurrent(localStorage.getItem("current" + assessment.id)) : localStorage.setItem("current" + assessment.id, 0)
+          localStorage.getItem("current" + assessment_id) ? setCurrent(localStorage.getItem("current" + assessment_id)) : localStorage.setItem("current" + assessment_id, 0)
         })
   }, [])
 
   useEffect(() => {
+    //setQuestionId(questions[current].id)
     let correct = 0
     questions[current]?.option?.map(opt => {
       if (opt.isCorrect) correct++
     })
     if (correct === 1) setIsMCQ(true)
+    setQuestionId(questions[current]?.id)
   }, [current])
 
   if (current >= questions.length) {
@@ -229,10 +267,11 @@ export default function AttemptAssessment() {
                   <RadioGroup
                       aria-labelledby="demo-customized-radios"
                       name="customized-radios"
+                      onChange={e => {setMcqs(e.target.value, true)}}
                   >
                     {
                       questions[current].option.map((opt) => {
-                        return (<FormControlLabel value={opt.value} key={opt.value} control={<BpRadio/>} label={opt.value}/>)
+                        return (<FormControlLabel value={opt.id} key={opt.value} control={<BpRadio/>} label={opt.value} />)
                       })
                     }
                   </RadioGroup>
@@ -247,7 +286,7 @@ export default function AttemptAssessment() {
                     questions[current].option.map(opt => {
                       return (
                           <div className="flex inline-flex justify-center items-center" key={opt.value}>
-                            <Checkbox label={opt.value} value={opt.value} onChange={(e) => console.log(e.target.value)}
+                            <Checkbox label={opt.value} value={opt.id} onChange={(e) => setMcqs(e.target.value, false, e.target.checked)}
                                       color="secondary"/>
                             <p>{opt.value}</p>
                           </div>
@@ -259,22 +298,18 @@ export default function AttemptAssessment() {
 
             <div className="mt-8 flex justify-center">
               <div className="inline-flex rounded-md shadow">
-                <button
-                    className="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700"
+                <Button
+                    variant={"contained"}
                     onClick={() => {
-                      localStorage.setItem("current" + assessment.id, current - 1 + 2)
-                      setCurrent(current - 1 + 2)
-                      setContent('');
+                      submitAnswer();
                     }}
                     ref={nextbtn}
                 >
                   Next
-                </button>
+                </Button>
               </div>
             </div>
-
           </div>
-
         </div>
       </React.Fragment>
   )

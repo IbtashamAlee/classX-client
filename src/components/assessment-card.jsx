@@ -8,7 +8,7 @@ import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import SendIcon from "@mui/icons-material/Send";
 import Api from "../generic-services/api";
 import {useSelector} from "react-redux";
-import {useNavigate} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 
 export function AssessmentCard(props) {
   let user = useSelector((state => state.user.user))
@@ -16,6 +16,7 @@ export function AssessmentCard(props) {
   let [comment, setComment] = useState('')
   let [initialComment, setInitialComments] = useState(2)
   const navigate = useNavigate();
+  let {id} = useParams();
 
   const handleKeypress = e => {
     if (e.charCode === 13) {
@@ -68,8 +69,11 @@ export function AssessmentCard(props) {
         </div>
         <div className={"flex items-center"}>
           <Button variant={"contained"} onClick={()=>{
-            navigate("/assessment-info",{
-              state : props
+            navigate("/assessment-info", {
+              state: {
+                assessment: props,
+                class_id: id
+              }
             })
           }}>
             Attempt

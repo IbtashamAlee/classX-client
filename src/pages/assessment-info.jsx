@@ -6,7 +6,10 @@ import {Button} from '@mui/material'
 export default function AttemptInfo() {
   const location = useLocation();
   const navigate = useNavigate();
-  const assessment = location?.state?.assessment ?? null
+  let assessment = location?.state?.assessment ?? null
+  assessment =  assessment.assessment
+  console.log(location.state)
+  const class_id = location?.state?.class_id ?? null
 
   useEffect(()=>{
     console.log(assessment)
@@ -32,7 +35,7 @@ export default function AttemptInfo() {
         <div className="mt-8 flex justify-center">
           <div className="inline-flex rounded-md shadow">
             <Button variant="contained" onClick={()=>{
-              navigate('/attempt-assessment',{state : {id:assessment.id}})
+              navigate('/attempt-assessment',{state : {id: assessment.id, class_id: class_id}})
             }}>Get Started</Button>
           </div>
         </div>
