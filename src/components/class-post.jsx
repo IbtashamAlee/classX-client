@@ -7,7 +7,6 @@ import {
   ThumbUpIcon,
   XIcon,
 } from '@heroicons/react/solid'
-import { Listbox, Transition } from '@headlessui/react'
 import {Button} from "@mui/material";
 import {FilePicker} from "./file-picker";
 import Api from "../generic-services/api";
