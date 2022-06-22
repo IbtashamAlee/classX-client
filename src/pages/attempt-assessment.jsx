@@ -98,6 +98,7 @@ export default function AttemptAssessment() {
   const [selectedOptions, setSelectedOptions] = useState([]);
   const [answer, setAnswer] = useState('');
   const [questionId, setQuestionId] = useState('');
+  const [submission, setSubmission] = useState('');
 
   function getFiles(files) {
     setFiles(files);
@@ -118,7 +119,7 @@ export default function AttemptAssessment() {
 
   function setTime()
   {
-    if(!secondsRef.current.getAttribute('value')) return
+    if(!secondsRef.current?.getAttribute('value')) return
     totalSeconds = parseInt(secondsRef.current.getAttribute('value'));
     --totalSeconds;
 
@@ -167,6 +168,14 @@ export default function AttemptAssessment() {
     })
   }
 
+  let submitAssessment = () => {
+    Api.execute('/api/class/assessment/' + assessment_id + '/done', 'post').then(res => {
+      setSubmission(res.data);
+    }).catch(err => {
+      console.log(err);
+    })
+  }
+
   useEffect(() => {
     clearInterval(timeInterval);
     setTimeInterval(setInterval(setTime, 1000));
@@ -185,13 +194,18 @@ export default function AttemptAssessment() {
     //setQuestionId(questions[current].id)
     let correct = 0
     questions[current]?.option?.map(opt => {
+      console.log(opt.isCorrect)
       if (opt.isCorrect) correct++
     })
-    if (correct === 1) setIsMCQ(true)
+    if (correct === 1) {
+      setIsMCQ(true)
+    } else {
+      setIsMCQ(false);
+    }
     setQuestionId(questions[current]?.id)
   }, [current])
 
-  if (current >= questions.length) {
+  if (current == questions.length) {
     clearInterval(timeInterval);
     return (
         <div>
@@ -298,15 +312,19 @@ export default function AttemptAssessment() {
 
             <div className="mt-8 flex justify-center">
               <div className="inline-flex rounded-md shadow">
-                <Button
-                    variant={"contained"}
-                    onClick={() => {
-                      submitAnswer();
-                    }}
-                    ref={nextbtn}
-                >
-                  Next
-                </Button>
+                {current >= questions.length ?
+                    <Button onClick={submitAssessment}>Submit</Button>
+                    :
+                    <Button
+                        variant={"contained"}
+                        onClick={() => {
+                          submitAnswer();
+                        }}
+                        ref={nextbtn}
+                    >
+                      Next
+                    </Button>
+                }
               </div>
             </div>
           </div>

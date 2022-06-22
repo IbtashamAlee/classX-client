@@ -8,7 +8,7 @@ import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import SendIcon from "@mui/icons-material/Send";
 import Api from "../generic-services/api";
 import {useSelector} from "react-redux";
-import {useNavigate, useParams} from "react-router-dom";
+import {Link, useNavigate, useParams} from "react-router-dom";
 
 export function AssessmentCard(props) {
   let user = useSelector((state => state.user.user))
@@ -68,16 +68,22 @@ export function AssessmentCard(props) {
           </div>
         </div>
         <div className={"flex items-center"}>
-          <Button variant={"contained"} onClick={()=>{
-            navigate("/assessment-info", {
-              state: {
-                assessment: props,
-                class_id: id
-              }
-            })
-          }}>
-            Attempt
-          </Button>
+          {props?.currentRole === "Teacher" || props?.currentRole === "DepartmentAdmin" ?
+              <Link to={`/class-details/${id}/assessments/${props.assessment.id}`}>
+                <Button variant={"contained"}>View Details</Button>
+              </Link>
+              :
+              <Button variant={"contained"} onClick={()=>{
+                navigate("/assessment-info", {
+                  state: {
+                    assessment: props,
+                    class_id: id
+                  }
+                })
+              }}>
+                Attempt
+              </Button>
+          }
         </div>
       </div>
       {/*comment section*/}
