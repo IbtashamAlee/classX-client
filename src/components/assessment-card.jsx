@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {CalendarIcon} from "@heroicons/react/solid";
 import {getEndingDate} from "../functions/date-functions";
 import {Button} from "@mui/material";
@@ -13,7 +13,8 @@ import {Link, useNavigate, useParams} from "react-router-dom";
 export function AssessmentCard(props) {
   let user = useSelector((state => state.user.user))
   const [Comments,setComments] = useState(props.assessment.assessmentComments)
-  let [comment, setComment] = useState('')
+  let [comment, setComment] = useState('');
+  const [submission, setSubmission] = useState('');
   let [initialComment, setInitialComments] = useState(2)
   const navigate = useNavigate();
   let {id} = useParams();
@@ -47,6 +48,20 @@ export function AssessmentCard(props) {
     })
   }
 
+  let getScore = () => {
+    // Api.execute('/api/class/assessment/' + props.assessment.id + '/done', 'post').then(res => {
+    //   setSubmission(res.data);
+    // }).catch(err => {
+    //   console.log(err);
+    // })
+  }
+
+  useEffect(() => {
+    if(props.assessment.classAssessmentSubmission.length > 0) {
+      getScore();
+    }
+  }, [props.assessment])
+
   return (
     <div
       className="block p-4 max-w-full bg-white rounded-lg border-2 border-gray-200 shadow-sm flex flex-col justify-between item-center">
@@ -75,26 +90,31 @@ export function AssessmentCard(props) {
               :
               <>
                 {props.assessment.classAssessmentSubmission.length > 0 ?
+                    <div className={"text-gray-700"}>
+                      <h1>Marks Obtained: {submission.obtainedMarks}</h1>
+                      <h1>Marks Obtained: {submission.totalMarks}</h1>
+                    </div>
+                    // <Button variant={"contained"} onClick={()=>{
+                    //   navigate("/attempt-assessment", {
+                    //     state: {
+                    //       id: props.assessment.id,
+                    //       class_id: id
+                    //     }
+                    //   })
+                    // }}>
+                    //   View Submission
+                    // </Button>
+                    :
                     <Button variant={"contained"} onClick={()=>{
-                      navigate("/attempt-assessment", {
+                      navigate("/assessment-info", {
                         state: {
-                          id: props.assessment.id,
+                          assessment: props,
                           class_id: id
                         }
                       })
                     }}>
-                      View Submission
-                    </Button> :
-                  <Button variant={"contained"} onClick={()=>{
-                    navigate("/assessment-info", {
-                      state: {
-                        assessment: props,
-                        class_id: id
-                      }
-                    })
-                  }}>
-                    Attempt
-                  </Button>
+                      Attempt
+                    </Button>
                 }
               </>
           }

@@ -119,6 +119,7 @@ export default function AttemptAssessment() {
 
   function setTime()
   {
+    console.log(secondsRef.current?.getAttribute('value'))
     if(!secondsRef.current?.getAttribute('value')) return
     totalSeconds = parseInt(secondsRef.current.getAttribute('value'));
     --totalSeconds;
@@ -189,12 +190,17 @@ export default function AttemptAssessment() {
     api.execute("/api/class/assessment/" + assessment_id, 'get')
         .then((res) => {
           setQuestions(res.data.assessment.question)
+          setQuestionId(res.data.assessment.question[current].id)
           localStorage.getItem("current" + assessment_id) ? setCurrent(localStorage.getItem("current" + assessment_id)) : localStorage.setItem("current" + assessment_id, 0)
         })
   }, [])
 
+  // useEffect(() => {
+  //   console.log(questions)
+  //   setQuestionId(questions[current].id)
+  // }, [questions])
+
   useEffect(() => {
-    //setQuestionId(questions[current].id)
     let correct = 0
     questions[current]?.option?.map(opt => {
       console.log(opt.isCorrect)
@@ -210,9 +216,6 @@ export default function AttemptAssessment() {
 
   if (current == questions.length) {
     clearInterval(timeInterval);
-    if(!submission) {
-      submitAssessment();
-    }
     return (
         <div>
           <Header/>
