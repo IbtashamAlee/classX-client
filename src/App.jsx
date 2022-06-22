@@ -90,6 +90,7 @@ export default function App() {
           <Route path="attempt-assessment" element={<AuthorizedRoute> <AttemptAssessment/> </AuthorizedRoute>}/>
 
           <Route path="assessments" element={<AuthorizedRoute> <Assessments/> </AuthorizedRoute>}/>
+          <Route path="/assessments/:id" element={<AuthorizedRoute> <Assessments/> </AuthorizedRoute>}/>
           <Route path="signup" element={<EnrouteToDashboard> <Signup/> </EnrouteToDashboard>}/>
           <Route path="signin" element={<EnrouteToDashboard> <Signin/> </EnrouteToDashboard>}/>
           <Route path="dashboard" element={<AuthorizedRoute> <Dashboard/> </AuthorizedRoute>}/>

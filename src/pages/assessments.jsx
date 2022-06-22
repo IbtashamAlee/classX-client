@@ -30,6 +30,14 @@ export function Assessments() {
     })
   }
 
+  let assignAssessment = (assessments_id) => {
+    Api.execute('/api/class/' + 1 +'/assessment/' + assessments_id, 'post', {}).then(res => {
+      navigate(-1);
+    }).catch(err => {
+      console.log(err);
+    })
+  }
+
 
   useEffect(() => {
     dispatch(getAssessments());
@@ -76,11 +84,15 @@ export function Assessments() {
                         </div>
                       </div>
                     </div>
-                    <Link to={"/assessment/" + position.id}>
-                      <IconButton value={position.id} className="!ml-3">
-                      <ArrowForwardIosIcon className="text-gray-400 pointer-events-none" />
-                    </IconButton>
-                    </Link>
+                    {id ?
+                        <Button variant={"contained"} onClick={() => {assignAssessment(position.id)}}>Assign</Button>
+                        :
+                        <Link to={"/assessment/" + position.id}>
+                          <IconButton value={position.id} className="!ml-3">
+                            <ArrowForwardIosIcon className="text-gray-400 pointer-events-none" />
+                          </IconButton>
+                        </Link>
+                    }
                   </div>
                 </span>
                     </li>
