@@ -73,16 +73,30 @@ export function AssessmentCard(props) {
                 <Button variant={"contained"}>View Details</Button>
               </Link>
               :
-              <Button variant={"contained"} onClick={()=>{
-                navigate("/assessment-info", {
-                  state: {
-                    assessment: props,
-                    class_id: id
-                  }
-                })
-              }}>
-                Attempt
-              </Button>
+              <>
+                {props.assessment.classAssessmentSubmission.length > 0 ?
+                    <Button variant={"contained"} onClick={()=>{
+                      navigate("/attempt-assessment", {
+                        state: {
+                          id: props.assessment.id,
+                          class_id: id
+                        }
+                      })
+                    }}>
+                      View Submission
+                    </Button> :
+                  <Button variant={"contained"} onClick={()=>{
+                    navigate("/assessment-info", {
+                      state: {
+                        assessment: props,
+                        class_id: id
+                      }
+                    })
+                  }}>
+                    Attempt
+                  </Button>
+                }
+              </>
           }
         </div>
       </div>
