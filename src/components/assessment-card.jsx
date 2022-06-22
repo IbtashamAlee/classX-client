@@ -49,11 +49,11 @@ export function AssessmentCard(props) {
   }
 
   let getScore = () => {
-    // Api.execute('/api/class/assessment/' + props.assessment.id + '/done', 'post').then(res => {
-    //   setSubmission(res.data);
-    // }).catch(err => {
-    //   console.log(err);
-    // })
+    Api.execute('/api/class/assessment/' + props.assessment.id + '/done', 'post').then(res => {
+      setSubmission(res.data);
+    }).catch(err => {
+      console.log(err);
+    })
   }
 
   useEffect(() => {
