@@ -162,6 +162,9 @@ export default function AttemptAssessment() {
       setCurrent(current - 1 + 2)
       setContent('');
       setSelectedOptions([]);
+      if (current ==  questions.length - 1) {
+        submitAssessment();
+      }
       console.log(res)
     }).catch(err => {
       console.log(err);
@@ -207,12 +210,17 @@ export default function AttemptAssessment() {
 
   if (current == questions.length) {
     clearInterval(timeInterval);
+    if(!submission) {
+      submitAssessment();
+    }
     return (
         <div>
           <Header/>
           <div className="flex justify-center items-center flex-col h-full w-full m-auto fixed">
             <img src={done} className="w-96"/>
             <p className="mt-4 font-semibold text-2xl">Assessment Attempted Successfully</p>
+            <p className="mt-4 font-semibold text-2xl">Marks Obtained: {submission.obtainedMarks}</p>
+            <p className="mt-4 font-semibold text-2xl">Marks Obtained: {submission.totalMarks}</p>
             <Button onClick={() => navigate('/')} variant='contained' style={{marginTop: '10px'}}>Back to dashboard</Button>
           </div>
         </div>
@@ -312,8 +320,8 @@ export default function AttemptAssessment() {
 
             <div className="mt-8 flex justify-center">
               <div className="inline-flex rounded-md shadow">
-                {current >= questions.length ?
-                    <Button onClick={submitAssessment}>Submit</Button>
+                {current == questions.length -1 ?
+                    <Button onClick={submitAnswer} variant={"contained"}>Submit</Button>
                     :
                     <Button
                         variant={"contained"}
