@@ -40,12 +40,11 @@ export function ClassAssessmentPage(props) {
         </div>
         <div className="flex flex-col">
         {
-          assessments && assessments.map(f=>{
-           return (
-             <div className="mt-3">
-             <AssessmentCard assessment={f} currentRole={currentRole}/>
-             </div>);
-          })
+          assessments && assessments.map(f=>(
+                <div className={"mt-3"} key={f.id}>
+                  <AssessmentCard assessment={f} currentRole={currentRole}/>
+                </div>
+            ))
         }
         </div>
       </div>

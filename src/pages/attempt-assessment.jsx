@@ -96,7 +96,6 @@ export default function AttemptAssessment() {
   let nextbtn = useRef(null);
 
   const [selectedOptions, setSelectedOptions] = useState([]);
-  const [answer, setAnswer] = useState('');
   const [questionId, setQuestionId] = useState('');
   const [submission, setSubmission] = useState('');
 
@@ -119,7 +118,6 @@ export default function AttemptAssessment() {
 
   function setTime()
   {
-    console.log(secondsRef.current?.getAttribute('value'))
     if(!secondsRef.current?.getAttribute('value')) return
     totalSeconds = parseInt(secondsRef.current.getAttribute('value'));
     --totalSeconds;
@@ -135,7 +133,6 @@ export default function AttemptAssessment() {
       localStorage.setItem("current" + assessment_id, current - 1 + 2)
       setCurrent(current - 1 + 2)
       setContent('');
-      setAnswer('');
       setSelectedOptions([]);
     }
   }
@@ -183,24 +180,22 @@ export default function AttemptAssessment() {
   useEffect(() => {
     clearInterval(timeInterval);
     setTimeInterval(setInterval(setTime, 1000));
-  }, [current])
+    return () => {
+      clearInterval();
+    }
+  }, [current, questionId])
 
 
   useEffect(() => {
     api.execute("/api/class/assessment/" + assessment_id, 'get')
         .then((res) => {
           setQuestions(res.data.assessment.question)
-          setQuestionId(res.data.assessment.question[current].id)
           localStorage.getItem("current" + assessment_id) ? setCurrent(localStorage.getItem("current" + assessment_id)) : localStorage.setItem("current" + assessment_id, 0)
         })
   }, [])
 
-  // useEffect(() => {
-  //   console.log(questions)
-  //   setQuestionId(questions[current].id)
-  // }, [questions])
-
   useEffect(() => {
+    if (questions.length === 0) return;
     let correct = 0
     questions[current]?.option?.map(opt => {
       console.log(opt.isCorrect)
@@ -212,7 +207,7 @@ export default function AttemptAssessment() {
       setIsMCQ(false);
     }
     setQuestionId(questions[current]?.id)
-  }, [current])
+  }, [questions, current])
 
   if (current == questions.length) {
     clearInterval(timeInterval);
@@ -244,7 +239,7 @@ export default function AttemptAssessment() {
                   <label>:</label>
                   <label ref={minutesRef}>00</label>
                   <label>:</label>
-                  <span value={questions[current].duration/1000} ref={secondsRef}>00</span>
+                  <span value={questions[current]?.duration/1000} ref={secondsRef}>00</span>
                 </div>
               </div>
             </h2>
