@@ -9,6 +9,7 @@ import QuizIcon from '@mui/icons-material/Quiz';
 import PersonIcon from '@mui/icons-material/Person';
 import GroupIcon from '@mui/icons-material/Group';
 import SettingsIcon from '@mui/icons-material/Settings';
+import QueryStatsIcon from '@mui/icons-material/QueryStats';
 
 import {Link, useLocation} from "react-router-dom";
 
@@ -22,6 +23,7 @@ export default function Sidebar(props) {
     {name: 'Assessments', href: `assessments`, icon: QuizIcon, current: false},
     {name: 'Attendances', href: `attendances`, icon: PersonIcon, current: false},
     {name: 'Polls', href: `polls`, icon: PollIcon, current: false},
+    {name: 'Stats', href: `stats`, icon: QueryStatsIcon, current: false},
     {name: 'Participants', href: `participants`, icon: GroupIcon, current: false},
     {name: 'Settings', href: `settings`, icon: SettingsIcon, current: false},
   ]);

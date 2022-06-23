@@ -35,6 +35,7 @@ import AttemptInfo from "./pages/assessment-info";
 import AttemptAssessment from "./pages/attempt-assessment";
 import {ClassAssessmentPage} from "./pages/class-assessments";
 import {EditAssessment} from "./pages/edit-assessment";
+import ClassStats from "./pages/stats";
 
 export default function App() {
   const dispatch = useDispatch();
@@ -80,6 +81,7 @@ export default function App() {
             <Route path="polls" element={<AuthorizedRoute> <PollsPage/> </AuthorizedRoute>}/>
             <Route path="participants" element={<AuthorizedRoute> <Participants/> </AuthorizedRoute>}/>
             <Route path="settings" element={<AuthorizedRoute> <ClassSettings/> </AuthorizedRoute>}/>
+            <Route path="stats" element={<AuthorizedRoute> <ClassStats/> </AuthorizedRoute>}/>
             <Route path="assessments" element={<AuthorizedRoute> <ClassAssessmentPage/> </AuthorizedRoute>}/>
             <Route path="attendance/:attendance_id" element={<AuthorizedRoute> <AttendanceDetails/> </AuthorizedRoute>}/>
             <Route path="*" element={<NotFound/>}/>
