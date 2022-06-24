@@ -36,6 +36,7 @@ import AttemptAssessment from "./pages/attempt-assessment";
 import {ClassAssessmentPage} from "./pages/class-assessments";
 import {EditAssessment} from "./pages/edit-assessment";
 import ClassStats from "./pages/stats";
+import StudentDetails from "./pages/student-details";
 
 export default function App() {
   const dispatch = useDispatch();
@@ -74,6 +75,7 @@ export default function App() {
           <Route path="/messenger" element={<AuthorizedRoute> <Messenger/> </AuthorizedRoute>}/>
 
           <Route path="/user-settings" element={<AuthorizedRoute> <UserSettings/> </AuthorizedRoute>}/>
+          <Route path="student-details" element={<AuthorizedRoute> <StudentDetails/> </AuthorizedRoute>}/>
 
           <Route path="/class-details/:id" element={<AuthorizedRoute> <ClassDetails/> </AuthorizedRoute>}>
             <Route index element={<AuthorizedRoute> <Feed/> </AuthorizedRoute>}/>
