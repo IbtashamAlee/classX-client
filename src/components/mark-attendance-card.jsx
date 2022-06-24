@@ -22,7 +22,7 @@ export function MarkAttendanceCard (props) {
       setIsAttendanceTimeEnded(true);
     }
     let record = props.attendance.attendanceRecord.filter(x => x.userId == user.id)
-    if(record.length) {
+    if(record[0]?.isPresent === true) {
       setIsPresent(true);
     }
   }, [dispatch, props.attendance]);
