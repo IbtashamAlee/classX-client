@@ -75,12 +75,12 @@ export default function App() {
           <Route path="/messenger" element={<AuthorizedRoute> <Messenger/> </AuthorizedRoute>}/>
 
           <Route path="/user-settings" element={<AuthorizedRoute> <UserSettings/> </AuthorizedRoute>}/>
-          <Route path="student-details" element={<AuthorizedRoute> <StudentDetails/> </AuthorizedRoute>}/>
 
           <Route path="/class-details/:id" element={<AuthorizedRoute> <ClassDetails/> </AuthorizedRoute>}>
             <Route index element={<AuthorizedRoute> <Feed/> </AuthorizedRoute>}/>
             <Route path="attendances" element={<AuthorizedRoute> <Attendance/> </AuthorizedRoute>}/>
             <Route path="polls" element={<AuthorizedRoute> <PollsPage/> </AuthorizedRoute>}/>
+            <Route path="participants/student-details" element={<AuthorizedRoute> <StudentDetails/> </AuthorizedRoute>}/>
             <Route path="participants" element={<AuthorizedRoute> <Participants/> </AuthorizedRoute>}/>
             <Route path="settings" element={<AuthorizedRoute> <ClassSettings/> </AuthorizedRoute>}/>
             <Route path="stats" element={<AuthorizedRoute> <ClassStats/> </AuthorizedRoute>}/>

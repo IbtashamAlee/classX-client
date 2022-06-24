@@ -92,7 +92,7 @@ export function Participants(props) {
           {students && students.map((person) => {
             console.log(person)
             return(
-            <Link to={'/student-details'} state ={person}>
+            <Link to={'student-details'} state ={person}>
               <li key={person.id} className="py-4 flex">
                 <img className="h-10 w-10 rounded-full" src={person.imageURL ?? "https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png"} alt="" />
                 <div className="flex justify-between items-center w-full">

@@ -51,6 +51,7 @@ export function CreateAssessment() {
             />
             <div className="text-gray-900 !mt-6 text-base font-medium">Description</div>
             <TextareaAutosize
+              className="w-full"
                 value={body}
                 onChange={e => setBody(e.target.value)}/>
             <FormGroup>

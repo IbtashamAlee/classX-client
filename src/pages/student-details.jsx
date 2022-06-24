@@ -1,10 +1,11 @@
-import {useEffect, useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import { MailIcon } from '@heroicons/react/solid'
 import logo from '../logo.svg'
-import {useLocation} from 'react-router-dom'
+import {useLocation, useParams} from 'react-router-dom'
 import Api from "../generic-services/api";
 import {Header} from "../components/header";
 import placeholder from '../Sample_User_Icon.png'
+import Chart from "react-apexcharts";
 
 const tabs = ['Profile', 'Attendance', 'Marks']
 
@@ -23,9 +24,82 @@ function classNames(...classes) {
 }
 
 export default function StudentDetails() {
+  const {id} = useParams()
   const location = useLocation();
   const userId = parseInt(location.state.id);
   const [user,setUser] = useState(null);
+  const [attendanceState,setAttendanceState] = useState(null)
+  const [marksState,setMarksState] = useState(null)
+  const [opt2, setOpt2] = useState({
+    chart: {
+      width: 380,
+      type: 'donut',
+    },
+    plotOptions: {
+      pie: {
+        startAngle: -90,
+        endAngle: 270
+      }
+    },
+    dataLabels: {
+      enabled: true
+    },
+    fill: {
+      type: 'gradient',
+    },
+    labels: ['Presents', 'Absents'],
+    legend: {
+      formatter: function (val, opts) {
+        return val + " - " + opts.w.globals.series[opts.seriesIndex]
+      }
+    },
+    responsive: [{
+      breakpoint: 480,
+      options: {
+        chart: {
+          width: 200
+        },
+        legend: {
+          position: 'bottom'
+        }
+      }
+    }]
+  })
+  const [opt3, setOpt3] = useState({
+    chart: {
+      width: 380,
+      type: 'donut',
+    },
+    plotOptions: {
+      pie: {
+        startAngle: -90,
+        endAngle: 270
+      }
+    },
+    dataLabels: {
+      enabled: true
+    },
+    fill: {
+      type: 'gradient',
+    },
+    labels: ['obtained', 'Deducted'],
+    legend: {
+      formatter: function (val, opts) {
+        return val + " - " + opts.w.globals.series[opts.seriesIndex]
+      }
+    },
+    responsive: [{
+      breakpoint: 480,
+      options: {
+        chart: {
+          width: 200
+        },
+        legend: {
+          position: 'bottom'
+        }
+      }
+    }]
+  })
 
   useEffect(() => {
     Api.execute('/api/user/public/'+userId)
@@ -36,12 +110,22 @@ export default function StudentDetails() {
       .catch(e => console.log(e))
   }, [])
 
+  useEffect(()=>{
+    Api.execute('/api/stats/class/'+id+'/student/'+userId+'/attendance-stats')
+      .then(res=>{setAttendanceState([res.data.present,res.data.total-res.data.present])})
+      .catch(e=>console.log(e))
+  },[])
+
+  useEffect(()=>{
+    Api.execute('/api/stats/class/'+id+'/student/'+userId+'/marks-stats')
+      .then(res=>{setMarksState([res.data.obtainedMarks,res.data.totalMarks-res.data.obtainedMarks])})
+      .catch(e=>console.log(e))
+  },[])
   const [currentTab,setCurrentTab] = useState("Profile");
 
   return (
     <>
       <div className="h-full flex-col">
-        <Header/>
         <div className="flex flex-col min-w-0 flex-1 overflow-hidden">
           <div className="flex-1 relative z-0 flex overflow-hidden">
             <main className="flex-1 relative z-0 overflow-y-auto focus:outline-none xl:order-last">
@@ -105,7 +189,6 @@ export default function StudentDetails() {
                   </div>
                 </div>
 
-                {/* Description list */}
                 {currentTab === "Profile" &&
                 <div className="mt-6 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
                   <dl className="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
@@ -125,15 +208,25 @@ export default function StudentDetails() {
                 </div>
                 }
 
-                {currentTab === "Attendance" &&
+                {currentTab === "Attendance" && attendanceState &&
                 <div className="mt-6 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-                  <h1>Attendance Details here</h1>
+                  <div className="flex justify-center items-center flex-col">
+                    <div id="chart" className="min-h-[270px]">
+                      <Chart options={opt2} series={attendanceState} type="donut" width={380}/>
+                    </div>
+                    <h1 className="mt-5 mb-12">Your Attendance</h1>
+                  </div>
                 </div>
                 }
 
-                {currentTab === "Marks" &&
+                {currentTab === "Marks" && marksState &&
                 <div className="mt-6 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-                  <h1>Marks Details Here</h1>
+                  <div className="flex justify-center items-center flex-col">
+                    <div id="chart" className="min-h-[270px]">
+                      <Chart options={opt3} series={marksState} type="donut" width={380}/>
+                    </div>
+                    <h1 className="mt-5 mb-12">Your Aggregated Marks</h1>
+                  </div>
                 </div>
                 }
               </article>

@@ -217,6 +217,7 @@ export default function AttemptAssessment() {
           <div className="flex justify-center items-center flex-col h-full w-full m-auto fixed">
             <img src={done} className="w-96"/>
             <p className="mt-4 font-semibold text-2xl">Assessment Attempted Successfully</p>
+            <p>(Please note that this score is not final. Some question may need to be checked manually by your teacher)</p>
             <p className="mt-4 font-semibold text-2xl">Marks Obtained: {submission.obtainedMarks}</p>
             <p className="mt-4 font-semibold text-2xl">Marks Obtained: {submission.totalMarks}</p>
             <Button onClick={() => navigate('/')} variant='contained' style={{marginTop: '10px'}}>Back to dashboard</Button>

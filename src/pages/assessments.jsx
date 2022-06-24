@@ -31,7 +31,7 @@ export function Assessments() {
   }
 
   let assignAssessment = (assessments_id) => {
-    Api.execute('/api/class/' + 1 +'/assessment/' + assessments_id, 'post', {}).then(res => {
+    Api.execute('/api/class/' + id +'/assessment/' + assessments_id, 'post', {}).then(res => {
       navigate(-1);
     }).catch(err => {
       console.log(err);
@@ -96,7 +96,7 @@ export function Assessments() {
                   </div>
                 </span>
                     </li>
-                )) : <div className="text-gray-500 text-base font-medium py-4 px-4 sm:px-6">No assessments in this class</div>
+                )) : <div className="text-gray-500 text-base font-medium py-4 px-4 sm:px-6">No assessments in your library</div>
                 }
               </div>
               <div>
