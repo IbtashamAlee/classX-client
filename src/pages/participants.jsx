@@ -55,7 +55,7 @@ export function Participants(props) {
               <h1 className="text-lg mb-6 font-medium">Department Admin</h1>
               {department_admin && department_admin.map((person) => (
                   <li key={person.id} className="py-4 flex">
-                    <img className="h-10 w-10 rounded-full" src={person.imageURL ? person.imageURL : "https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png"} alt="img" />
+                    <img className="h-10 w-10 rounded-full" src={person.imageURL ?? "https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png"} alt="img" />
                     <div className="flex justify-between items-center w-full">
                       <div className="ml-3">
                         <p className="text-sm font-medium text-gray-900">{person.name}</p>
@@ -71,7 +71,7 @@ export function Participants(props) {
           <h1 className="text-lg mb-6 pt-6 font-medium">Teachers</h1>
           {teachers && teachers.map((person) => (
               <li key={person.id} className="py-4 flex">
-                <img className="h-10 w-10 rounded-full" src={person.imageURL ? person.imageURL : "https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png"} alt="img" />
+                <img className="h-10 w-10 rounded-full" src={person.imageURL ?? "https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png"} alt="img" />
                 <div className="flex justify-between items-center w-full">
                   <div className="ml-3">
                     <p className="text-sm font-medium text-gray-900">{person.name}</p>
@@ -89,9 +89,12 @@ export function Participants(props) {
         </ul>
         <ul className="divide-y divide-gray-200">
           <h1 className="text-lg mb-6 pt-6 font-medium">Students</h1>
-          {students && students.map((person) => (
+          {students && students.map((person) => {
+            console.log(person)
+            return(
+            <Link to={'/student-details'} state ={person}>
               <li key={person.id} className="py-4 flex">
-                <img className="h-10 w-10 rounded-full" src={person.imageURL ? person.imageURL : "https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png"} alt="" />
+                <img className="h-10 w-10 rounded-full" src={person.imageURL ?? "https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png"} alt="" />
                 <div className="flex justify-between items-center w-full">
                   <div className="ml-3">
                     <p className="text-sm font-medium text-gray-900">{person.name}</p>
@@ -104,7 +107,8 @@ export function Participants(props) {
                   }
                 </div>
               </li>
-          ))}
+            </Link>)
+          })}
         </ul>
       </div>
   )
