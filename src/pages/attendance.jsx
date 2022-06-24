@@ -8,6 +8,8 @@ import {Link, useParams} from "react-router-dom";
 import {createAttendance, getAttendance} from "../redux/actions/attendance-actions";
 import {TextValidator, ValidatorForm} from "react-material-ui-form-validator";
 import {CreateAttendance} from "../components/create-attendance";
+import {AssessmentCard} from "../components/assessment-card";
+import {MarkAttendanceCard} from "../components/mark-attendance-card";
 
 export default function Attendance() {
   let dispatch = useDispatch();
@@ -35,35 +37,10 @@ export default function Attendance() {
               <CreateAttendance/>
           }
         </div>
-        <div className="bg-white shadow overflow-hidden sm:rounded-md">
-          <ul className="divide-y divide-gray-200">
+        <div className="bg-white overflow-hidden sm:rounded-md">
+          <ul className="divide-y space-y-2">
             {positions && positions.length > 0 && positions.map((position) => (
-                <li key={position.id}>
-                  <span className="block">
-                    <div className="px-4 py-4 flex items-center justify-between sm:px-6">
-                      <div className="min-w-0 flex-1 sm:flex sm:items-center sm:justify-between">
-                        <div className="truncate">
-                          <div className="flex text-sm">
-                            <p className="font-medium text-gray-900 truncate">{position.title}</p>
-                          </div>
-                          <div className="mt-2 flex">
-                            <div className="flex items-center text-sm text-gray-500">
-                              <CalendarIcon className="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" aria-hidden="true" />
-                              <p className={"whitespace-pre-line"}>
-                                <time dateTime={position.endingTime}>{getDateTime(position.endingTime)}</time>
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      {currentRole && (currentRole == "Teacher" || currentRole == "DepartmentAdmin") &&
-                          <Link to={`/class-details/${id}/attendance/${position.id}`}>
-                            <Button variant={"contained"}>View details</Button>
-                          </Link>
-                      }
-                    </div>
-                  </span>
-                </li>
+              <MarkAttendanceCard attendance={position} currentRole={currentRole}/>
             ))}
           </ul>
         </div>
