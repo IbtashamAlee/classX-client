@@ -52,6 +52,9 @@ export function MarkAttendanceCard (props) {
               <Link to="attendances">
                 <Button variant={"contained"}>View Attendance</Button>
               </Link>
+            // <Link to={`/class-details/${id}/attendance/${position.id}`}>
+            //   <Button variant={"contained"}>View details</Button>
+            // </Link>
               :
               <>
                 {isPresent ?
