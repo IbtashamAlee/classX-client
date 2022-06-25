@@ -38,7 +38,7 @@ export function Signup() {
 
   useEffect(() => {
     ValidatorForm.addValidationRule('isPassword6Char', (value) => {
-      if (password.length < 6) {
+      if (password.length < 3) {
         return false;
       }
       return true;
@@ -105,7 +105,7 @@ export function Signup() {
                         autoComplete="current-password"
                         variant="outlined"
                         validators={['required', 'isPassword6Char']}
-                        errorMessages={['This field is required', 'Password must be 6 characters long']}
+                        errorMessages={['This field is required', 'Password must be at least 3 characters']}
                     />
                     <TextValidator
                         value={confirmPassword}
