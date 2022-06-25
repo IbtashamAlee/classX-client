@@ -34,7 +34,7 @@ export function DepartmentClasses() {
   }
 
   const creatClassInDepartment = (name, description) => {
-    Api.execute(`/departments/${id}/add-class`, 'post', {
+    Api.execute(`/api/departments/${id}/add-class`, 'post', {
       name: name,
       description: description
     }).then(res => {
