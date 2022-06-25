@@ -73,6 +73,7 @@ export function InstituteDepartments() {
                     <div>
                       <h2 className="text-xl lg:text-2xl text-[#6366F1] font-bold">{data.name}</h2>
                     </div>
+
                     <Link to={location.pathname + "/settings"}>
                       <IconButton>
                         <AddIcon/>
@@ -82,6 +83,7 @@ export function InstituteDepartments() {
                       </IconButton>
                     </Link>
                   </div>
+                  <h1 className="mt-6 text-xl lg:text-2xl text-[#6366F1] font-bold mt-2">Departments</h1>
                   <div className="mt-10 flex flex-wrap gap-4 mt-6">
                     {data.departments &&
                       data.departments.map(item => (

@@ -60,7 +60,7 @@ export function DepartmentClasses() {
               <div className="px-6 py-6 lg:w-5/6 max-w-[1500px]">
 
                 <div className="px-4 sm:px-6 md:px-0">
-                  <div className="mx-2 flex justify-between items-center">
+                  <div className="mx-2 flex justify-between items-center flex-wrap">
                     <div>
                       <h1 className="text-lg text-[#6366F1] font-semibold">{department?.name}</h1>
                       <h1 className="text-xs text-[#6366F1]">
