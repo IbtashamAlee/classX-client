@@ -101,10 +101,11 @@ export default function StudentDetails() {
     }]
   })
   const [attendances,setAttendances] = useState()
+  const [marks,setMarks] = useState(null)
+
   useEffect(() => {
     Api.execute('/api/user/public/' + userId)
       .then((res) => {
-        console.log(res.data)
         setUser(res.data)
       })
       .catch(e => console.log(e))
@@ -131,6 +132,14 @@ export default function StudentDetails() {
     Api.execute('/api/stats/class/' + id + '/student/' + userId + '/attendance')
       .then(res => {
         setAttendances(res.data)
+      })
+      .catch(e => console.log(e))
+  }, [])
+
+  useEffect(()=>{
+    Api.execute('/api/stats/class/' + id + '/student/' + userId + '/marks')
+      .then(res => {
+        setMarks(res.data)
       })
       .catch(e => console.log(e))
   }, [])
@@ -277,9 +286,11 @@ export default function StudentDetails() {
                                   <td
                                     className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person?.startingTime?.split('T')[1].slice(0, 8)}</td>
                                   <td
-                                    className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person?.endingTime?.split('T')[0]}</td>
+                                    className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person?.startingTime?.split('T')[0]}</td>
                                   <td
                                     className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.endingTime.split('T')[1].slice(0, 8)}</td>
+
+
                                 </tr>
                               ))}
                               </tbody>
@@ -298,7 +309,55 @@ export default function StudentDetails() {
                     <div id="chart" className="min-h-[270px]">
                       <Chart options={opt3} series={marksState} type="donut" width={380}/>
                     </div>
-                    <h1 className="mt-5 mb-12">Student's Aggregated Marks</h1>
+                    {/*TABLE */}
+                    {marks &&
+                      <div className="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                        <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
+                          <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
+                            <table className="min-w-full divide-y divide-gray-300">
+                              <thead className="bg-gray-50">
+                              <tr>
+                                <th scope="col"
+                                    className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
+                                  Title
+                                </th>
+                                <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                                  Submitted Date
+                                </th>
+                                <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                                  Submitted Time
+                                </th>
+                                <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                                  Obtained Marks
+                                </th>
+                                <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                                  Total Marks
+                                </th>
+                              </tr>
+                              </thead>
+                              <tbody className="divide-y divide-gray-200 bg-white">
+                              {marks.map((marks,key) => (
+                                <tr key={key}>
+                                  <td
+                                    className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 text-center">{marks.assessmentId}</td>
+                                  <td
+                                    className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 text-center">{marks.classAssessmentSubmission[0]?.submittedAt?.split('T')[0]}</td>
+                                  <td
+                                    className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 text-center">{marks.classAssessmentSubmission[0]?.submittedAt?.split('T')[1].slice(0, 8)}</td>
+                                  <td
+                                    className="whitespace-nowrap px-3 py-4 text-sm text-green-600 font-semibold text-center">{marks.classAssessmentSubmission[0]?.obtainedMarks}</td>
+                                  <td
+                                    className="whitespace-nowrap px-3 py-4 text-sm text-yellow-600 text-center font-semibold ">{marks.classAssessmentSubmission[0]?.totalMarks}</td>
+
+
+                                </tr>
+                              ))}
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    }
                   </div>
                 </div>
                 }
