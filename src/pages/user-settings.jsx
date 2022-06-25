@@ -16,9 +16,8 @@ export default function UserSettings() {
 
   return(
     <div>
-      <Header/>
       {data &&
-      <main className="mt-10">
+      <main className="mt-0">
         <div className="max-w-screen-xl mx-auto pb-6 px-4 sm:px-6 lg:pb-16 lg:px-8">
           <div className="bg-white rounded-lg shadow overflow-hidden">
             <div className="divide-y divide-gray-200 lg:grid lg:grid-cols-9 lg:divide-y-0 lg:divide-x">
@@ -26,10 +25,7 @@ export default function UserSettings() {
                 {/* Profile section */}
                 <div className="py-6 px-4 sm:p-6 lg:pb-8">
                   <div>
-                    <h2 className="text-lg leading-6 font-medium text-gray-900">User Details</h2>
-                    <p className="mt-1 text-sm text-gray-500">
-                      This information will be displayed publicly so be careful what you share.
-                    </p>
+                    <h2 className="text-lg leading-6 font-medium text-gray-900">PROFILE</h2>
                   </div>
 
                   <div className="mt-6 flex flex-col lg:flex-row">

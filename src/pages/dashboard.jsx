@@ -82,7 +82,7 @@ export function Dashboard() {
             <div className="flex justify-center">
               <div className="py-6 lg:w-5/6 max-w-[1500px]">
                 <div className="px-4 sm:px-6 md:px-0 md:flex md:justify-between">
-                  <h1 className="text-2xl font-semibold text-gray-900 my-auto">Dashboard</h1>
+                  <h1 className="text-2xl font-bold text-[#6366F1] my-auto">Dashboard</h1>
                   <div className="w-64 mt-4 md:mt-0">
                     <FormControl fullWidth variant="filled">
                       <InputLabel className="md:ml-6" id="demo-simple-select-label">Selected Role</InputLabel>

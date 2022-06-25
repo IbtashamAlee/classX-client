@@ -73,9 +73,6 @@ export default function App() {
           </Route>
           <Route path="/profile" element={<AuthorizedRoute> <Profile/> </AuthorizedRoute>}/>
           <Route path="/messenger" element={<AuthorizedRoute> <Messenger/> </AuthorizedRoute>}/>
-
-          <Route path="/user-settings" element={<AuthorizedRoute> <UserSettings/> </AuthorizedRoute>}/>
-
           <Route path="/class-details/:id" element={<AuthorizedRoute> <ClassDetails/> </AuthorizedRoute>}>
             <Route index element={<AuthorizedRoute> <Feed/> </AuthorizedRoute>}/>
             <Route path="attendances" element={<AuthorizedRoute> <Attendance/> </AuthorizedRoute>}/>
