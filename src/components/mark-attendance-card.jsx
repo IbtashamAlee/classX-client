@@ -49,8 +49,8 @@ export function MarkAttendanceCard (props) {
         </div>
         <div className={"flex items-center"}>
           {props?.currentRole === "Teacher" || props?.currentRole === "DepartmentAdmin" ?
-              <Link to="attendances">
-                <Button variant={"contained"}>View Attendance</Button>
+              <Link to={`/class-details/${id}/attendance/${props.attendance.id}`}>
+                <Button variant={"contained"}>Details</Button>
               </Link>
             // <Link to={`/class-details/${id}/attendance/${position.id}`}>
             //   <Button variant={"contained"}>View details</Button>

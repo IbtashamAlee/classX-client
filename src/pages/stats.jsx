@@ -80,6 +80,7 @@ export default function Stats() {
     fill: {
       type: 'gradient',
     },
+    colors:['#00FF00','#FF0000'],
     labels: ['Presents', 'Absents'],
     legend: {
       formatter: function (val, opts) {
