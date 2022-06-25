@@ -237,7 +237,7 @@ export default function StudentDetails() {
                     <div id="chart" className="min-h-[270px]">
                       <Chart options={opt2} series={attendanceState} type="donut" width={380}/>
                     </div>
-                    <h1 className="mt-5 mb-12">Student's Attendance</h1>
+                    <h1 className="mt-5 mb-12 font-semibold">Student's Attendance</h1>
                   </div>
                   {/*TABLE*/}
                   { attendances &&
@@ -305,10 +305,12 @@ export default function StudentDetails() {
 
                 {currentTab === "Marks" && marksState &&
                 <div className="mt-6 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-                  <div className="flex justify-center items-center flex-col">
+                  <div className="flex justify-center items-center flex-col min-w-full">
                     <div id="chart" className="min-h-[270px]">
                       <Chart options={opt3} series={marksState} type="donut" width={380}/>
                     </div>
+                    <h1 className="mt-0 mb-12 font-semibold">Students Aggregated Marks</h1>
+                  </div>
                     {/*TABLE */}
                     {marks &&
                       <div className="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -358,7 +360,6 @@ export default function StudentDetails() {
                         </div>
                       </div>
                     }
-                  </div>
                 </div>
                 }
               </article>

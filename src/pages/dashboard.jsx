@@ -14,6 +14,7 @@ import {InstitutesTable} from "../components/institutes-table";
 import {Link, useLocation, useNavigate} from "react-router-dom";
 import SettingsIcon from "@mui/icons-material/Settings";
 import AddIcon from "@mui/icons-material/Add";
+import placeholder from '../institute.jpeg'
 
 export function Dashboard() {
   const dispatch = useDispatch();
@@ -129,7 +130,7 @@ export function Dashboard() {
                                   <Card classId={item.id} className="mx-auto" key={item.id}
                                         pathname = {'/institute/' + item.id}
                                         state = {item}
-                                        image={item.imageUrl ?? "./class.jpg"}
+                                        image={item.imageUrl ?? placeholder}
                                         classname={item.name || item.class}
                                   />
                               ))

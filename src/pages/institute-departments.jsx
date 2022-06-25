@@ -7,11 +7,58 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import {IconButton} from "@mui/material";
 import {Link} from "react-router-dom";
 import AddIcon from '@mui/icons-material/Add';
+import api from "../generic-services/api";
+import Chart from "react-apexcharts";
+import placeholder from '../department.jpeg'
 
 export function InstituteDepartments() {
   const location = useLocation();
-  const data = location.state?.data
+  const data = location.state?.data;
+  const [series, setSeries] = useState(null)
 
+  useEffect(()=>{
+    api.execute(`/api/stats/institute/${data.id}/attendance-stats`)
+      .then(res=> setSeries([res.data.present,res.data.total-res.data.present]))
+      .catch(e => console.log(e))
+  },[])
+
+  const [opt2, setOpt2] = useState({
+    chart: {
+      width: 380,
+      type: 'donut',
+    },
+    plotOptions: {
+      pie: {
+        expandOnClick : true,
+        startAngle: -90,
+        endAngle: 270
+      }
+    },
+    dataLabels: {
+      enabled: true
+    },
+    fill: {
+      type: 'gradient',
+    },
+    colors:['#00FF00','#FF0000'],
+    labels: ['Presents', 'Absents'],
+    legend: {
+      formatter: function (val, opts) {
+        return val + " - " + opts.w.globals.series[opts.seriesIndex]
+      }
+    },
+    responsive: [{
+      breakpoint: 480,
+      options: {
+        chart: {
+          width: 200
+        },
+        legend: {
+          position: 'bottom'
+        }
+      }
+    }]
+  })
   return (
     <React.Fragment>
       <div className="min-w-[310px]">
@@ -24,9 +71,7 @@ export function InstituteDepartments() {
                 <div className="px-4 sm:px-6 md:px-0">
                   <div className="mx-2 flex justify-between items-center">
                     <div>
-                      <Typography gutterBottom variant="h3" component="h2">
-                        {data.name}
-                      </Typography>
+                      <h2 className="text-xl lg:text-2xl text-[#6366F1] font-bold">{data.name}</h2>
                     </div>
                     <Link to={location.pathname + "/settings"}>
                       <IconButton>
@@ -42,12 +87,25 @@ export function InstituteDepartments() {
                       data.departments.map(item => (
                         <Card classId={item.id} className="mx-auto" key={item.id}
                               pathname ={'/department/'+item.id+'/settings'}
-                              image={item.imageUrl ?? "./class.jpg"}
+                              image={item.imageUrl ?? placeholder}
                               classname={item.name || item.class}
                               classsection={item.section} classdetails={item?.institute?.name}
                         />
                       ))}
 
+                  </div>
+                  <hr/>
+                  <div>
+                    { series &&
+                      <div className="mt-4">
+                      <h1 className="text-xl lg:text-2xl text-[#6366F1] font-bold mt-2">Institute Stats</h1>
+                      <div className="flex justify-center items-center mb-1">
+                      <div id="chart" className="min-h-[270px]">
+                      <Chart options={opt2} series={series} type="donut" width={380}/>
+                      </div>
+                      </div>
+                      </div>
+                    }
                   </div>
                 </div>
               </div>
