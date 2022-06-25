@@ -116,16 +116,6 @@ export function Dashboard() {
                     <div>
                       <div className={"flex justify-between mt-4"}>
                         <h1 className="text-xl font-semibold text-gray-900 my-auto">Institutes</h1>
-                        <div>
-                          <Link to={window.location.pathname + "/settings"}>
-                            <IconButton>
-                              <SettingsIcon/>
-                            </IconButton>
-                          </Link>
-                          <IconButton>
-                            <AddIcon/>
-                          </IconButton>
-                        </div>
                       </div>
                       <div className="mt-10 flex flex-wrap gap-4 mt-6">
                         {classes &&

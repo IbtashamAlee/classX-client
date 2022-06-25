@@ -69,9 +69,10 @@ export function InstituteDepartments() {
               <div className="px-6 py-6 lg:w-5/6 max-w-[1500px]">
 
                 <div className="px-4 sm:px-6 md:px-0">
-                  <div className="mx-2 flex justify-between items-center">
+                  <div className="flex justify-between items-center">
                     <div>
                       <h2 className="text-xl lg:text-2xl text-[#6366F1] font-bold">{data.name}</h2>
+                      <p className="text-xs">(Note: Can't enter Departments. You are only entitled to see stats and update departments' settings)</p>
                     </div>
 
                     <Link to={location.pathname + "/settings"}>
