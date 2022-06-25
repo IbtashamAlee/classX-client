@@ -2,10 +2,18 @@ import React, {useEffect, useState} from "react";
 import Chart from "react-apexcharts";
 import api from "../generic-services/api";
 import {useParams} from "react-router-dom";
-
+import {useNavigate} from 'react-router-dom';
 
 export default function Stats() {
+  const navigate = useNavigate()
   let {id} = useParams();
+  useEffect(()=>{
+    api.execute('/api/class/'+id+'/role')
+      .then(res => {
+        if (res.data ==='Student') navigate(-1)
+      })
+      .catch(e => console.log(e))
+  })
   const [options, setOptions] = useState({
     chart: {
       height: 390,

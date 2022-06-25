@@ -6,10 +6,8 @@ import {AssessmentCard} from "../components/assessment-card";
 import ClassPost from "../components/class-post";
 import {useDispatch, useSelector} from "react-redux";
 import {getFeed} from "../redux/actions/feed-actions";
-import {setCurrentClass, removeCurrentClass, setCurrentRole, removeCurrentRole} from "../redux/actions/user-actions";
 import {CreatePoll} from "../components/create-poll";
 import {PostCard} from "../components/post-card";
-import Api from "../generic-services/api";
 import {CreateAttendance} from "../components/create-attendance";
 
 export function Feed () {
