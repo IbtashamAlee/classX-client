@@ -77,7 +77,7 @@ export default function ClassSettings() {
                             label={"Class Name"}
                             className="w-full"
                             value={name}
-                            onChange={e => {setName(e.target.value)}}
+                            disabled={true}
                         />
                         <TextValidator
                             id="about"

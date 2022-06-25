@@ -92,8 +92,25 @@ export default function DepartmentSettings() {
                             name="classname"
                             id="classname"
                             autoComplete="classname"
-                            className="focus:ring-sky-500 focus:border-sky-500 flex-grow block w-full min-w-0 rounded-none rounded-r-md sm:text-sm border-gray-300"
+                            className="focus:ring-sky-500 focus:border-sky-500 flex-grow block w-full min-w-0 rounded-none rounded-r-md sm:text-sm border-gray-300 bg-gray-100"
                             defaultValue={data.name}
+                            disabled={true}
+                          />
+                        </div>
+                      </div>
+
+                      <div>
+                        <label htmlFor="username" className="block text-sm font-medium text-gray-700">
+                          Department Name
+                        </label>
+                        <div className="mt-1 rounded-md shadow-sm flex">
+                          <input
+                            type="text"
+                            name="classname"
+                            id="classname"
+                            autoComplete="classname"
+                            className="focus:ring-sky-500 focus:border-sky-500 flex-grow block w-full min-w-0 rounded-none rounded-r-md sm:text-sm border-gray-300"
+                            defaultValue={data.description}
                           />
                         </div>
                       </div>
