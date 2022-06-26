@@ -142,9 +142,9 @@ export default function StudentDetails() {
   return (
     <>
       <div className="h-full flex-col">
-        <div className="flex flex-col min-w-0 flex-1 overflow-hidden">
-          <div className="flex-1 relative z-0 flex overflow-hidden">
-            <main className="flex-1 relative z-0 overflow-y-auto focus:outline-none xl:order-last">
+        <div className="flex flex-col min-w-0 flex-1">
+          <div className="flex-1 relative z-0 flex">
+            <main className="flex-1 relative z-0 focus:outline-none xl:order-last">
               <article>
                 {/* Profile header */}
                 <div>
@@ -165,16 +165,7 @@ export default function StudentDetails() {
                         <div className="sm:hidden 2xl:block mt-6 min-w-0 flex-1">
                           <h1 className="text-2xl font-bold text-gray-900">{'hello'}</h1>
                         </div>
-                        <div
-                          className="mt-6 flex flex-col justify-stretch space-y-3 sm:flex-row sm:space-y-0 sm:space-x-4">
-                          <button
-                            type="button"
-                            className="inline-flex justify-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500"
-                          >
-                            <MailIcon className="-ml-1 mr-2 h-5 w-5 text-gray-400" aria-hidden="true"/>
-                            <span>Message</span>
-                          </button>
-                        </div>
+
                       </div>
                     </div>
                     <div className="hidden sm:block 2xl:hidden mt-6 min-w-0 flex-1">
@@ -237,9 +228,9 @@ export default function StudentDetails() {
                   {/*TABLE*/}
                   { attendances &&
                     <div className="mt-8 flex flex-col">
-                      <div className="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                      <div className="-my-2 -mx-4 sm:-mx-6 lg:-mx-8">
                         <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
-                          <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
+                          <div className="shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
                             <table className="min-w-full divide-y divide-gray-300">
                               <thead className="bg-gray-50">
                               <tr>
@@ -308,9 +299,9 @@ export default function StudentDetails() {
                   </div>
                     {/*TABLE */}
                     {marks &&
-                      <div className="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                      <div className="-my-2 -mx-4 sm:-mx-6 lg:-mx-8">
                         <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
-                          <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
+                          <div className="shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
                             <table className="min-w-full divide-y divide-gray-300">
                               <thead className="bg-gray-50">
                               <tr>

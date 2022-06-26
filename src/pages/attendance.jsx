@@ -10,7 +10,7 @@ import Chart from "react-apexcharts";
 export default function Attendance() {
   let dispatch = useDispatch();
   let {id} = useParams();
-  let user  = useSelector(state => state.user.user)
+  const user = useSelector(state => state?.user?.user)
   let positions = useSelector((state => state.attendances.attendances));
   const [record, setRecord] = useState(40);
   const [page, setPage] = useState(1);
@@ -23,7 +23,7 @@ export default function Attendance() {
     },
     plotOptions: {
       pie: {
-        expandOnClick : true,
+        expandOnClick: true,
         startAngle: -90,
         endAngle: 270
       }
@@ -34,7 +34,7 @@ export default function Attendance() {
     fill: {
       type: 'gradient',
     },
-    colors:['#00FF00','#FF0000'],
+    colors: ['#00FF00', '#FF0000'],
     labels: ['Presents', 'Absents'],
     legend: {
       formatter: function (val, opts) {
@@ -55,26 +55,28 @@ export default function Attendance() {
   })
 
   useEffect(() => {
-    dispatch(getAttendance(id,record, page));
+    dispatch(getAttendance(id, record, page));
   }, [dispatch]);
 
   function getDateTime(clockDate) {
     let date = new Date(clockDate);
-    return date.getDate() + "-" + parseInt(date.getMonth() + 1)+ "-" + date.getFullYear() + ' ending at '+ date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();;
+    return date.getDate() + "-" + parseInt(date.getMonth() + 1) + "-" + date.getFullYear() + ' ending at ' + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+
   }
 
-  useEffect(()=>{
+  useEffect(() => {
     api.execute(`/api/stats/class/${id}/student/${user.id}/attendance-stats`)
-      .then(res=> setSeries([res.data.present,res.data.total-res.data.present]))
+      .then(res => setSeries([res.data.present, res.data.total - res.data.present]))
       .catch(err => console.log(err))
-  },[])
+  }, [])
 
   return (
-      <React.Fragment>
-        <div className="text-gray-900 text-2xl font-medium py-4 flex justify-between">
+    <React.Fragment>
+      <div className="overflow-visible mb-6">
+        <div className="text-gray-900 text-2xl font-medium py-4 flex justify-between ">
           <h1>Attendance</h1>
           {currentRole && (currentRole == "Teacher" || currentRole == "DepartmentAdmin") &&
-              <CreateAttendance/>
+          <CreateAttendance/>
           }
         </div>
         {currentRole && currentRole == "Student" && series &&
@@ -84,13 +86,15 @@ export default function Attendance() {
           </div>
         </div>
         }
-        <div className="bg-white overflow-hidden sm:rounded-md">
-          <ul className="divide-y space-y-2">
+        <div className="bg-white sm:rounded-md">
+          <ul className="divide-y space-y-3">
             {positions && positions.length > 0 && positions.map((position) => (
               <MarkAttendanceCard attendance={position} currentRole={currentRole}/>
             ))}
           </ul>
         </div>
-      </React.Fragment>
+      </div>
+
+    </React.Fragment>
   )
 }

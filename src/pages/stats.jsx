@@ -91,9 +91,7 @@ export default function Stats() {
     colors:['#00FF00','#FF0000'],
     labels: ['Presents', 'Absents'],
     legend: {
-      formatter: function (val, opts) {
-        return val + " - " + opts.w.globals.series[opts.seriesIndex]
-      }
+      show : false
     },
     responsive: [{
       breakpoint: 480,
@@ -102,7 +100,7 @@ export default function Stats() {
           width: 200
         },
         legend: {
-          position: 'bottom'
+          position: 'left'
         }
       }
     }]

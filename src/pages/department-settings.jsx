@@ -31,9 +31,7 @@ export default function DepartmentSettings() {
     colors:['#00FF00','#FF0000'],
     labels: ['Presents', 'Absents'],
     legend: {
-      formatter: function (val, opts) {
-        return val + " - " + opts.w.globals.series[opts.seriesIndex]
-      }
+      show:false
     },
     responsive: [{
       breakpoint: 480,

@@ -43,9 +43,7 @@ export function InstituteDepartments() {
     colors:['#00FF00','#FF0000'],
     labels: ['Presents', 'Absents'],
     legend: {
-      formatter: function (val, opts) {
-        return val + " - " + opts.w.globals.series[opts.seriesIndex]
-      }
+     show: false
     },
     responsive: [{
       breakpoint: 480,
@@ -100,14 +98,18 @@ export function InstituteDepartments() {
                   <hr/>
                   <div>
                     { series &&
-                      <div className="mt-4">
-                      <h1 className="text-xl lg:text-2xl text-[#6366F1] font-bold mt-2">Institute Stats</h1>
+                      <div>
+                        <h1 className="text-xl lg:text-2xl text-[#6366F1] font-bold mt-2">Institute Stats</h1>
+                        <div className="mt-4 flex justify-center flex-col items-center">
                       <div className="flex justify-center items-center mb-1">
                       <div id="chart" className="min-h-[270px]">
-                      <Chart options={opt2} series={series} type="donut" width={380}/>
+                      <Chart options={opt2} series={series} type="donut" width={350}/>
                       </div>
                       </div>
+                        <h1 className="font-semibold mt-2">Institute's Aggregated Attendance</h1>
                       </div>
+                      </div>
+
                     }
                   </div>
                 </div>
