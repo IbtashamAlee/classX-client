@@ -11,6 +11,8 @@ import CreateIndependentClassDialog from "../components/create-independent-class
 import Api from "../generic-services/api";
 import {useDispatch, useSelector} from "react-redux";
 import {getDepartmentClasses} from "../redux/actions/user-actions";
+import {Button} from "@mui/material";
+import placeholder from '../class.jpg'
 
 export function DepartmentClasses() {
   const location = useLocation();
@@ -32,7 +34,7 @@ export function DepartmentClasses() {
   }
 
   const creatClassInDepartment = (name, description) => {
-    Api.execute(`/departments/${id}/add-class`, 'post', {
+    Api.execute(`/api/departments/${id}/add-class`, 'post', {
       name: name,
       description: description
     }).then(res => {
@@ -58,31 +60,27 @@ export function DepartmentClasses() {
               <div className="px-6 py-6 lg:w-5/6 max-w-[1500px]">
 
                 <div className="px-4 sm:px-6 md:px-0">
-                  <div className="mx-2 flex justify-between items-center">
+                  <div className="mx-2 flex justify-between items-center flex-wrap">
                     <div>
-                      <Typography gutterBottom variant="subtitle2" component="h2" className={"text-gray-600"}>
-                        {"Department under " + department?.institute.name}
-                      </Typography>
-                      <Typography gutterBottom variant="h3" component="h2">
-                        {department?.name}
-                      </Typography>
+                      <h1 className="text-lg text-[#6366F1] font-semibold">{department?.name}</h1>
+                      <h1 className="text-xs text-[#6366F1]">
+                        ({"Department under " + department?.institute.name})
+                    </h1>
                     </div>
                     <div>
-                      <Link to={location.pathname + "/settings"}>
-                        <IconButton>
-                          <SettingsIcon/>
-                        </IconButton>
-                      </Link>
                       <IconButton onClick={handleOpenCloseCreateJoinClass}>
                         <AddIcon/>
                       </IconButton>
+                      <Link to={location.pathname + "/settings"}>
+                        <Button variant='contained' size='small'>Stats & Settings</Button>
+                      </Link>
                     </div>
                   </div>
                   <div className="mt-10 flex flex-wrap gap-4 mt-6">
                     {classes &&
                       classes.map(item => (
                         <Card classId={item.id} className="mx-auto" key={item.id}
-                              image={item.imageUrl ?? `${window.location.origin}/class.jpg`}
+                              image={item.imageUrl ?? placeholder}
                               classname={item.name || item.class}
                               classsection={item.section} classdetails={item.description}
                               role={item.role}

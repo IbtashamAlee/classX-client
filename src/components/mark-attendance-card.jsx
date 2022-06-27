@@ -22,7 +22,7 @@ export function MarkAttendanceCard (props) {
       setIsAttendanceTimeEnded(true);
     }
     let record = props.attendance.attendanceRecord.filter(x => x.userId == user.id)
-    if(record.length) {
+    if(record[0]?.isPresent === true) {
       setIsPresent(true);
     }
   }, [dispatch, props.attendance]);
@@ -49,9 +49,12 @@ export function MarkAttendanceCard (props) {
         </div>
         <div className={"flex items-center"}>
           {props?.currentRole === "Teacher" || props?.currentRole === "DepartmentAdmin" ?
-              <Link to="attendances">
-                <Button variant={"contained"}>View Attendance</Button>
+              <Link to={`/class-details/${id}/attendance/${props.attendance.id}`}>
+                <Button variant={"contained"}>Details</Button>
               </Link>
+            // <Link to={`/class-details/${id}/attendance/${position.id}`}>
+            //   <Button variant={"contained"}>View details</Button>
+            // </Link>
               :
               <>
                 {isPresent ?

@@ -91,19 +91,9 @@ export function AssessmentCard(props) {
               <>
                 {props.assessment.classAssessmentSubmission.length > 0 ?
                     <div className={"text-gray-700 text-right"}>
-                      <h1>Marks Obtained: {submission.obtainedMarks}</h1>
-                      <h1>Total Marks: {submission.totalMarks}</h1>
+                      <h1>Attempted ✅ </h1>
+                      <h1>{submission.obtainedMarks + ' / ' + submission.totalMarks} </h1>
                     </div>
-                    // <Button variant={"contained"} onClick={()=>{
-                    //   navigate("/attempt-assessment", {
-                    //     state: {
-                    //       id: props.assessment.id,
-                    //       class_id: id
-                    //     }
-                    //   })
-                    // }}>
-                    //   View Submission
-                    // </Button>
                     :
                     <Button variant={"contained"} onClick={()=>{
                       navigate("/assessment-info", {

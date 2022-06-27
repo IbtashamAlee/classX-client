@@ -57,11 +57,10 @@ export function Header(props) {
   }
 
   const userNavigation = [
-    {name: 'Your Profile', href: '/profile', click: ''},
-    {name: 'Your assessments', href: '/assessments', click: ''},
+    {name: 'My assessments', href: '/assessments', click: ''},
     {name: 'Messenger', href: '/messenger', click: ''},
-    {name: 'Settings', href: '/user-settings', click: ''},
-    {name: 'Sign out', href: '/', click: signOut},
+    {name: 'Settings', href: '/profile', click: ''},
+    {name: 'Sign out', href: '/', click: signOut}
   ]
 
   const addNavigation = [

@@ -30,7 +30,7 @@ export default function AttemptInfo() {
           <span className="block">{assessment.assessment.name}</span>
         </h2>
         <p className="text-xl mt-2">{assessment.assessment.body}</p>
-        <p className="text-sm mt-2">(Please Note once started you won't be able to pause the progress)</p>
+        <p className="text-sm mt-2">(Please Note you wont be able to re-attempt a question once passed)</p>
 
         <div className="mt-8 flex justify-center">
           <div className="inline-flex rounded-md shadow">

@@ -26,7 +26,6 @@ import {InstituteDepartments} from "./pages/institute-departments";
 import InstituteSettings from "./pages/institute-settings";
 import Profile from './pages/profile';
 import {CreateAssessment} from "./pages/create-assessment";
-import UserSettings from "./pages/user-settings";
 import LandingPage from "./pages/landing";
 import Messenger from "./pages/messenger";
 import {AttendanceDetails} from "./pages/attendance-details";
@@ -35,6 +34,10 @@ import AttemptInfo from "./pages/assessment-info";
 import AttemptAssessment from "./pages/attempt-assessment";
 import {ClassAssessmentPage} from "./pages/class-assessments";
 import {EditAssessment} from "./pages/edit-assessment";
+import ClassStats from "./pages/stats";
+import StudentDetails from "./pages/student-details";
+import AssessmentDetails from "./pages/assessment-details";
+import UserAssessmentDetails from "./pages/user-assessment-details";
 
 export default function App() {
   const dispatch = useDispatch();
@@ -71,16 +74,17 @@ export default function App() {
           </Route>
           <Route path="/profile" element={<AuthorizedRoute> <Profile/> </AuthorizedRoute>}/>
           <Route path="/messenger" element={<AuthorizedRoute> <Messenger/> </AuthorizedRoute>}/>
-
-          <Route path="/user-settings" element={<AuthorizedRoute> <UserSettings/> </AuthorizedRoute>}/>
-
-          <Route path="/class-details/:id" element={<AuthorizedRoute> <ClassDetails/> </AuthorizedRoute>}>
+          <Route path="/class-details/:id/" element={<AuthorizedRoute> <ClassDetails/> </AuthorizedRoute>}>
             <Route index element={<AuthorizedRoute> <Feed/> </AuthorizedRoute>}/>
             <Route path="attendances" element={<AuthorizedRoute> <Attendance/> </AuthorizedRoute>}/>
             <Route path="polls" element={<AuthorizedRoute> <PollsPage/> </AuthorizedRoute>}/>
+            <Route path="participants/student-details" element={<AuthorizedRoute> <StudentDetails/> </AuthorizedRoute>}/>
             <Route path="participants" element={<AuthorizedRoute> <Participants/> </AuthorizedRoute>}/>
             <Route path="settings" element={<AuthorizedRoute> <ClassSettings/> </AuthorizedRoute>}/>
+            <Route path="stats" element={<AuthorizedRoute> <ClassStats/> </AuthorizedRoute>}/>
             <Route path="assessments" element={<AuthorizedRoute> <ClassAssessmentPage/> </AuthorizedRoute>}/>
+            <Route path="assessments/:assessment_id" element={<AuthorizedRoute> <AssessmentDetails/> </AuthorizedRoute>}/>
+            <Route path="assessments/:assessment_id/details" element={<AuthorizedRoute> <UserAssessmentDetails/> </AuthorizedRoute>}/>
             <Route path="attendance/:attendance_id" element={<AuthorizedRoute> <AttendanceDetails/> </AuthorizedRoute>}/>
             <Route path="*" element={<NotFound/>}/>
           </Route>
@@ -98,6 +102,7 @@ export default function App() {
           <Route path="/department/:id/settings" element={<AuthorizedRoute> <DepartmentSettings/> </AuthorizedRoute>}/>
           <Route path="/institute/:id" element={<AuthorizedRoute> <InstituteDepartments/> </AuthorizedRoute>}/>
           <Route path="/institute/:id/settings" element={<AuthorizedRoute> <InstituteSettings/> </AuthorizedRoute>}/>
+          <Route path="/class-details/:id/assessments/:assessment_id/details" element={<AuthorizedRoute> <UserAssessmentDetails/> </AuthorizedRoute>}/>
 
           <Route path="/assessment/create" element={<AuthorizedRoute> <CreateAssessment/> </AuthorizedRoute>}/>
 
