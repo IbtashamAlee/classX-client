@@ -77,7 +77,7 @@ export function EditAssessment(props) {
                       </TableCell>
                       <TableCell align="right">{row.option.length > 0 ? "MCQs" : "Open Ended"}</TableCell>
                       <TableCell align="right">{row.duration / 1000}</TableCell>
-                      <TableCell align="right">{row.score}</TableCell>
+                      <TableCell align="right">{row.questionScore}</TableCell>
                       <TableCell align="right">{row.option.length}</TableCell>
                       <TableCell align="right">
                         <Button variant={"outlined"} color={"error"} onClick={() => {deleteQuestion(row.id)}}> Delete</Button>

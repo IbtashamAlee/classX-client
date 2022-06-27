@@ -181,7 +181,7 @@ export default function AttemptAssessment() {
     clearInterval(timeInterval);
     setTimeInterval(setInterval(setTime, 1000));
     return () => {
-      clearInterval();
+      clearInterval(timeInterval);
     }
   }, [current, questionId])
 
