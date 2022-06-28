@@ -26,8 +26,16 @@ export function AttendanceDetails(props) {
 
   return (
       <div>
-        <div className="text-gray-900 text-2xl font-medium py-4 flex justify-between">
+        <div className="text-gray-900 text-2xl font-medium py-4 flex justify-between flex-col">
           <h1>Attendance</h1>
+          {attendance &&
+          <div className="text-sm mt-2 text-slate-60 flex flex-row justify-start items-center flex-wrap">
+            <h1 className="bg-green-200 text-green-600 px-2 w-fit rounded-xl min-w-[20%] text-center">Presents
+              : {attendance.present}</h1>
+            <h1 className="bg-red-200 text-red-600 px-2 w-fit rounded-xl min-w-[20%] text-center ml-2 ">Absents
+              : {attendance.total - attendance.present}</h1>
+          </div>
+          }
         </div>
         <AttendanceTable  records={attendance?.attendanceRecord}/>
       </div>

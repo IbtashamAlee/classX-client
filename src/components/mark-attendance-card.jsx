@@ -16,7 +16,6 @@ export function MarkAttendanceCard (props) {
 
   const dispatch = useDispatch();
   const {id} = useParams();
-
   useEffect(() => {
     if (props.attendance.endingTime && new Date(props.attendance.endingTime) < new Date()) {
       setIsAttendanceTimeEnded(true);
@@ -26,17 +25,36 @@ export function MarkAttendanceCard (props) {
       setIsPresent(true);
     }
   }, [dispatch, props.attendance]);
-
+  const percentage = (Math.ceil((props.attendance.present/props.attendance.total)*100));
   return (
       <div
           className="block p-4 max-w-full bg-white rounded-lg border-2 border-gray-200 flex justify-between item-center flex-col">
-        <div className="flex items-center mb-8">
+       <div className="flex justify-between items-center">
+        <div className="flex items-center mb-2">
           <img src={props.attendance.imageUrl ?? placeholder } className="w-11 rounded-full"/>
           <div className="ml-5">
             <p className="text-sm">{props.attendance.user.name}</p>
             <p className="text-xs text-gray-500"> {props.attendance.startingTime.split('T')[0]}</p>
           </div>
         </div>
+        {/*//progress bar */}
+         {(props?.currentRole === "Teacher" || props?.currentRole === "DepartmentAdmin") &&
+           <div className="bg-red-400 h-5 w-[20%] rounded-md flex justify-start items-center">
+             {percentage>0 &&
+               <div style={{width:`${(percentage>25?percentage:25)}%`,padding:'13px'}}
+             className={"text-xs text-slate-700 h-full rounded-l-md bg-green-400 flex justify-center items-center"}>
+                 <p>{percentage}%</p>
+           </div>}
+             {
+               percentage<1 &&
+                 <div className="w-full text-xs text-slate-700 flex flex-col justify-center items-center">
+                   <p>{parseInt(percentage)}%</p>
+                 </div>
+
+             }
+         </div>}
+
+       </div>
         <div className="flex w-full justify-between items-center">
         <div>
           <h5 className="mb-2 font-medium text-gray-900 truncate">{props.attendance.title}</h5>
@@ -50,11 +68,8 @@ export function MarkAttendanceCard (props) {
         <div className={"flex items-center"}>
           {props?.currentRole === "Teacher" || props?.currentRole === "DepartmentAdmin" ?
               <Link to={`/class-details/${id}/attendance/${props.attendance.id}`}>
-                <Button variant={"contained"}>Details</Button>
+                <Button variant={"contained"} size='small'>Details</Button>
               </Link>
-            // <Link to={`/class-details/${id}/attendance/${position.id}`}>
-            //   <Button variant={"contained"}>View details</Button>
-            // </Link>
               :
               <>
                 {isPresent ?

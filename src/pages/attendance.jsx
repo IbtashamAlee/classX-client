@@ -88,8 +88,8 @@ export default function Attendance() {
         }
         <div className="bg-white sm:rounded-md">
           <ul className="divide-y space-y-3">
-            {positions && positions.length > 0 && positions.map((position) => (
-              <MarkAttendanceCard attendance={position} currentRole={currentRole}/>
+            {positions && positions.length > 0 && positions.map((position, key) => (
+              <MarkAttendanceCard attendance={position} currentRole={currentRole} key={{key}}/>
             ))}
           </ul>
         </div>

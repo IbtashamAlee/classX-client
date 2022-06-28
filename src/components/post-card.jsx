@@ -51,7 +51,7 @@ export function PostCard (props) {
   }
   return (
       <div className="flex flex-col p-4 max-w-full bg-white rounded-lg border-2 border-gray-200 shadow-sm flex justify-between item-center overflow-auto">
-        <div className="flex items-center mb-8">
+        <div className="flex items-center mb-3">
           <img src={props.post.user.imageUrl ?? placeholder } alt="profile" className="w-10 h-10 rounded-full object-cover"/>
           <div className="ml-5">
           <p className="text-sm">{props.post.user.name}</p>

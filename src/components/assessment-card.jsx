@@ -65,7 +65,7 @@ export function AssessmentCard(props) {
   return (
     <div
       className="block p-4 max-w-full bg-white rounded-lg border-2 border-gray-200 shadow-sm flex flex-col justify-between item-center">
-      <div className="flex items-center mb-8">
+      <div className="flex items-center mb-4">
         <img src={props.assessment.user.imageUrl ?? placeholder} className="w-10 h-10 rounded-full object-cover"/>
         <div className="ml-5">
           <p className="text-sm">{props.assessment.user.name}</p>
@@ -85,7 +85,7 @@ export function AssessmentCard(props) {
         <div className={"flex items-center"}>
           {props?.currentRole === "Teacher" || props?.currentRole === "DepartmentAdmin" ?
               <Link to={`/class-details/${id}/assessments/${props.assessment.id}`}>
-                <Button variant={"contained"}>View Details</Button>
+                <Button size='small' variant={"contained"}>Details</Button>
               </Link>
               :
               <>

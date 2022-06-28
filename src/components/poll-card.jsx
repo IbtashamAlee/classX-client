@@ -71,7 +71,7 @@ export function PollCard(props) {
 
   return (
       <div title={title} className="block p-4 max-w-full bg-white rounded-lg border-2 border-gray-200 shadow-sm flex justify-between item-center flex-col">
-        <div className="flex items-center mb-8">
+        <div className="flex items-center mb-3">
           <img src={props.poll.user.imageUrl ?? placeholder } alt="profile" className="w-11 h-11 rounded-full object-cover"/>
           <div className="ml-5">
             <p className="text-sm">{props.poll.user.name}</p>
@@ -96,11 +96,13 @@ export function PollCard(props) {
           </div>
           <div className={"flex flex-col w-full mt-6 space-y-2"}>
             {props.poll.pollOptions && props.poll.pollOptions.map(op => (
-                <div key={op.id} className={"flex"}>
-                  <Button className={"flex-1 !mr-4"} variant={"outlined"} disabled={isPoolEnded || props.poll.hasParticipated} onClick={() => {submitParticipatePoll(op.id)}}>{op.option}</Button>
+                <div key={op.id} className={"flex w-full justify-between"}>
+                  <Button className={"max-w-[80%] flex-1 !mr-4 !text-slate-500 !font-semibold bg-gradient-to-r from-teal-50 to-rose-100" } variant={"outlined"} disabled={isPoolEnded || props.poll.hasParticipated} onClick={() => {submitParticipatePoll(op.id)}}>{op.option}</Button>
                   {props.poll.hasParticipated &&
-                      <h5 className={"text-sm font-medium text-gray-500 my-auto text-center"}>{op.votes + `${op.votes>1?" votes":" vote"}`}</h5>
-                  }
+                    <div className="flex justify-start items-center min-w-[15%] ">
+                      <h1 className="text-sm font-semibold !text-slate-600 my-auto text-center">{op.votes + `${op.votes>1?" votes":" vote"}`}</h1>
+                    </div>
+                      }
                 </div>
             ))}
           </div>
