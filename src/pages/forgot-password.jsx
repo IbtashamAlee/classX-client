@@ -12,7 +12,7 @@ export function ForgotPassword(props) {
   const [isResetting, setIsResetting] = useState(false);
 
   const resetPassword = () => {
-    Api.execute("/auth/password-reset", "post", {
+    Api.execute("/api/auth/password-reset", "post", {
       email: email
     }).then(r => {
       setTitle("Reset Link Sent!");
