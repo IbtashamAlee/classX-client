@@ -5,12 +5,12 @@ import {useSelector} from "react-redux";
 import {AssessmentCard} from "../components/assessment-card";
 import Button from '@mui/material/Button';
 import {Link} from 'react-router-dom'
+import Chart from "react-apexcharts";
 
 export function ClassAssessmentPage(props) {
   const [assessments, setAssessments] = useState([]);
-
   let currentRole = useSelector((state => state.current_class.role));
-
+  const user  = useSelector((state)=> state.user.user);
   let {id} = useParams();
 
   function getAssessments() {
@@ -23,6 +23,51 @@ export function ClassAssessmentPage(props) {
 
   useEffect(() => {
     getAssessments();
+  }, [])
+  const [opt3, setOpt3] = useState({
+    chart: {
+      width: 380,
+      type: 'donut',
+    },
+    plotOptions: {
+      pie: {
+        startAngle: -90,
+        endAngle: 270
+      }
+    },
+    dataLabels: {
+      enabled: true
+    },
+    fill: {
+      type: 'gradient',
+    },
+    colors: ['#00FF00', '#FF0000'],
+    labels: ['obtained', 'Deducted'],
+    legend: {
+      formatter: function (val, opts) {
+        return val + " - " + opts.w.globals.series[opts.seriesIndex]
+      }
+    },
+    responsive: [{
+      breakpoint: 480,
+      options: {
+        chart: {
+          width: 200
+        },
+        legend: {
+          position: 'bottom'
+        }
+      }
+    }]
+  })
+  const [marksState, setMarksState] = useState(null)
+
+  useEffect(() => {
+    Api.execute('/api/stats/class/' + id + '/student/' + user.id + '/marks-stats')
+      .then(res => {
+        setMarksState([res.data.obtainedMarks, res.data.totalMarks - res.data.obtainedMarks])
+      })
+      .catch(e => console.log(e))
   }, [])
 
   return (
@@ -38,6 +83,13 @@ export function ClassAssessmentPage(props) {
               </div>
           }
         </div>
+        {currentRole && currentRole === 'Student' && marksState &&
+          <div className="flex justify-center items-center flex-col min-w-full">
+          <div id="chart" className="min-h-[270px]">
+            <Chart options={opt3} series={marksState} type="donut" width={380}/>
+          </div>
+        </div>
+        }
         <div className="flex flex-col">
         {
           assessments && assessments.map(f=>(

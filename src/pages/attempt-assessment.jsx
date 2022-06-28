@@ -160,7 +160,7 @@ export default function AttemptAssessment() {
       setCurrent(current - 1 + 2)
       setContent('');
       setSelectedOptions([]);
-      if (current ==  questions.length - 1) {
+      if (current ===  questions.length - 1) {
         submitAssessment();
       }
       console.log(res)
@@ -196,12 +196,7 @@ export default function AttemptAssessment() {
 
   useEffect(() => {
     if (questions.length === 0) return;
-    let correct = 0
-    questions[current]?.option?.map(opt => {
-      console.log(opt.isCorrect)
-      if (opt.isCorrect) correct++
-    })
-    if (correct === 1) {
+    if (questions[current]?.correct === 1) {
       setIsMCQ(true)
     } else {
       setIsMCQ(false);
@@ -209,7 +204,7 @@ export default function AttemptAssessment() {
     setQuestionId(questions[current]?.id)
   }, [questions, current])
 
-  if (current == questions.length) {
+  if (current >= questions.length) {
     clearInterval(timeInterval);
     return (
         <div>

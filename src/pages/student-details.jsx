@@ -257,14 +257,14 @@ export default function StudentDetails() {
                               </tr>
                               </thead>
                               <tbody className="divide-y divide-gray-200 bg-white">
-                              {attendances.map((person) => (
-                                <tr key={person.email}>
+                              {attendances.map((person,key) => (
+                                <tr key={person.email} key={key}>
                                   <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.title}</td>
                                   <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                         <span
-                          className={(person.attendanceRecord[0].isPresent ? "text-green-800 bg-green-50"
+                          className={(person.attendanceRecord[0]?.isPresent ? "text-green-800 bg-green-50"
                             : "text-red-800 bg-red-50") + " inline-flex rounded-full px-2 text-xs font-semibold leading-5"}>
-                          {person.attendanceRecord[0].isPresent ? 'Present' : 'Absent'}
+                          {person.attendanceRecord[0]?.isPresent ? 'Present' : 'Absent'}
                         </span>
                                   </td>
                                   <td
