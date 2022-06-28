@@ -28,17 +28,18 @@ export function PostCard (props) {
   };
 
   function postComment() {
-    const postId = props.post.id
-    Api.execute(`/api/class/post/${postId}/comment`, 'post', {
-      comment
-    }).then(res => {
-      setComments([res.data.postComment,...Comments])
-      setComment('')
-    }).catch(err => {
-      console.log(err);
-    })
+    if (comment.length > 0) {
+      const postId = props.post.id
+      Api.execute(`/api/class/post/${postId}/comment`, 'post', {
+        comment
+      }).then(res => {
+        setComments([res.data.postComment, ...Comments])
+        setComment('')
+      }).catch(err => {
+        console.log(err);
+      })
+    }
   }
-
   function deleteComment(commentId){
     Api.execute(`/api/class/post/comment/${commentId}`, 'put')
       .then(res => {
