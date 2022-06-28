@@ -89,10 +89,21 @@ export function FilePicker(props) {
     setRecentSelectedFiles([]);
   };
 
+  const isImage = (name) => {
+    name = name.split('.');
+    return name[name.length - 1] == 'png' || name[name.length - 1] == 'jpg' || name[name.length - 1] == 'jpeg';
+  }
+
   const handleSelectedFiles = (e) => {
     let names = [];
-    for (let i = 0; i < inp.current.files.length; i++) {
-      names.push(inp.current.files[i].name);
+    let f;
+    if (props.accept) {
+      f = inp2
+    } else {
+      f = inp;
+    }
+    for (let i = 0; i < f.current.files.length; i++) {
+      names.push(f.current.files[i].name);
     }
     setFiles(names);
   }
@@ -113,8 +124,14 @@ export function FilePicker(props) {
   async function submit(){
     setLoading(true);
     const data = new FormData();
-    for (let i = 0; i < inp.current.files.length; i++) {
-      data.append('file', inp.current.files[i]);
+    let f;
+    if (props.accept) {
+      f = inp2
+    } else {
+      f = inp;
+    }
+    for (let i = 0; i < f.current.files.length; i++) {
+      data.append('file', f.current.files[i]);
     }
     try {
       const response = await axios({
@@ -132,10 +149,25 @@ export function FilePicker(props) {
 
   function selectedRecentFilesManipulation(file, type) {
     if(type === 'add') {
-      setRecentSelectedFiles([...recentSelectedFiles, file]);
-      setMyFiles((prevState) =>
-          prevState.filter((prevItem) => prevItem !== file)
-      );
+      if(props.accept) {
+        if (recentSelectedFiles.length == 0) {
+          setRecentSelectedFiles([file]);
+          setMyFiles((prevState) =>
+              prevState.filter((prevItem) => prevItem !== file)
+          );
+        } else {
+          setMyFiles([...myFiles, recentSelectedFiles[0]]);
+          setMyFiles((prevState) =>
+              prevState.filter((prevItem) => prevItem !== file)
+          );
+          setRecentSelectedFiles([file]);
+        }
+      } else {
+        setRecentSelectedFiles([...recentSelectedFiles, file]);
+        setMyFiles((prevState) =>
+            prevState.filter((prevItem) => prevItem !== file)
+        );
+      }
     }
     else if (type === 'remove') {
       setRecentSelectedFiles((prevState) =>
@@ -219,7 +251,7 @@ export function FilePicker(props) {
                   </div>
                   {files?.length ?
                       <div>
-                        <h5 className={"mt-4 mb-2 text-gray-900 text-md font-medium"}>Selected files</h5>
+                        <p className={"mt-4 mb-2 text-gray-900 text-md font-medium"}>Selected files</p>
                         <div className={"text-gray-500 text-sm space-y-2"}>
                           {files && files.map(f => (
                               <div key={f}>{f}</div>
@@ -235,12 +267,28 @@ export function FilePicker(props) {
               </TabPanel>
               <TabPanel value={value} index={1}>
                 <div className={"space-y-2"}>
-                  {myFiles.map(f => (
-                      <div key={f.id} className={"py-2 px-4 flex justify-between border border-gray-200 rounded items-center"}>
-                        <h4 className={"text-gray-600 flex flex-nowrap"}>{f.originalName}</h4>
-                        <Button variant={"contained"} onClick={() => {selectedRecentFilesManipulation(f, 'add')}}>Select</Button>
-                      </div>
-                  ))}
+                  {props.accept ?
+                      <>
+                        {myFiles.map(f => (
+                            <React.Fragment>
+                              {isImage(f.originalName) &&
+                                  <div key={f.id} className={"py-2 px-4 flex justify-between border border-gray-200 rounded items-center"}>
+                                    <h4 className={"text-gray-600 flex flex-nowrap"}>{f.originalName}</h4>
+                                    <Button variant={"contained"} onClick={() => {selectedRecentFilesManipulation(f, 'add')}}>Select</Button>
+                                  </div>
+                              }
+                            </React.Fragment>
+                        ))}
+                      </>:
+                      <React.Fragment>
+                        {myFiles.map(f => (
+                            <div key={f.id} className={"py-2 px-4 flex justify-between border border-gray-200 rounded items-center"}>
+                              <h4 className={"text-gray-600 flex flex-nowrap"}>{f.originalName}</h4>
+                              <Button variant={"contained"} onClick={() => {selectedRecentFilesManipulation(f, 'add')}}>Select</Button>
+                            </div>
+                        ))}
+                      </React.Fragment>
+                  }
                 </div>
                 <div className={"border-t-2 border-gray-200 my-4"}></div>
                 <div className={"space-y-2"}>
