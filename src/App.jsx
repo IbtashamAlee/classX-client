@@ -38,6 +38,7 @@ import ClassStats from "./pages/stats";
 import StudentDetails from "./pages/student-details";
 import AssessmentDetails from "./pages/assessment-details";
 import UserAssessmentDetails from "./pages/user-assessment-details";
+import {ResetPasswordPage} from "./pages/reset-password-page";
 
 export default function App() {
   const dispatch = useDispatch();
@@ -111,6 +112,7 @@ export default function App() {
           <Route path="verify" element={<AccountVerify/>}/>
           <Route path="institute/request" element={ <AuthorizedRoute> <CreateInstitute/> </AuthorizedRoute>}/>
           <Route path="forgot-password" element={<EnrouteToDashboard> <ForgotPassword/> </EnrouteToDashboard>}/>
+          <Route path="/reset-password/:token" element={<ResetPasswordPage/>}/>
           <Route path="*" element={<NotFound/>}/>
         </Routes>
       </ThemeProvider>

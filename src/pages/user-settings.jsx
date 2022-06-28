@@ -1,21 +1,44 @@
-import {useEffect, useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import {Switch} from '@headlessui/react'
-import {KeyIcon} from '@heroicons/react/solid'
-import {Header} from "../components/header";
-import api from '../generic-services/api'
+import KeyIcon from '@mui/icons-material/Key';
 import placeholder from '../Sample_User_Icon.png';
 import {useSelector} from "react-redux";
+import {Button} from "@mui/material";
+import Api from "../generic-services/api";
+import {Notification} from "../components/notification";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
 export default function UserSettings() {
-  const [data,setData]  = useState(useSelector(state => state.user.user))
-  const [allowEmail, setAllowEmail] = useState(true)
+  const data = useSelector(state => state.user.user)
+  const [allowEmail, setAllowEmail] = useState(true);
+  const [isResetting, setIsResetting] = useState(false);
+  const [title, setTitle] = useState("");
+  const [message, setMessage] = useState("");
+
+  const resetPassword = () => {
+    Api.execute("/api/auth/password-reset", "post", {
+      email: data.email
+    }).then(r => {
+      setTitle("Reset Link Sent!");
+      setMessage("Visit your email to reset your password.");
+      setIsResetting(true);
+    }).catch(err => {
+      setTitle("Something went wrong!");
+      setMessage("An error occurred while sending your reset link");
+      setIsResetting(true);
+    })
+  }
+
+  function closeNotification() {
+    setIsResetting(false);
+  }
 
   return(
     <div>
+      {isResetting && <Notification title={title} message={message} closeNotification={closeNotification} isOpened={isResetting}/>}
       {data &&
       <main className="mt-0">
         <div className="max-w-screen-xl mx-auto pb-6 px-4 sm:px-6 lg:pb-16 lg:px-8">
@@ -191,13 +214,13 @@ export default function UserSettings() {
                   </div>
 
                   <div className="flex justify-center items-center my-1 py-2">
-                    <button
-                      type="button"
-                      className="mx-3 w-full sm:w-2/4 lg:w-2/6 inline-flex items-center my-1 px-6 py-2 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-[#6366F1] hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 flex justify-center items-center"
+                    <Button
+                        startIcon={<KeyIcon/>}
+                        variant={"contained"}
+                        onClick={resetPassword}
                     >
-                      <KeyIcon className="-ml-1 mr-3 h-5 w-5" aria-hidden="true"/>
-                      <p>RESET PASSWORD ?</p>
-                    </button>
+                      RESET PASSWORD ?
+                    </Button>
                   </div>
                 </div>
               </form>
