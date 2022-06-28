@@ -1,16 +1,15 @@
 import React, {useEffect, useState} from "react";
 import Chart from "react-apexcharts";
 import api from "../generic-services/api";
-import {useParams} from "react-router-dom";
-import {useNavigate} from 'react-router-dom';
+import {useNavigate, useParams} from "react-router-dom";
 
 export default function Stats() {
   const navigate = useNavigate()
   let {id} = useParams();
-  useEffect(()=>{
-    api.execute('/api/class/'+id+'/role')
+  useEffect(() => {
+    api.execute('/api/class/' + id + '/role')
       .then(res => {
-        if (res.data ==='Student') navigate(-1)
+        if (res.data === 'Student') navigate(-1)
       })
       .catch(e => console.log(e))
   })
@@ -87,10 +86,10 @@ export default function Stats() {
     fill: {
       type: 'gradient',
     },
-    colors:['#00FF00','#FF0000'],
+    colors: ['#00FF00', '#FF0000'],
     labels: ['Presents', 'Absents'],
     legend: {
-      show : false
+      show: false
     },
     responsive: [{
       breakpoint: 480,
@@ -122,7 +121,7 @@ export default function Stats() {
       type: 'gradient',
     },
     // colors:['#00FF00','#FF0000'],
-    labels: ['Post Comments', 'Poll Comments','Assessment Comments'],
+    labels: ['Post Comments', 'Poll Comments', 'Assessment Comments'],
     legend: {
       formatter: function (val, opts) {
         return val + " - " + opts.w.globals.series[opts.seriesIndex]
@@ -140,7 +139,6 @@ export default function Stats() {
       }
     }]
   })
-//this graph is only for comments stats
   const [series, setSeries] = useState(null)
   const [series2, setSeries2] = useState(null)
   const [series3, setSeries3] = useState(null)
@@ -160,7 +158,7 @@ export default function Stats() {
       .then(res => {
         const d = res.data;
         console.log(res.data)
-        setSeries2([d.total_presents,d.total_attendances - d.total_presents])
+        setSeries2([d.total_presents, d.total_attendances - d.total_presents])
       })
       .catch(e => console.log(e))
   }, [])
@@ -176,33 +174,36 @@ export default function Stats() {
   }, [])
   return (
 
-    <div className="mt-24 app h-full flex flex-row flex-wrap justify-between max-w-screen-md m-auto" >
-      {/*<div className="row flex flex-col justify-center items-center h-full">*/}
-      {/*  {series &&*/}
-      {/*  <div className="mixed-chart min-h-[270px] pt-0">*/}
-      {/*    <Chart options={options} series={series} type="radialBar" width={380}/>*/}
-      {/*  </div>*/}
-      {/*  }*/}
-      {/*  <h1 className="mb-12">Class Post Details</h1>*/}
-      {/*</div>*/}
-      {/*{series2 &&*/}
-      {/*  <div className="flex justify-center items-center flex-col">*/}
-      {/*    <div id="chart" className="min-h-[270px]">*/}
-      {/*      <Chart options={opt2} series={series2} type="donut" width={380}/>*/}
-      {/*    </div>*/}
-      {/*    <h1 className="mt-5 mb-12">Class' aggregated Attendance</h1>*/}
+    <div className="mt-24 app h-full flex flex-row flex-wrap justify-between max-w-screen-2xl m-auto">
 
-      {/*  </div>*/}
-      {/*}*/}
-      {series3 &&
+      {series &&
+      <div className="row flex flex-col justify-center items-center h-full">
+        <div className="mixed-chart min-h-[270px] pt-0">
+          <Chart options={options} series={series} type="radialBar" width={400}/>
+        </div>
+        <h1 className="mb-12">Class Post Details</h1>
+      </div>
+      }
+
+      {series2 &&
       <div className="flex justify-center items-center flex-col">
         <div id="chart" className="min-h-[270px]">
-          <Chart options={opt3} series={series3} type="donut" width={380}/>
+          <Chart options={opt2} series={series2} type="donut" width={380}/>
         </div>
-        <h1 className="mt-5 mb-12">Class Comments Stats</h1>
+        <h1 className="mt-5 mb-12">Class' aggregated Attendance</h1>
 
       </div>
       }
+
+      {series3 &&
+      <div className="flex justify-center items-center flex-col">
+        <div id="chart" className="min-h-[270px]">
+          <Chart options={opt3} series={series3} type="donut" width={540}/>
+        </div>
+        <h1 className="mt-5 mb-12">Class Comments Stats</h1>
+      </div>
+      }
+
     </div>
   );
 }
