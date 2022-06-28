@@ -109,7 +109,12 @@ export function PollCard(props) {
           </div>
           {/*comment section*/}
           <hr className="mt-2"/>
-          <h5 className="mt-2 mb-2 text-md text-gray-900">Comments</h5>
+          <div className="flex justify-between">
+            <h5 className="mt-2 text-sm font-semibold text-gray-900 truncate">Comments</h5>
+            { Comments && Comments.length>0 &&
+            <h5 className="mt-2 text-sm font-semibold text-gray-900 truncate mr-4">Total Comments: {Comments.length}</h5>
+            }
+          </div>
           {
             Comments?.length > 0 ?
               <div>
