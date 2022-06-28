@@ -15,11 +15,7 @@ export function PostCard (props) {
   let [comment,setComment] = useState('')
   let [initialComment,setInitialComments] = useState(2)
 
-  // function getDownloadLink(key) {
-  //   Api.execute(`/file/download-link/${key}`, 'get').then(res => {
-  //     console.log(res);
-  //   })
-  // }
+  console.log(Comments)
 
   const handleKeypress = e => {
     if (e.charCode === 13) {
@@ -88,7 +84,12 @@ export function PostCard (props) {
           }
           {/*comment section*/}
           <hr className="mt-2"/>
-          <h5 className="mt-2 text-md text-gray-900 truncate">Comments</h5>
+          <div className="flex justify-between">
+          <h5 className="mt-2 text-sm font-semibold text-gray-900 truncate">Comments</h5>
+            { Comments && Comments.length>0 &&
+              <h5 className="mt-2 text-sm font-semibold text-gray-900 truncate mr-4">Total Comments: {Comments.length}</h5>
+            }
+          </div>
           {
             Comments?.length > 0 ?
             <div>
