@@ -1,15 +1,15 @@
 import {useNavigate, useParams} from 'react-router-dom'
 import {useEffect,useState} from "react";
 import api from "../generic-services/api";
-import {Link} from "react-router-dom";
 
 export default function AssessmentDetails(){
   const {assessment_id} = useParams();
+  console.log(assessment_id,'a_id')
   const navigate = useNavigate();
   console.log(assessment_id);
   const [assessmentResponses,setAssessmentResponses] = useState(null)
   useEffect(()=>{
-    api.execute('/api/class/assessment/17/view-details')
+    api.execute(`/api/class/assessment/${assessment_id}/view-details`)
       .then(res => {
         console.log(res.data);
         setAssessmentResponses(res.data)

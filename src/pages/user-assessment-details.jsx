@@ -101,12 +101,12 @@ export default function UserAssessmentDetails() {
           {test.question.option.length > 0 &&
           <div>
             <h1 className="font-semibold mt-2">Options:</h1>
-            <ul className="flex flex-row justify-around items-center">
+            <ul className="flex flex-row justify-start items-center mt-2">
               {
                 test.question.option.map(opt => {
                   return (
                     <li
-                      className={(opt.isCorrect ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800") + " px-4 rounded-lg"}>{opt.value}</li>
+                      className={(opt.isCorrect ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800") + " px-4 rounded-lg ml-4"}>{opt.value}</li>
                   )
                 })
               }
@@ -116,13 +116,13 @@ export default function UserAssessmentDetails() {
           {test.question.option.length > 0 &&
           <div>
             <h1 className="font-semibold mt-2">User Selected Options</h1>
-            <ul className="flex flex-row justify-around items-center">
+            <ul className="flex flex-row justify-start items-center mt-2">
               {test.questionResponseOption.length > 0 &&
               test.questionResponseOption.map(opt => {
                 console.log(opt)
                 return (
                   <li
-                    className={(opt?.option?.isCorrect ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800") + " px-4 rounded-lg"}>{opt?.option?.value}</li>
+                    className={(opt?.option?.isCorrect ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800") + " px-4 rounded-lg ml-4"}>{opt?.option?.value}</li>
                 )
               })
               }
