@@ -26,15 +26,17 @@ export function AssessmentCard(props) {
   };
 
   function postComment() {
-    const postId = props.assessment.id
-    Api.execute(`/api/class/assessment/${postId}/comment`, 'post', {
-      comment
-    }).then(res => {
-      setComments([res.data.classAssessmentComment,...Comments])
-      setComment('')
-    }).catch(err => {
-      console.log(err);
-    })
+    if (comment.length > 0) {
+      const postId = props.assessment.id
+      Api.execute(`/api/class/assessment/${postId}/comment`, 'post', {
+        comment
+      }).then(res => {
+        setComments([res.data.classAssessmentComment, ...Comments])
+        setComment('')
+      }).catch(err => {
+        console.log(err);
+      })
+    }
   }
 
   function deleteComment(commentId){

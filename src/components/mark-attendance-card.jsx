@@ -41,7 +41,7 @@ export function MarkAttendanceCard (props) {
          {(props?.currentRole === "Teacher" || props?.currentRole === "DepartmentAdmin") &&
            <div className="bg-red-400 h-5 w-[20%] rounded-md flex justify-start items-center">
              {percentage>0 &&
-               <div style={{width:`${(percentage>25?percentage:25)}%`,padding:'13px'}}
+               <div style={{width:`${percentage}%`,padding:'13px'}}
              className={"text-xs text-slate-700 h-full rounded-l-md bg-green-400 flex justify-center items-center"}>
                  <p>{percentage}%</p>
            </div>}

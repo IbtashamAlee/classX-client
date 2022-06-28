@@ -28,21 +28,22 @@ export function PollCard(props) {
     }
   };
 
-  function postComment(){
-    const postId = props.poll.id
-    console.log('postId',postId);
-    console.log('comment',comment)
-    Api.execute(`/api/class/poll/${postId}/comment`, 'post', {
-      comment
-    }).then(res => {
-      console.log(res.data.pollComment);
-      setComments([res.data.pollComment,...Comments])
-      setComment('')
-    }).catch(err => {
-      console.log(err);
-    })
+  function postComment() {
+    if (comment.length > 0) {
+      const postId = props.poll.id
+      console.log('postId', postId);
+      console.log('comment', comment)
+      Api.execute(`/api/class/poll/${postId}/comment`, 'post', {
+        comment
+      }).then(res => {
+        console.log(res.data.pollComment);
+        setComments([res.data.pollComment, ...Comments])
+        setComment('')
+      }).catch(err => {
+        console.log(err);
+      })
+    }
   }
-
   function deleteComment(commentId){
     Api.execute(`/api/class/poll/comment/${commentId}`, 'put')
       .then(res => {
