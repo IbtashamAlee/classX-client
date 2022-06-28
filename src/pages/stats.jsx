@@ -45,7 +45,7 @@ export default function Stats() {
       floating: true,
       fontSize: '12px',
       position: 'left',
-      offsetX: -50,
+      offsetX: 0,
       offsetY: 1,
       labels: {
         useSeriesColors: true,
@@ -61,14 +61,18 @@ export default function Stats() {
       }
     },
     responsive: [{
-      breakpoint: 480,
+      breakpoint: 420,
+      chart: {
+        width: 300,
+      },
       options: {
         legend: {
-          show: false
+          show: true,
+          offsetX: +50
         }
       }
-    }]
-  });
+    }
+]  });
   const [opt2, setOpt2] = useState({
     chart: {
       width: 380,
@@ -92,13 +96,13 @@ export default function Stats() {
       show: false
     },
     responsive: [{
-      breakpoint: 480,
+      breakpoint: 420,
       options: {
         chart: {
-          width: 200
+          width: 300
         },
         legend: {
-          position: 'left'
+          show: false
         }
       }
     }]
@@ -128,13 +132,13 @@ export default function Stats() {
       }
     },
     responsive: [{
-      breakpoint: 480,
+      breakpoint: 420,
       options: {
         chart: {
-          width: 200
+          width: 300
         },
         legend: {
-          position: 'left'
+          show:false
         }
       }
     }]
@@ -174,10 +178,10 @@ export default function Stats() {
   }, [])
   return (
 
-    <div className="mt-24 app h-full flex flex-row flex-wrap justify-between max-w-screen-2xl m-auto">
+    <div className="mt-24 app min-h-[90vh] h-full flex flex-row flex-wrap justify-center lg:space-x-24 max-w-screen-2xl m-auto">
 
       {series &&
-      <div className="row flex flex-col justify-center items-center h-full">
+      <div className="flex flex-col justify-center items-center">
         <div className="mixed-chart min-h-[270px] pt-0">
           <Chart options={options} series={series} type="radialBar" width={400}/>
         </div>
@@ -198,7 +202,7 @@ export default function Stats() {
       {series3 &&
       <div className="flex justify-center items-center flex-col">
         <div id="chart" className="min-h-[270px]">
-          <Chart options={opt3} series={series3} type="donut" width={540}/>
+          <Chart options={opt3} series={series3} type="donut" width={480}/>
         </div>
         <h1 className="mt-5 mb-12">Class Comments Stats</h1>
       </div>
