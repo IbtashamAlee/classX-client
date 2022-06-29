@@ -1,9 +1,10 @@
-import {useEffect, useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import { Switch} from '@headlessui/react'
 import { TrashIcon } from '@heroicons/react/solid'
 import {Header} from '../components/header'
 import api from "../generic-services/api";
 import {useParams} from "react-router-dom";
+import Chart from "react-apexcharts";
 
 
 
@@ -12,8 +13,51 @@ function classNames(...classes) {
 }
 
 export default function InstituteSettings() {
+  const [opt2, setOpt2] = useState({
+    chart: {
+      width: 380,
+      type: 'donut',
+    },
+    plotOptions: {
+      pie: {
+        expandOnClick : true,
+        startAngle: -90,
+        endAngle: 270
+      }
+    },
+    dataLabels: {
+      enabled: true
+    },
+    fill: {
+      type: 'gradient',
+    },
+    colors:['#00FF00','#FF0000'],
+    labels: ['Presents', 'Absents'],
+    legend: {
+      show: false
+    },
+    responsive: [{
+      breakpoint: 480,
+      options: {
+        chart: {
+          width: 200
+        },
+        legend: {
+          position: 'bottom'
+        }
+      }
+    }]
+  })
+  const [series, setSeries] = useState(null)
   const [data,setData] = useState(null)
   const {id} = useParams()
+
+  useEffect(()=>{
+    api.execute(`/api/stats/institute/${id}/attendance-stats`)
+      .then(res=> setSeries([res.data.present,res.data.total-res.data.present]))
+      .catch(e => console.log(e))
+  },[])
+
   useEffect(()=>{
     api.execute('/api/institutes/'+id)
       .then(res=> setData(res.data))
@@ -31,7 +75,7 @@ export default function InstituteSettings() {
                   {/* Profile section */}
                   <div className="py-6 px-4 sm:p-6 lg:pb-8">
                     <div>
-                      <h2 className="text-lg leading-6 font-medium text-gray-900">Institute Details</h2>
+                      <h2 className="text-xl lg:text-2xl text-[#6366F1] font-bold mt-2 ml-2">Institute Details</h2>
                       <p className="mt-1 text-sm text-gray-500">
                         This information will be displayed publicly so be careful what you share.
                       </p>
@@ -193,19 +237,28 @@ export default function InstituteSettings() {
                         Save
                       </button>
                     </div>
-                    <div className="flex justify-center items-center my-1 py-2">
-                      <button
-                        type="button"
-                        className="w-2/6 inline-flex items-center ml-20 mr-20 px-6 py-2 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-red-400 hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 flex justify-center items-center"
-                      >
-                        <TrashIcon className="-ml-1 mr-3 h-5 w-5" aria-hidden="true"/>
-                        <p>Delete</p>
-                      </button>
-                    </div>
                   </div>
                 </form>
               </div>
+
             </div>
+
+          </div>
+          <div className="max-w-screen-xl mx-auto pb-6 px-4 sm:px-6 lg:pb-16 lg:px-8">
+            { series &&
+            <div>
+              <h1 className="text-xl lg:text-2xl text-[#6366F1] font-bold mt-2 ml-2">Institute Stats</h1>
+              <div className="mt-4 flex justify-center flex-col items-center">
+                <div className="flex justify-center items-center mb-1">
+                  <div id="chart" className="min-h-[270px]">
+                    <Chart options={opt2} series={series} type="donut" width={350}/>
+                  </div>
+                </div>
+                <h1 className="font-semibold mt-2">Institute's Aggregated Attendance</h1>
+              </div>
+            </div>
+
+            }
           </div>
 
         </main>
