@@ -4,7 +4,6 @@ import api from "../generic-services/api";
 
 export default function AssessmentDetails(){
   const {assessment_id} = useParams();
-  console.log(assessment_id,'a_id')
   const navigate = useNavigate();
   console.log(assessment_id);
   const [assessmentResponses,setAssessmentResponses] = useState(null)
@@ -80,19 +79,19 @@ export default function AssessmentDetails(){
                             </div>
                           </div>
                         </td>
-                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 text-center">
+                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 text-left">
                         <span
-                          className="inline-flex rounded-full bg-blue-100 px-2 text-xs font-semibold leading-5 text-blue-800 text-center">
+                          className="inline-flex rounded-full bg-blue-100 px-2 text-xs font-semibold leading-5 text-blue-800 text-leftr">
                           {Math.round((person.obtainedMarks / person.totalMarks) * 100)} %
                         </span>
                         </td>
-                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 text-center">
+                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 text-left">
                         <span
-                          className="inline-flex rounded-full bg-yellow-100 px-2 text-xs font-semibold leading-5 text-yellow-800 text-center">
+                          className="inline-flex rounded-full bg-yellow-100 px-2 text-xs font-semibold leading-5 text-yellow-800 text-left">
                           {person.totalMarks}
                         </span>
                         </td>
-                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 text-left">
                         <span
                           className="inline-flex rounded-full bg-green-100 px-2 text-xs font-semibold leading-5 text-green-800 text-center">
                           {person.obtainedMarks}

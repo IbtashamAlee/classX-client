@@ -177,9 +177,10 @@ export default function Stats() {
       .catch(e => console.log(e))
   }, [])
   return (
+    <div>
+    <h1 className="text-lg font-bold mt-2 text-[#6366F1]">CLASS STATS</h1>
 
-    <div className="mt-24 app min-h-[90vh] h-full flex flex-row flex-wrap justify-center lg:space-x-24 max-w-screen-2xl m-auto">
-
+    <div className="mt-12 app min-h-[90vh] h-full flex flex-row flex-wrap justify-center lg:space-x-24 max-w-screen-2xl m-auto">
       {series &&
       <div className="flex flex-col justify-center items-center">
         <div className="mixed-chart min-h-[270px] pt-0">
@@ -208,6 +209,7 @@ export default function Stats() {
       </div>
       }
 
+    </div>
     </div>
   );
 }
