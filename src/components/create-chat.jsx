@@ -11,6 +11,8 @@ import {useParams} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import Api from "../generic-services/api";
 import AddCommentIcon from "@mui/icons-material/AddComment";
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import SearchIcon from '@mui/icons-material/Search';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -69,10 +71,10 @@ export function CreateChat (props) {
 
                 TransitionComponent={Transition}
         >
-          <DialogTitle id="form-dialog-title">Create Poll</DialogTitle>
+          <DialogTitle id="form-dialog-title">Search</DialogTitle>
           <DialogContent className="!pb-2">
             <DialogContentText>
-              Fill the detail to add poll
+              search for any public user
             </DialogContentText>
             <ValidatorForm onSubmit={searchUsers} className="space-y-4 mt-4">
               <div className={"space-x-4 flex items-center"}>
@@ -80,15 +82,15 @@ export function CreateChat (props) {
                     id="search"
                     fullWidth
                     label="Search Users"
-                    className={"!w-[420px]"}
+                    className={"!w-[100%]"}
                     value={search}
                     onChange={e => setSearch(e.target.value)}
                     validators={['required']}
                     errorMessages={['This field is required']}
                 />
-                <Button color="primary" variant={"contained"} type="submit">
-                  Search
-                </Button>
+                <IconButton color="primary" variant={"contained"} type="submit">
+                  <SearchIcon/>
+                </IconButton>
               </div>
             </ValidatorForm>
             <div>
@@ -97,7 +99,9 @@ export function CreateChat (props) {
                 {users && users.length ? users.map(u => (
                   <div key={u.id} className={"flex justify-between items-center border border-1 border-gray-200 p-2 rounded"}>
                     <h1>{u.name}</h1>
-                    <Button variant={"contained"} onClick={() => {newChat(u.email)}}>Start Chat</Button>
+                    <IconButton variant={"contained"} onClick={() => {newChat(u.email)}}>
+                      <ArrowForwardIcon/>
+                    </IconButton>
                   </div>
                 )): <div className={"text-gray-500"}>{search ? "No user found with the given keyword" : "Please seach to find users"}</div>
                 }
@@ -107,9 +111,6 @@ export function CreateChat (props) {
               <Button onClick={handleClose} color="primary">
                 Close
               </Button>
-              {/*<Button color="primary" variant={"contained"} type="submit">*/}
-              {/*  Post Poll*/}
-              {/*</Button>*/}
             </DialogActions>
           </DialogContent>
         </Dialog>
