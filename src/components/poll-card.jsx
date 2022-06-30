@@ -98,7 +98,7 @@ export function PollCard(props) {
           <div className={"flex flex-col w-full mt-6 space-y-2"}>
             {props.poll.pollOptions && props.poll.pollOptions.map(op => (
                 <div key={op.id} className={"flex w-full justify-between"}>
-                  <Button className={"max-w-[80%] flex-1 !mr-4 !text-slate-500 !font-semibold bg-gradient-to-r from-teal-50 to-rose-100" } variant={"outlined"} disabled={isPoolEnded || props.poll.hasParticipated} onClick={() => {submitParticipatePoll(op.id)}}>{op.option}</Button>
+                  <Button className={"max-w-[80%] flex-1 !mr-4 !text-slate-700 !font-semibold !bg-gray-100" } variant={"outlined"} disabled={isPoolEnded || props.poll.hasParticipated} onClick={() => {submitParticipatePoll(op.id)}}>{op.option}</Button>
                   {props.poll.hasParticipated &&
                     <div className="flex justify-start items-center min-w-[15%] ">
                       <h1 className="text-sm font-semibold !text-slate-600 my-auto text-center">{op.votes + `${op.votes>1?" votes":" vote"}`}</h1>

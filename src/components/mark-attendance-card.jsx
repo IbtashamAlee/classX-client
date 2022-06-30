@@ -39,12 +39,18 @@ export function MarkAttendanceCard (props) {
         </div>
         {/*//progress bar */}
          {(props?.currentRole === "Teacher" || props?.currentRole === "DepartmentAdmin") &&
-           <div className="bg-rose-300 h-5 w-[15%] rounded-md flex justify-start items-center">
+           <div className="h-5 w-[15%] rounded-md flex -space-x-px justify-start items-center">
              {percentage>0 &&
-               <div style={{width:`${percentage}%`,padding:'13px'}}
-             className={"text-xs text-slate-700 h-full rounded-l-md bg-green-300 flex justify-center items-center"}>
+             <>
+             <div style={{width:`${percentage}%`}}
+             className={" bg-green-100 relative z-10 border border-green-500 text-xs text-slate-700 h-full rounded-l-md flex justify-center items-center"}>
                  <p>{percentage}%</p>
-           </div>}
+           </div>
+               <div style={{width:`${100-percentage}%`}}
+                    className={" bg-gray-200 border border-gray-300 text-xs text-slate-700 h-full rounded-r-md flex justify-center items-center"}>
+               </div>
+             </>
+             }
              {
                percentage<1 &&
                  <div className="w-full text-xs text-slate-700 flex flex-col justify-center items-center">
