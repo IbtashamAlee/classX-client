@@ -34,7 +34,6 @@ export default function Sidebar(props) {
     navigation.forEach(n => {
       n.current = n.name?.toLowerCase() === name?.toLowerCase();
     })
-    props.setSidebarOpen();
   }
   const {id} = useParams()
   const [Class,setClass] = useState(null)
