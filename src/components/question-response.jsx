@@ -36,7 +36,7 @@ export default function QuestionResponse({test,k}){
             }
             { editMode &&
               <input type="number" max={test.question.questionScore} min={0} value={marks} onChange={(e)=>setMarks(e.target.value)}
-              className="h-6 w-12 text-center rounded-md border-0 bg-yellow-100"/>
+              className="h-6 w-14 text-center rounded-md border-0 bg-yellow-100"/>
             }
             <p>/</p>
             <p className="w-10 text-center rounded-md">{test.question.questionScore}</p>
