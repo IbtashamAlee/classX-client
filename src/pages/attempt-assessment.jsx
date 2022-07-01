@@ -139,7 +139,6 @@ export default function AttemptAssessment() {
 
   const setMcqs = (op, isRadio) => {
     if (op === undefined) return
-
     if (isRadio) {
       if (!selectedOptions.includes(op)) {
         setSelectedOptions((selectedOptions) => [...[], {id: op}])

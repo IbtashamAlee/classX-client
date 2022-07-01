@@ -8,7 +8,6 @@ export default function AttemptInfo() {
   const navigate = useNavigate();
   let assessment = location?.state?.assessment ?? null
   assessment =  assessment.assessment
-  console.log(location.state)
   const class_id = location?.state?.class_id ?? null
 
   useEffect(()=>{

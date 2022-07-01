@@ -120,14 +120,6 @@ export function CreatePoll (props) {
                     </Tooltip>
                 ))}
               </Stack>
-              {/*<div className={"flex space-x-2"}>*/}
-              {/*  <Button onClick={handleClose} color="primary">*/}
-              {/*    Clear*/}
-              {/*  </Button>*/}
-              {/*  <Button color="primary" variant={"outlined"} onClick={addQuestion}>*/}
-              {/*    Add Question*/}
-              {/*  </Button>*/}
-              {/*</div>*/}
               <DialogActions className="mt-4">
                 <Button onClick={handleClose} color="primary">
                   Clear
@@ -135,12 +127,6 @@ export function CreatePoll (props) {
                 <Button color="primary" variant={"contained"} type="submit">
                   Post Poll
                 </Button>
-                {/*<Button onClick={handleClose} color="primary">*/}
-                {/*  Cancel*/}
-                {/*</Button>*/}
-                {/*<Button color="primary" onClick={saveQuestions}>*/}
-                {/*  Save Questions*/}
-                {/*</Button>*/}
               </DialogActions>
             </ValidatorForm>
           </DialogContent>

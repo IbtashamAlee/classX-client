@@ -16,10 +16,8 @@ export function Participants(props) {
   if (participants && participants.length) {
     for (let i = 0; i < participants.length; i++) {
       let name = participants[i].name.split('_')[0];
-      console.log(name);
       if (name === "DepartmentAdmin") {
         department_admin = participants[i]?.users;
-        console.log(department_admin)
       } else if (name === "Teacher") {
         teachers = participants[i]?.users;
       } else if (name === "Student") {
@@ -102,7 +100,6 @@ export function Participants(props) {
       <ul className="divide-y divide-gray-200">
         <h1 className="text-lg mb-6 pt-6 font-medium">Students</h1>
         {students && students.map((person) => {
-          console.log(person)
           return (
             <div>
               {currentRole && (currentRole == "Teacher" || currentRole == "DepartmentAdmin") &&

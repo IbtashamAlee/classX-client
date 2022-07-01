@@ -93,7 +93,6 @@ export default function Messenger() {
           <ConversationList style={{minHeight:"80vh"}}>
             { conversations &&
             conversations.filter(con=>con.userName !== undefined).map(c => {
-              console.log(c.unreadMessages)
               return (
                 <Conversation key={c.chatId} name={c.userName.user.name} unreadCnt={c?.userName?.unreadMessages} info={c.lastMessage} onClick={()=>{
                   setSelectedUser(c);
@@ -118,7 +117,6 @@ export default function Messenger() {
           <ConversationList style={{minHeight:"80vh"}}>
             { conversations &&
               conversations.filter(con=>con.userName !== undefined).map(c => {
-                console.log(c.unreadMessages)
                 return (
                   <Conversation key={c.chatId} name={c.userName.user.name} unreadCnt={c?.userName?.unreadMessages} info={c.lastMessage} onClick={()=>{
                     setSelectedUser(c);

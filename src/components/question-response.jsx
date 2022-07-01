@@ -77,12 +77,23 @@ export default function QuestionResponse({test,k}){
       {test.question.option.length > 0 &&
       <div>
         <h1 className="font-semibold mt-2">Options:</h1>
-        <ul className="flex flex-row justify-start items-center mt-2">
+        <ul className="flex flex-col items-start justify-start mt-2">
           {
             test.question.option.map(opt => {
+              const options = test.questionResponseOption.map(o=> o.option.id)
               return (
-                <li
-                  className={(opt.isCorrect ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800") + " px-4 rounded-lg ml-4"}>{opt.value}</li>
+                <li>
+                  <input type='checkbox' value={opt.value} name={opt.value} defaultChecked={options.includes(opt.id)} disabled={true}/>
+                  <label className="ml-2">{opt.value}</label>
+                  {
+                    options.includes(opt.id) && opt.isCorrect &&
+                      <label className="ml-2">✔️</label>
+                  }
+                  {
+                    options.includes(opt.id) && !opt.isCorrect &&
+                    <label className="ml-2">❌</label>
+                  }
+                  </li>
               )
             })
           }
@@ -91,15 +102,16 @@ export default function QuestionResponse({test,k}){
       }
       {test.question.option.length > 0 &&
       <div>
-        <h1 className="font-semibold mt-2">User Selected Options</h1>
+        <h1 className="font-semibold mt-2">Correct Answers</h1>
         <ul className="flex flex-row justify-start items-center mt-2">
-          {test.questionResponseOption.length > 0 &&
-          test.questionResponseOption.map(opt => {
-            console.log(opt)
-            return (
-              <li
-                className={(opt?.option?.isCorrect ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800") + " px-4 rounded-lg ml-4"}>{opt?.option?.value}</li>
-            )
+          {test.question.option.length > 0 &&
+          test.question.option.map(opt => {
+            if(opt.isCorrect) {
+              return (
+                <li
+                  className={"bg-green-100 text-green-800 px-4 rounded-lg ml-4"}>{opt?.value}</li>
+              )
+            }
           })
           }
           {

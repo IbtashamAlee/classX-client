@@ -31,12 +31,9 @@ export function PollCard(props) {
   function postComment() {
     if (comment.length > 0) {
       const postId = props.poll.id
-      console.log('postId', postId);
-      console.log('comment', comment)
       Api.execute(`/api/class/poll/${postId}/comment`, 'post', {
         comment
       }).then(res => {
-        console.log(res.data.pollComment);
         setComments([res.data.pollComment, ...Comments])
         setComment('')
       }).catch(err => {
@@ -56,7 +53,6 @@ export function PollCard(props) {
   }
 
   const submitParticipatePoll = (selectedOptionId) => {
-    console.log(props.poll.id)
     dispatch(pollParticipation(props.poll.classId, props.poll.id, selectedOptionId))
   }
 

@@ -14,9 +14,6 @@ export function PostCard (props) {
   const [Comments,setComments] = useState(props.post.postComments)
   let [comment,setComment] = useState('')
   let [initialComment,setInitialComments] = useState(2)
-
-  console.log(Comments)
-
   const handleKeypress = e => {
     if (e.charCode === 13) {
       postComment();

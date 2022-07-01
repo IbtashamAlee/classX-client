@@ -11,7 +11,6 @@ export default function UserAssessmentDetails() {
   useEffect(()=>{
     api.execute(`/api/class/assessment/${assessment_id}/user/${location.state.person.user.id}/view-details`)
       .then(res=> {
-        console.log(res.data)
         setData(res.data)
         setResponses(res.data?.classAssessmentSubmission[0]?.classAssessment?.questionResponse?.filter(r => r.userId === location.state.person.user.id));
       })

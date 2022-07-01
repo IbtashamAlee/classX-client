@@ -161,7 +161,6 @@ export default function Stats() {
     api.execute('/api/stats/class/' + id + '/attendance-stats')
       .then(res => {
         const d = res.data;
-        console.log(res.data)
         setSeries2([d.total_presents, d.total_attendances - d.total_presents])
       })
       .catch(e => console.log(e))
@@ -171,7 +170,6 @@ export default function Stats() {
     api.execute('/api/stats/class/' + id + '/comments-stats')
       .then(res => {
         const d = res.data;
-        console.log(res.data)
         setSeries3([d.post_comments, d.poll_comments, d.assessment_comments])
       })
       .catch(e => console.log(e))
