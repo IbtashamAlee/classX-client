@@ -20,6 +20,17 @@ export function PostCard (props) {
     }
   };
 
+  function forceDown(url, filename) {
+    fetch(url).then(function(t) {
+      return t.blob().then((b) => {
+        var a = document.createElement("a");
+        a.href = URL.createObjectURL(b);
+        a.setAttribute("download", filename);
+        a.click();
+      });
+    });
+  }
+
   function postComment() {
     if (comment.length > 0) {
       const postId = props.post.id
@@ -70,7 +81,9 @@ export function PostCard (props) {
                         <div key={p.file.id} className="flex flex-col justify-center">
                         <p>{p.file.originalName}</p>
                         </div>
-                        <a href={p.file.publicUrl} target="_blank" rel="noreferrer" className={"text-indigo-500"} download>
+
+                        <a onClick={()=>forceDown(`https://classxfiles.s3.ap-south-1.amazonaws.com/ClassX__gtGrtJZ4uqgr1wGIKptog.postman_collection_01_05_22_02_53?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIATWU534TH74MIEWOV%2F20220701%2Fap-south-1%2Fs3%2Faws4_request&X-Amz-Date=20220701T182838Z&X-Amz-Expires=1000&X-Amz-Signature=ae3aded8bbc8fe7288fba11ea374017c49e144dec29c65e4bf3147cfd8f0b10b&X-Amz-SignedHeaders=host
+`,'testFile')}>
                           <IconButton size="small"><DownloadIcon/></IconButton>
                         </a>
                       </div>
