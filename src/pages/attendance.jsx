@@ -72,7 +72,8 @@ export default function Attendance() {
 
   return (
     <React.Fragment>
-      <div className="overflow-visible mb-6">
+      <div>
+      <div className="lg:max-w-screen-lg mx-4 md:mx-auto mt-8 pb-8">
         <div className="text-gray-900 text-2xl font-medium py-4 flex justify-between ">
           <h1>Attendance</h1>
           {currentRole && (currentRole == "Teacher" || currentRole == "DepartmentAdmin") &&
@@ -94,7 +95,7 @@ export default function Attendance() {
           </ul>
         </div>
       </div>
-
+      </div>
     </React.Fragment>
   )
 }
