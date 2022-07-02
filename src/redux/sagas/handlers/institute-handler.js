@@ -16,8 +16,10 @@ export function* handleRequestInstituteRequest(action) {
     const response = yield call(requestNewInstituteRequest, action.name, action.institute_type, action.description,  action.address, action.city, action.country);
     yield put({ type: ActionTypes.REQUEST_INSTITUTE_SUCCESS });
     action.navigate('/');
+    yield put({type: ActionTypes.ADD_TOAST, payload: {text: "Institute Requested!", message: "Institute will be visible once approved"}})
   } catch (err) {
     yield put({type: ActionTypes.REQUEST_INSTITUTE_FAIL})
+    yield put({type: ActionTypes.ADD_TOAST, payload: {text: "Unable to request institute", danger: true}})
     console.log(err);
   }
 }
@@ -29,6 +31,7 @@ export function* handleGetInstitutesRequest(action) {
     yield put({ type: ActionTypes.GET_INSTITUTES_SUCCESS, data: data });
   } catch (err) {
     yield put({type: ActionTypes.GET_INSTITUTES_FAIL})
+    yield put({type: ActionTypes.ADD_TOAST, payload: {text: "Unable to get institute", danger: true}})
     console.log(err);
   }
 }
@@ -40,6 +43,7 @@ export function* handleGetInstitutesRequestsRequest(action) {
     yield put({ type: ActionTypes.GET_INSTITUTE_REQUESTS_SUCCESS, data: data });
   } catch (err) {
     yield put({type: ActionTypes.GET_INSTITUTE_REQUESTS_FAIL})
+    yield put({type: ActionTypes.ADD_TOAST, payload: {text: "Unable to get institute", danger: true}})
     console.log(err);
   }
 }
@@ -64,7 +68,9 @@ export function* handleAcceptRejectInstituteRequest(action) {
       yield put({type: ActionTypes.GET_INSTITUTE_REQUESTS_FAIL})
       console.log(err);
     }
+    yield put({type: ActionTypes.ADD_TOAST, payload: {text: "Institute Accepted!"}})
   } catch (err) {
+    yield put({type: ActionTypes.ADD_TOAST, payload: {text: "Unable to perform action", danger: true}})
     yield put({type: ActionTypes.ACCEPT_REJECT_INSTITUTE_FAIL})
     console.log(err);
   }
@@ -82,8 +88,10 @@ export function* handleDeleteInstituteRequest(action) {
       yield put({type: ActionTypes.GET_INSTITUTES_FAIL})
       console.log(err);
     }
+    yield put({type: ActionTypes.ADD_TOAST, payload: {text: "Institute Deleted!"}})
   } catch (err) {
     yield put({type: ActionTypes.DELETE_INSTITUTE_FAIL})
+    yield put({type: ActionTypes.ADD_TOAST, payload: {text: "Unable to delete institute", danger: true}})
     console.log(err);
   }
 }
@@ -100,8 +108,10 @@ export function* handleRestoreInstituteRequest(action) {
       yield put({type: ActionTypes.GET_INSTITUTES_FAIL})
       console.log(err);
     }
+    yield put({type: ActionTypes.ADD_TOAST, payload: {text: "Institute Restored!"}})
   } catch (err) {
     yield put({type: ActionTypes.RESTORE_INSTITUTE_FAIL})
+    yield put({type: ActionTypes.ADD_TOAST, payload: {text: "Unable to restore institute", danger: true}})
     console.log(err);
   }
 }
@@ -124,6 +134,7 @@ export function* handleGetDepartmentsInInstituteRequest(action) {
   } catch (err) {
     yield put({type: ActionTypes.GET_INSTITUTE_REQUESTS_FAIL})
     console.log(err);
+    yield put({type: ActionTypes.ADD_TOAST, payload: {text: "Unable to fetch departments", danger: true}})
   }
 }
 
