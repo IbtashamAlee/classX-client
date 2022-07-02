@@ -92,7 +92,6 @@ export function InstitutesTable() {
                         )}
                     >
                       {institute.city + "/"+ institute.country}
-                      {console.log(instituteIdx)}
                     </td>
                     <td
                         className={classNames(
@@ -207,7 +206,6 @@ export function InstitutesTable() {
                         )}
                     >
                       {institute.city + "/"+ institute.country}
-                      {console.log(instituteIdx)}
                     </td>
                     <td
                         className={classNames(
