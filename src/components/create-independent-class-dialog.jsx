@@ -10,7 +10,7 @@ import {createIndependentClass, joinClass} from "../redux/actions/class-actions"
 import {useDispatch} from "react-redux";
 import {useNavigate} from "react-router-dom";
 
-export default function CreateIndependentClassDialog(props) {
+const CreateIndependentClassDialog = React.memo((props) => {
   const [className, setClassName] = useState('');
   const [classCode, setClassCode] = useState('');
   const [description, setDescription] = useState('');
@@ -41,7 +41,7 @@ export default function CreateIndependentClassDialog(props) {
         <DialogTitle id="form-dialog-title">{props.isJoin ? "Join Class" : "Add Class"}</DialogTitle>
         <DialogContent className="!pb-2">
           <DialogContentText className="!mb-2">
-            {props.isJoin ? "Fill the detail and to join class" : "Fill the detail and to create an independent class"}
+            {props.isJoin ? "Fill the detail and to join class" : "Fill the detail and to create a class"}
           </DialogContentText>
           <ValidatorForm onSubmit={handleSubmit}>
             {props.isJoin ?
@@ -86,3 +86,6 @@ export default function CreateIndependentClassDialog(props) {
       </Dialog>
   );
 }
+)
+
+export default CreateIndependentClassDialog;
