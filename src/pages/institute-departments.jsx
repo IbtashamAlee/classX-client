@@ -2,9 +2,9 @@ import React from "react";
 import Card from '../components/card';
 import {Header} from "../components/header";
 import {Link, useLocation} from "react-router-dom";
-import {Button, IconButton} from "@mui/material";
-import AddIcon from '@mui/icons-material/Add';
+import {Button} from "@mui/material";
 import placeholder from '../department.jpeg'
+import AddDepartmentDialog from "../components/add-department-dialog";
 
 export function InstituteDepartments() {
   const location = useLocation();
@@ -27,9 +27,7 @@ export function InstituteDepartments() {
                     </div>
                     <div className="flex">
                       <div>
-                        <IconButton>
-                          <AddIcon/>
-                        </IconButton>
+                        <AddDepartmentDialog/>
                         <Link to={location.pathname + "/settings"}>
                           <Button variant='contained' size='small'>Stats & Settings</Button>
                         </Link>
