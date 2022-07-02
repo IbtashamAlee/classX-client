@@ -14,6 +14,7 @@ export function* handleGetAssessmentsRequest(action) {
     yield put({ type: ActionTypes.GET_ASSESSMENTS_SUCCESS, data: data.reverse() });
   } catch (err) {
     yield put({type: ActionTypes.GET_ASSESSMENTS_FAIL})
+    yield put({type: ActionTypes.ADD_TOAST, payload: {text: "Unable to fetch Assessments", danger: true}})
     console.log(err);
   }
 }
@@ -25,6 +26,7 @@ export function* handleGetPublicAssessmentsRequest(action) {
     yield put({ type: ActionTypes.GET_PUBLIC_ASSESSMENTS_SUCCESS, data: data.reverse() });
   } catch (err) {
     yield put({type: ActionTypes.GET_PUBLIC_ASSESSMENTS_FAIL})
+    yield put({type: ActionTypes.ADD_TOAST, payload: {text: "Unable to fetch Assessments", danger: true}})
     console.log(err);
   }
 }
@@ -44,8 +46,10 @@ export function* handleCreateAssessmentRequest(action) {
       yield put({type: ActionTypes.ADD_QUESTIONS_IN_ASSESSMENT_FAIL})
       console.log(err);
     }
+    yield put({type: ActionTypes.ADD_TOAST, payload: {text: "Assessment Created", message: "You can now add or remove question"}})
     action.navigate('/assessment/' + a.assessment.id)
   } catch (err) {
+    yield put({type: ActionTypes.ADD_TOAST, payload: {text: "Unable to create Assessment", danger: true}})
     yield put({type: ActionTypes.CREATE_ASSESSMENT_FAIL})
     console.log(err);
   }
