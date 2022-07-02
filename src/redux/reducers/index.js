@@ -1,7 +1,7 @@
 import {combineReducers} from "redux";
 import {setRolesReducer, setClassesReducer, setUserReducer, setCurrentClassReducer} from "./user-reducer";
 import {setSignupUser, setSigninUser} from "./auth-reducer";
-import {toasts} from './toast';
+import toasts from  './toasts-reducer'
 import {setClassParticipantsReducer} from './participants-reducer';
 import  {setInstitutesRequests, setInstitutes, setDepartmentsInInstitute} from './institute_reducer'
 import {setAttendances} from "./attendance-reducer";

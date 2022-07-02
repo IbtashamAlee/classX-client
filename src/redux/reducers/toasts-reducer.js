@@ -1,4 +1,4 @@
-import { ActionTypes } from "../constants";
+import { ActionTypes } from "../constants/actions-types";
 
 export default function toasts(state = [], action) {
   const { payload, type } = action;
