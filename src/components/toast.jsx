@@ -9,12 +9,15 @@ export default function Toast(props) {
 
   useEffect(() => {
     setIsOpened(true);
+  }, [props])
+
+  useEffect(() => {
     setTimeout(() => {
       if (isOpened) {
         props.onDismissClick(props.id);
       }
-    }, 5000)
-  }, [props])
+    }, 3000)
+  }, [isOpened])
 
   return (
       <>
