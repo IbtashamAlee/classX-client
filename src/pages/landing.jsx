@@ -10,6 +10,7 @@ import {
   UsersIcon,
 } from '@heroicons/react/outline'
 import logo from '../logo.svg'
+import {Link} from "react-router-dom";
 
 const features = [
   {
@@ -159,15 +160,15 @@ export default function LandingPage() {
             >
 
               <div className="w-full hidden md:flex md:items-center justify-end md:space-x-6">
-                <a href="/signin" className="text-base font-medium text-white hover:text-gray-300">
+                <Link to="/signin" className="text-base font-medium text-white hover:text-gray-300">
                   Log in
-                </a>
-                <a
-                  href="/signup"
+                </Link>
+                <Link
+                  to="/signup"
                   className="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-white bg-gray-600 hover:bg-gray-700"
                 >
                   Signup
-                </a>
+                </Link>
               </div>
             </nav>
           </div>
@@ -195,13 +196,13 @@ export default function LandingPage() {
 
                   </div>
                   <div className="rounded-md shadow mt-12">
-                    <a
-                      href="/signin"
+                    <Link
+                      to="/signin"
                       className="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-gray-900 bg-white hover:bg-gray-50"
                     >
                       Get Started
                       <ExternalLinkIcon className="-mr-1 ml-3 h-5 w-5 text-gray-400" aria-hidden="true"/>
-                    </a>
+                    </Link>
                   </div>
                 </div>
                 <div className="mt-12 -mb-16 sm:-mb-48 lg:m-0 lg:relative">

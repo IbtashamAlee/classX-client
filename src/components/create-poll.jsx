@@ -115,7 +115,7 @@ export function CreatePoll (props) {
               </div>
               <Stack direction="row" spacing={1}>
                 {options && options.map((option,k) => (
-                    <Tooltip key={k}>
+                    <Tooltip key={k} title={option}>
                       <Chip label={option} variant="contained" onDelete={() => {removeOption(option)}} />
                     </Tooltip>
                 ))}

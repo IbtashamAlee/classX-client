@@ -63,20 +63,20 @@ export function ClassAssessmentPage(props) {
   const [marksState, setMarksState] = useState(null)
 
   useEffect(() => {
-    Api.execute('/api/stats/class/' + id + '/student/' + user.id + '/marks-stats')
+    Api.execute('/api/stats/class/' + id + '/student/' + user?.id + '/marks-stats')
       .then(res => {
         setMarksState([res.data.obtainedMarks, res.data.totalMarks - res.data.obtainedMarks])
       })
       .catch(e => console.log(e))
-  }, [])
+  }, [user])
 
   return (
     <div className={"lg:max-w-screen-lg mx-4 md:mx-auto mt-8 pb-8"}>
       <div className="flex flex-col">
-        <div className="text-gray-900 text-2xl font-medium flex justify-between mb-4">
+        <div className="text-gray-900 text-2xl font-medium flex justify-between">
           <h1>Class Assessments</h1>
           {currentRole && (currentRole == "Teacher" || currentRole == "DepartmentAdmin") &&
-              <div className={"flex justify-end mb-4"}>
+              <div className={"flex justify-end"}>
                 <Link to={"/assessments/" + id}>
                   <Button variant={"contained"}>Assign Assessment</Button>
                 </Link>
