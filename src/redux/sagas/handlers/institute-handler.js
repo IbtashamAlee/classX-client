@@ -10,6 +10,7 @@ import {
   requestRestoreInstitute
 } from '../requests/institute-requests'
 import {ActionTypes} from "../../constants/actions-types";
+import {getInstituteClassesRequest} from "../requests/user-requests";
 
 export function* handleRequestInstituteRequest(action) {
   try {
@@ -118,11 +119,22 @@ export function* handleRestoreInstituteRequest(action) {
 
 export function* handleAddDepartmentInInstituteRequest(action) {
   try {
-    const response = yield call(requestAddDepartmentInInstitute, action.institute_id, action.name, action.adminId);
+    const response = yield call(requestAddDepartmentInInstitute, action.institute_id, action.name);
     yield put({ type: ActionTypes.ADD_DEPARTMENT_IN_INSTITUTE_SUCCESS});
+
+    try {
+      const response = yield call(getInstituteClassesRequest);
+      const { data } = response;
+      yield put({ type: ActionTypes.GET_INSTITUTE_CLASSES_SUCCESS, data: data });
+    } catch (err) {
+      yield put({ type: ActionTypes.GET_INSTITUTE_CLASSES_FAIL});
+    }
+
+    yield put({type: ActionTypes.ADD_TOAST, payload: {text: "Department Created!"}})
+
   } catch (err) {
     yield put({type: ActionTypes.ADD_DEPARTMENT_IN_INSTITUTE_FAIL})
-    console.log(err);
+    yield put({type: ActionTypes.ADD_TOAST, payload: {text: err.response.data, danger: true}})
   }
 }
 

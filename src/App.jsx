@@ -1,8 +1,5 @@
 import * as React from "react";
-import {Routes, Route, Outlet, Link} from "react-router-dom";
-import {useEffect} from "react";
-import {useDispatch} from "react-redux";
-import {signinUser} from "./redux/actions/auth-actions";
+import {Routes, Route} from "react-router-dom";
 import {About} from "./pages/about";
 import {Signup} from "./pages/signup";
 import {ThemeProvider, createTheme} from "@mui/material";
@@ -39,16 +36,18 @@ import StudentDetails from "./pages/student-details";
 import AssessmentDetails from "./pages/assessment-details";
 import UserAssessmentDetails from "./pages/user-assessment-details";
 import {ResetPasswordPage} from "./pages/reset-password-page";
+import Toasts from "./components/toasts";
 
 export default function App() {
-  const dispatch = useDispatch();
-  useEffect(() => {
-    // dispatch({
-    //     type: "SET_USER_ACTION",
-    //     hi: "hi",
-    // });
-    dispatch(signinUser());
-  }, [dispatch]);
+  // const dispatch = useDispatch();
+  // useEffect(() => {
+  //   // dispatch({
+  //   //     type: "SET_USER_ACTION",
+  //   //     hi: "hi",
+  //   // });
+  //   dispatch(addToast({ text: "Hello, World!", danger: true }));
+  //   dispatch(addToast({ text: "Hello, World! 2" }));
+  // }, [dispatch]);
 
   const outerTheme = createTheme({
     palette: {
@@ -64,6 +63,7 @@ export default function App() {
   return (
       <ThemeProvider theme={outerTheme}>
         <Loader/>
+        <Toasts/>
         <Routes>
           <Route path="/" element={<EnrouteToDashboard> <Layout/> </EnrouteToDashboard>}>
             <Route index element={<Home/>}/>

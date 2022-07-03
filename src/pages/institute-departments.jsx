@@ -21,8 +21,8 @@ export function InstituteDepartments() {
                 <div className="px-4 sm:px-6 md:px-0">
                   <div className="flex justify-between items-center">
                     <div>
-                      <h2 className="text-xl lg:text-2xl text-[#6366F1] font-bold">{data.name}</h2>
-                      <p className="text-xs">(Note:You are only entitled to see stats and update departments'
+                      <h2 className="text-xl lg:text-2xl text-gray-900 font-bold">{data.name}</h2>
+                      <p className="text-xs text-gray-600">(Note:You are only entitled to see stats and update departments'
                         settings)</p>
                     </div>
                     <div className="flex">
@@ -34,8 +34,8 @@ export function InstituteDepartments() {
                       </div>
                     </div>
                   </div>
-                  <h1 className="mt-6 text-xl lg:text-2xl text-[#6366F1] font-bold mt-2">Departments</h1>
-                  <div className="mt-10 flex flex-wrap gap-4 mt-6">
+                  <h1 className="mt-6 text-xl lg:text-2xl text-gray-800 font-medium mt-2">Departments</h1>
+                  <div className="flex flex-wrap gap-4 mt-2">
                     {data.departments &&
                     data.departments.map(item => (
                       <Card classId={item.id} className="mx-auto" key={item.id}
@@ -47,7 +47,6 @@ export function InstituteDepartments() {
                     ))}
 
                   </div>
-                  <hr/>
                 </div>
               </div>
             </div>

@@ -7,9 +7,10 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import {ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
 import {useDispatch} from "react-redux";
-import {useNavigate} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import {IconButton} from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
+import {addDepartmentInInstitute} from "../redux/actions/institute-actions";
 
 export default function AddDepartmentDialog(props) {
   const [departmentName, setDepartmentName] = useState('');
@@ -19,9 +20,10 @@ export default function AddDepartmentDialog(props) {
 
   let dispatch = useDispatch();
   let navigate = useNavigate();
+  let {id} = useParams();
 
   function addDepartment() {
-
+    dispatch(addDepartmentInInstitute(id, departmentName));
   }
 
   function handleOpenClose() {

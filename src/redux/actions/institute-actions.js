@@ -47,12 +47,11 @@ export const restoreInstitute = (id) => {
   }
 }
 
-export const addDepartmentInInstitute = (institute_id, name, email) => {
+export const addDepartmentInInstitute = (institute_id, name) => {
   return {
     type: ActionTypes.ADD_DEPARTMENT_IN_INSTITUTE,
     institute_id: institute_id,
-    name: name,
-    adminId: email
+    name: name
   }
 }
 
