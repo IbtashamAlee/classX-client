@@ -24,10 +24,13 @@ export default function AddDepartmentDialog(props) {
 
   function addDepartment() {
     dispatch(addDepartmentInInstitute(id, departmentName));
+    handleOpenClose();
   }
 
   function handleOpenClose() {
     setOpen(!open);
+    setDepartmentName('');
+    setDescription('');
   }
 
   return (
