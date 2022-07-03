@@ -55,10 +55,11 @@ export const addDepartmentInInstitute = (institute_id, name) => {
   }
 }
 
-export const getDepartmentsInInstitute = (id) => {
+export const getDepartmentsInInstitute = (id, navigate) => {
   return {
     type: ActionTypes.GET_DEPARTMENTS_IN_INSTITUTE,
-    id: id
+    id: id,
+    navigate: navigate
   }
 }
 

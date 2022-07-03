@@ -18,10 +18,10 @@ export const setInstitutesRequests = (state = {}, action) => {
   }
 };
 
-export const setDepartmentsInInstitute = (state = {}, action) => {
+export const setDepartmentsInInstitute = (state = [], action) => {
   switch (action.type) {
     case ActionTypes.GET_DEPARTMENTS_IN_INSTITUTE_SUCCESS:
-      return { ...state, ...action.data };
+      return action.data;
     default:
       return state;
   }

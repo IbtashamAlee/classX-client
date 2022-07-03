@@ -123,11 +123,16 @@ export function* handleAddDepartmentInInstituteRequest(action) {
     yield put({ type: ActionTypes.ADD_DEPARTMENT_IN_INSTITUTE_SUCCESS});
 
     try {
-      const response = yield call(getInstituteClassesRequest);
+      const response = yield call(requestGetDepartmentsInInstitute, action.institute_id);
       const { data } = response;
-      yield put({ type: ActionTypes.GET_INSTITUTE_CLASSES_SUCCESS, data: data });
+      yield put({ type: ActionTypes.GET_DEPARTMENTS_IN_INSTITUTE_SUCCESS, data: data });
     } catch (err) {
-      yield put({ type: ActionTypes.GET_INSTITUTE_CLASSES_FAIL});
+      yield put({type: ActionTypes.GET_INSTITUTE_REQUESTS_FAIL})
+      console.log(err);
+      yield put({type: ActionTypes.ADD_TOAST, payload: {text: err.response.data, danger: true}})
+      if(err.response.status == 401) {
+        //action.navigate('/');
+      }
     }
 
     yield put({type: ActionTypes.ADD_TOAST, payload: {text: "Department Created!"}})
@@ -146,7 +151,10 @@ export function* handleGetDepartmentsInInstituteRequest(action) {
   } catch (err) {
     yield put({type: ActionTypes.GET_INSTITUTE_REQUESTS_FAIL})
     console.log(err);
-    yield put({type: ActionTypes.ADD_TOAST, payload: {text: "Unable to fetch departments", danger: true}})
+    yield put({type: ActionTypes.ADD_TOAST, payload: {text: err.response.data, danger: true}})
+    if(err.response.status == 401) {
+      //action.navigate('/');
+    }
   }
 }
 

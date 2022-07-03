@@ -15,7 +15,10 @@ import {
   handleGetInstitutesRequest,
   handleRequestInstituteRequest,
   handleRestoreInstituteRequest,
-  handleGetInstitutesRequestsRequest, handleAcceptRejectInstituteRequest, handleAddDepartmentInInstituteRequest
+  handleGetInstitutesRequestsRequest,
+  handleAcceptRejectInstituteRequest,
+  handleAddDepartmentInInstituteRequest,
+  handleGetDepartmentsInInstituteRequest
 } from "./handlers/institute-handler";
 import {
   handleAddParticipants,
@@ -49,6 +52,7 @@ export function* watcherSaga() {
   yield takeEvery(ActionTypes.GET_INSTITUTE_REQUESTS, handleGetInstitutesRequestsRequest);
   yield takeEvery(ActionTypes.ACCEPT_REJECT_INSTITUTE, handleAcceptRejectInstituteRequest);
   yield takeEvery(ActionTypes.ADD_DEPARTMENT_IN_INSTITUTE, handleAddDepartmentInInstituteRequest);
+  yield takeEvery(ActionTypes.GET_DEPARTMENTS_IN_INSTITUTE, handleGetDepartmentsInInstituteRequest);
 
   // user-handler
   yield takeEvery(ActionTypes.GET_ROLES, handleGetRoles);
