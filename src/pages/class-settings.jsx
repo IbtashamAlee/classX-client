@@ -11,6 +11,7 @@ import {useNavigate} from 'react-router-dom'
 import {setCurrentClass, setCurrentRole} from "../redux/actions/user-actions";
 import DeleteDialog from "../components/delete-dialog";
 
+import UpdateIcon from '@mui/icons-material/Update';
 
 export default function ClassSettings() {
   const [isOpen, setIsOpen] = useState(false);
@@ -19,7 +20,8 @@ export default function ClassSettings() {
 
   const [name, setName] =  useState('');
   const [description, setDescription] =  useState('');
-
+  const [code,setCode] = useState('')
+  const [key,setKey] = useState(0)
   let {id} = useParams();
   let dispatch = useDispatch();
 
@@ -30,6 +32,7 @@ export default function ClassSettings() {
   useEffect(() => {
     setName(current_class?.name)
     setDescription(current_class?.description)
+    setCode(current_class?.code)
   }, [current_class])
 
   useEffect(()=>{
@@ -48,6 +51,12 @@ export default function ClassSettings() {
     }).catch(err => {
       console.log(err);
     })
+  }
+
+  function updateCode(){
+    api.execute(`/api/class/${id}/class-code`,'PUT')
+      .then(res=>setCode(res.data.code))
+      .catch(err => console.log(err))
   }
 
   let updateClass = () => {
@@ -69,7 +78,7 @@ export default function ClassSettings() {
   }
 
   return (
-    <div>
+    <div key={key}>
       <main className="mt-10">
         <div className="max-w-screen-xl mx-auto pb-6 px-4 sm:px-6 lg:pb-16 lg:px-8">
           <div className="bg-white rounded-lg shadow overflow-hidden">
@@ -108,6 +117,20 @@ export default function ClassSettings() {
                             value={description}
                             onChange={e => {setDescription(e.target.value)}}
                         />
+                        <div className="flex flex-row justify-start items-center">
+                        <TextValidator
+                          id="code"
+                          name="code"
+                          minRows={1}
+                          maxRows={1}
+                          label={"Class Code"}
+                          className="!w-full !col-span-3"
+                          value={code}
+                          disabled={true}
+                        />
+                        <UpdateIcon className="ml-4 hover:fill-blue-700 hover:scale-[1.1]" onClick={updateCode}
+                        />
+                        </div>
                       </div>
                     </div>
 
@@ -132,12 +155,6 @@ export default function ClassSettings() {
                                 <span>Change</span>
                                 <span className="sr-only"> user photo</span>
                               </label>
-                              {/*<input*/}
-                              {/*  id="mobile-user-photo"*/}
-                              {/*  name="user-photo"*/}
-                              {/*  type="file"*/}
-                              {/*  className="absolute w-full h-full opacity-0 cursor-pointer border-gray-300 rounded-md"*/}
-                              {/*/>*/}
                             </div>
                           </div>
                         </div>
