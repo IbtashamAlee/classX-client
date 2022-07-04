@@ -13,6 +13,7 @@ import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import {Link, useLocation, useParams} from "react-router-dom";
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import api from '../generic-services/api'
+import {useSelector} from "react-redux";
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
@@ -30,26 +31,21 @@ export default function Sidebar(props) {
   const [detailsExpanded, setDetailsExpanded] = useState(false)
   let location = useLocation();
 
+  let current_class = useSelector((state => state.current_class.class))
+  let current_class_role = useSelector((state => state.current_class.role))
+
   const changeNavigation = (name) => {
     navigation.forEach(n => {
       n.current = n.name?.toLowerCase() === name?.toLowerCase();
     })
   }
   const {id} = useParams()
-  const [Class,setClass] = useState(null)
 
   useEffect(()=>{
-    api.execute('/api/class/'+id)
-      .then(res => setClass(res.data))
-      .catch(e => console.log(e))
-
-    api.execute('/api/class/'+id+'/role')
-      .then(res => {
-        if(res.data==='Student'){
-          setNavigation([...navigation].filter(n=>n.name!=='Stats' &&  n.name!=='Settings'))
-        }
-      })
-  },[])
+    if(current_class_role === 'Student'){
+      setNavigation([...navigation].filter(n=>n.name!=='Stats' &&  n.name!=='Settings'))
+    }
+  },[current_class_role])
 
   useEffect(() => {
     if (location.pathname.split('/')[3]) {
@@ -59,7 +55,7 @@ export default function Sidebar(props) {
 
   return (
     <>
-      { Class &&
+      { current_class &&
       <div>
         <Transition.Root show={props.isOpen} as={Fragment}>
           <Dialog as="div" className="fixed inset-0 z-40 flex md:hidden" onClose={props.setSidebarOpen}>
@@ -115,7 +111,7 @@ export default function Sidebar(props) {
                   <nav className="px-2 space-y-1">
                     <div className="text-[#6366F1] bg-blue-50 mb-2 mt-0 rounded-lg mx-1 px-2 py-1">
                       <div className="flex flex-row justify-between">
-                        <h1 className="font-bold text-[#6366F1] ml-3">{Class.name}</h1>
+                        <h1 className="font-bold text-[#6366F1] ml-3">{current_class.name}</h1>
                         {!detailsExpanded &&
                         <ExpandMoreIcon onClick={() => {
                           setDetailsExpanded(!detailsExpanded)
@@ -127,9 +123,9 @@ export default function Sidebar(props) {
                       </div>
                       {detailsExpanded &&
                       <div className="flex flex-row justify-start items-center mt-1">
-                        <p className="text-xs ml-3">code: {Class.code}</p>
+                        <p className="text-xs ml-3">code: {current_class.code}</p>
                         <ContentCopyIcon  className="hover:scale-[1.2] hover:fill-blue-800" style={{marginLeft: '10px', height: '14px'}} onClick={() => {
-                          navigator.clipboard.writeText(Class.code)
+                          navigator.clipboard.writeText(current_class.code)
                         }}/>
                       </div>
                       }
@@ -180,7 +176,7 @@ export default function Sidebar(props) {
             <div className="flex-grow mt-5 flex flex-col">
               <div className="text-[#6366F1] bg-blue-50 mb-2 mt-0 rounded-lg mx-1 px-2 py-1">
                 <div className="flex flex-row justify-between ">
-                  <h1 className="font-bold text-[#6366F1] ml-3">{Class.name}</h1>
+                  <h1 className="font-bold text-[#6366F1] ml-3">{current_class.name}</h1>
                   {!detailsExpanded &&
                   <ExpandMoreIcon onClick={() => {
                     setDetailsExpanded(!detailsExpanded)
@@ -192,9 +188,9 @@ export default function Sidebar(props) {
                 </div>
                 {detailsExpanded &&
                 <div className="flex flex-row justify-start items-center mt-1">
-                  <p className="text-xs ml-3">code: {Class.code}</p>
+                  <p className="text-xs ml-3">code: {current_class.code}</p>
                   <ContentCopyIcon  className="hover:scale-[1.2] hover:fill-blue-800" style={{marginLeft: '10px', height: '14px'}} onClick={() => {
-                    navigator.clipboard.writeText(Class.code)
+                    navigator.clipboard.writeText(current_class.code)
                   }}/>
                 </div>
                 }

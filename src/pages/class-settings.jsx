@@ -20,12 +20,6 @@ export default function ClassSettings() {
   const [name, setName] =  useState('');
   const [description, setDescription] =  useState('');
 
-  const [openDelete, setOpenDelete] = useState(false);
-
-  const handleOpenDelete = () => {
-    setOpenDelete(!openDelete);
-  }
-
   let {id} = useParams();
   let dispatch = useDispatch();
 
