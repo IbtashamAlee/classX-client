@@ -17,6 +17,7 @@ export default function ClassSettings() {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
   let current_class = useSelector((state => state.current_class.class))
+  let current_class_role = useSelector((state => state.current_class.role))
 
   const [name, setName] =  useState('');
   const [description, setDescription] =  useState('');
@@ -36,12 +37,8 @@ export default function ClassSettings() {
   }, [current_class])
 
   useEffect(()=>{
-    api.execute('/api/class/'+id+'/role')
-      .then(res => {
-        if (res.data ==='Student') navigate(-1)
-          })
-      .catch(e => console.log(e))
-  })
+    if (current_class_role ==='Student') navigate(-1)
+  }, [current_class_role])
 
   let changeProfileImage = (files) => {
     Api.execute('/api/class/' + id, "put", {
@@ -55,8 +52,18 @@ export default function ClassSettings() {
 
   function updateCode(){
     api.execute(`/api/class/${id}/class-code`,'PUT')
-      .then(res=>setCode(res.data.code))
-      .catch(err => console.log(err))
+      .then(res=> {
+        getCurrentClass();
+      }).catch(err => console.log(err))
+  }
+
+  const getCurrentClass = () => {
+    Api.execute('/api/class/' + id).then(res => {
+      dispatch(setCurrentClass(res.data))
+      dispatch(setCurrentRole(res.data?.role))
+    }).catch(err => {
+      console.log(err);
+    })
   }
 
   let updateClass = () => {
