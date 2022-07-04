@@ -85,7 +85,7 @@ export function ClassAssessmentPage(props) {
         </div>
         {currentRole && currentRole === 'Student' && marksState &&
           <div className="flex justify-center items-center flex-col min-w-full">
-          <div id="chart" className="min-h-[270px]">
+          <div id="chart" className="min-h-[200px]">
             <Chart options={opt3} series={marksState} type="donut" width={380}/>
           </div>
         </div>
