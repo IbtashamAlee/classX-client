@@ -1,23 +1,15 @@
 import React, {useEffect, useState} from 'react'
-import {Switch} from '@headlessui/react'
 import KeyIcon from '@mui/icons-material/Key';
-import placeholder from '../Sample_User_Icon.png';
 import {useDispatch, useSelector} from "react-redux";
-import {Button, TextField} from "@mui/material";
+import {Button} from "@mui/material";
 import Api from "../generic-services/api";
 import {Notification} from "../components/notification";
 import {TextValidator, ValidatorForm} from "react-material-ui-form-validator";
 import {FilePicker} from "../components/file-picker";
-import {TrashIcon} from "@heroicons/react/solid";
 import {getUser} from "../redux/actions/user-actions";
-
-function classNames(...classes) {
-  return classes.filter(Boolean).join(' ')
-}
 
 export default function UserSettings() {
   const data = useSelector(state => state.user.user)
-  const [allowEmail, setAllowEmail] = useState(true);
   const [isResetting, setIsResetting] = useState(false);
   const [title, setTitle] = useState("");
   const [message, setMessage] = useState("");
@@ -25,7 +17,6 @@ export default function UserSettings() {
 
   const [name, setName] =  useState('');
   const [email, setEmail] = useState('');
-  const [description, setDescription] =  useState('');
   const [isOpen, setIsOpen] = useState(false);
 
   let dispatch = useDispatch();
