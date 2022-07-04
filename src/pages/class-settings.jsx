@@ -9,6 +9,7 @@ import {useDispatch, useSelector} from "react-redux";
 import api from "../generic-services/api";
 import {useNavigate} from 'react-router-dom'
 import {setCurrentClass, setCurrentRole} from "../redux/actions/user-actions";
+import DeleteDialog from "../components/delete-dialog";
 
 
 export default function ClassSettings() {
@@ -18,6 +19,12 @@ export default function ClassSettings() {
 
   const [name, setName] =  useState('');
   const [description, setDescription] =  useState('');
+
+  const [openDelete, setOpenDelete] = useState(false);
+
+  const handleOpenDelete = () => {
+    setOpenDelete(!openDelete);
+  }
 
   let {id} = useParams();
   let dispatch = useDispatch();
@@ -54,6 +61,14 @@ export default function ClassSettings() {
       "description": description,
     }).then(res => {
       dispatch(setCurrentClass(res.data))
+    }).catch(err => {
+      console.log(err);
+    })
+  }
+
+  let deleteClass = () => {
+    Api.execute('/api/class/' + current_class.id + '/delete', "put").then(res => {
+      navigate('/')
     }).catch(err => {
       console.log(err);
     })
@@ -155,13 +170,15 @@ export default function ClassSettings() {
                 <div className="pt-3 divide-y divide-gray-200">
 
                   <div className="mt-2 py-4 px-4 flex justify-between sm:px-6 space-x-2">
-                    <Button
-                        variant={"outlined"}
-                        color={"error"}
-                    >
-                      <TrashIcon className="-ml-1 mr-3 h-5 w-5" aria-hidden="true" />
-                      <p>Delete Class</p>
-                    </Button>
+                    <DeleteDialog actionDone={deleteClass}>
+                      <Button
+                          variant={"outlined"}
+                          color={"error"}
+                      >
+                        <TrashIcon className="-ml-1 mr-3 h-5 w-5" aria-hidden="true" />
+                        <p>Delete Class</p>
+                      </Button>
+                    </DeleteDialog>
                     <Button
                       type="submit"
                       variant={"contained"}
