@@ -5,9 +5,10 @@ import {Button} from "@mui/material";
 import {FilePicker} from "../components/file-picker";
 import Api from "../generic-services/api";
 import {useParams} from "react-router-dom";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import api from "../generic-services/api";
 import {useNavigate} from 'react-router-dom'
+import {setCurrentClass, setCurrentRole} from "../redux/actions/user-actions";
 
 
 export default function ClassSettings() {
@@ -19,6 +20,7 @@ export default function ClassSettings() {
   const [description, setDescription] =  useState('');
 
   let {id} = useParams();
+  let dispatch = useDispatch();
 
   let handleClose = () => {
     setIsOpen(!isOpen);
@@ -36,18 +38,25 @@ export default function ClassSettings() {
           })
       .catch(e => console.log(e))
   })
+
   let changeProfileImage = (files) => {
-    Api.execute('/api/class/'+ id + '/profile-pic', 'put', {
+    Api.execute('/api/class/' + id, "put", {
       imageUrl: files[0].publicUrl
     }).then(res => {
-      // get Class settings
+      dispatch(setCurrentClass(res.data))
     }).catch(err => {
       console.log(err);
     })
   }
 
   let updateClass = () => {
-
+    Api.execute('/api/class/' + id, "put", {
+      "description": description,
+    }).then(res => {
+      dispatch(setCurrentClass(res.data))
+    }).catch(err => {
+      console.log(err);
+    })
   }
 
   return (
@@ -156,7 +165,6 @@ export default function ClassSettings() {
                     <Button
                       type="submit"
                       variant={"contained"}
-                      className="ml-5 bg-sky-700 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:bg-sky-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
                     >
                       Save
                     </Button>
