@@ -13,6 +13,8 @@ export function Participants(props) {
   let currentRole = useSelector((state => state.current_class.role));
   let teachers, students, department_admin;
 
+  let user = useSelector((state => state.user.user))
+
   if (participants && participants.length) {
     for (let i = 0; i < participants.length; i++) {
       let name = participants[i].name.split('_')[0];
@@ -85,7 +87,7 @@ export function Participants(props) {
                 <p
                   className="text-sm text-gray-500">{person.userStatus ? person.userStatus : "Hi there, I'm using classX"}</p>
               </div>
-              {currentRole && currentRole === "Teacher" || currentRole === "DepartmentAdmin" ?
+              {(currentRole && currentRole === "Teacher" || currentRole === "DepartmentAdmin") && user.id !== person.id ?
                 <IconButton variant="outlined" color="error" onClick={() => {
                   removeParticipant(person.email, "Teacher")
                 }}><DeleteIcon/></IconButton>
