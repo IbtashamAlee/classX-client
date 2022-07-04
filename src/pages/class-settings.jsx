@@ -160,7 +160,7 @@ export default function ClassSettings() {
                         </label>
                       </div>
                       {isOpen &&
-                          <FilePicker open={isOpen}  close={handleClose} fileReturn={changeProfileImage}/>
+                          <FilePicker accept={true} open={isOpen}  close={handleClose} fileReturn={changeProfileImage}/>
                       }
                     </div>
                   </div>

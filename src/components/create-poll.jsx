@@ -5,11 +5,10 @@ import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import {TextValidator, ValidatorForm} from "react-material-ui-form-validator";
-import {Chip, FormControlLabel, FormGroup, Radio, Slide, Stack, Tooltip} from "@mui/material";
+import {Chip, Slide, Stack, Tooltip} from "@mui/material";
 import DialogActions from "@mui/material/DialogActions";
 import {useParams} from "react-router-dom";
 import {useDispatch} from "react-redux";
-import Checkbox from "@mui/material/Checkbox";
 import Api from "../generic-services/api";
 import {getFeed} from "../redux/actions/feed-actions";
 
@@ -68,8 +67,11 @@ export function CreatePoll (props) {
       handleClose();
       setStatement("");
       setOptions([]);
-      dispatch(getFeed(id,40, 1));
-      if (props.getPolls) props.getPolls();
+      if (props.getPolls) {
+        props.getPolls()
+      } else {
+        dispatch(getFeed(id,40, 1));
+      }
     }).catch(err => {
       console.log(err);
     })

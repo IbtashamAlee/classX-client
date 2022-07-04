@@ -11,6 +11,7 @@ import TableCell from "@mui/material/TableCell";
 import TableBody from "@mui/material/TableBody";
 import {Button} from "@mui/material";
 import {AddQuestionDialog} from "../components/add-question-dialog";
+import DeleteDialog from "../components/delete-dialog";
 
 export function EditAssessment(props) {
   const [assessment, setAssessment] = useState({});
@@ -80,7 +81,9 @@ export function EditAssessment(props) {
                       <TableCell align="right">{row.questionScore}</TableCell>
                       <TableCell align="right">{row.option.length}</TableCell>
                       <TableCell align="right">
-                        <Button variant={"outlined"} color={"error"} onClick={() => {deleteQuestion(row.id)}}> Delete</Button>
+                        <DeleteDialog actionDone={() => {deleteQuestion(row.id)}}>
+                          <Button variant={"outlined"} color={"error"}> Delete</Button>
+                        </DeleteDialog>
                       </TableCell>
                     </TableRow>
                 ))}

@@ -54,6 +54,11 @@ export function PollCard(props) {
 
   const submitParticipatePoll = (selectedOptionId) => {
     dispatch(pollParticipation(props.poll.classId, props.poll.id, selectedOptionId))
+    if (props.getPoll) {
+      setTimeout(() => {
+        props.getPoll();
+      }, 1500)
+    }
   }
 
   useEffect(() => {
