@@ -89,7 +89,7 @@ export default function AttemptAssessment() {
   const [files, setFiles] = useState([]);
   let totalSeconds = 0;
 
-  const [timeInterval, setTimeInterval] = useState();
+  const [timeInterval, setTimeInterval] = useState(null);
   const secondsRef = React.useRef();
   const minutesRef = React.useRef();
   let hoursRef = React.useRef();
@@ -134,6 +134,7 @@ export default function AttemptAssessment() {
       setCurrent(current - 1 + 2)
       setContent('');
       setSelectedOptions([]);
+      submitAnswer();
     }
   }
 
@@ -159,7 +160,7 @@ export default function AttemptAssessment() {
       setCurrent(current - 1 + 2)
       setContent('');
       setSelectedOptions([]);
-      if (current ===  questions.length - 1) {
+      if (current >=  questions.length - 1) {
         submitAssessment();
       }
       console.log(res)
@@ -177,10 +178,14 @@ export default function AttemptAssessment() {
   }
 
   useEffect(() => {
+    secondsRef?.current?.setAttribute("value", pad(questions[current]?.duration/1000));
     clearInterval(timeInterval);
+    setTimeInterval(null);
     setTimeInterval(setInterval(setTime, 1000));
+    console.log(questions.length)
     return () => {
       clearInterval(timeInterval);
+      setTimeInterval(null);
     }
   }, [current, questionId])
 
@@ -204,7 +209,6 @@ export default function AttemptAssessment() {
   }, [questions, current])
 
   if (current >= questions.length) {
-    clearInterval(timeInterval);
     return (
         <div>
           <Header/>
@@ -286,7 +290,7 @@ export default function AttemptAssessment() {
                   >
                     {
                       questions[current].option.map((opt) => {
-                        return (<FormControlLabel value={opt.id} key={opt.value} control={<BpRadio/>} label={opt.value} />)
+                        return (<FormControlLabel value={opt.id} key={opt.id} control={<BpRadio/>} label={opt.value} />)
                       })
                     }
                   </RadioGroup>
@@ -300,7 +304,7 @@ export default function AttemptAssessment() {
                   {
                     questions[current].option.map(opt => {
                       return (
-                          <div className="flex inline-flex justify-center items-center" key={opt.value}>
+                          <div className="flex inline-flex justify-center items-center" key={opt.id}>
                             <Checkbox label={opt.value} value={opt.id} onChange={(e) => setMcqs(e.target.value, false, e.target.checked)}
                                       color="secondary"/>
                             <p>{opt.value}</p>
