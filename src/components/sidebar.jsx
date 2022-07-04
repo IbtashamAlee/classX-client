@@ -128,7 +128,7 @@ export default function Sidebar(props) {
                       {detailsExpanded &&
                       <div className="flex flex-row justify-start items-center mt-1">
                         <p className="text-xs ml-3">code: {Class.code}</p>
-                        <ContentCopyIcon style={{marginLeft: '10px', height: '14px'}} onClick={() => {
+                        <ContentCopyIcon  className="hover:scale-[1.2] hover:fill-blue-800" style={{marginLeft: '10px', height: '14px'}} onClick={() => {
                           navigator.clipboard.writeText(Class.code)
                         }}/>
                       </div>
@@ -193,7 +193,7 @@ export default function Sidebar(props) {
                 {detailsExpanded &&
                 <div className="flex flex-row justify-start items-center mt-1">
                   <p className="text-xs ml-3">code: {Class.code}</p>
-                  <ContentCopyIcon style={{marginLeft: '10px', height: '14px'}} onClick={() => {
+                  <ContentCopyIcon  className="hover:scale-[1.2] hover:fill-blue-800" style={{marginLeft: '10px', height: '14px'}} onClick={() => {
                     navigator.clipboard.writeText(Class.code)
                   }}/>
                 </div>
