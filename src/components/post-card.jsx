@@ -73,7 +73,7 @@ export function PostCard (props) {
                 <div className={"text-gray-500 text-sm space-y-2"}>
                   <hr className="mt-2"/>
                   {props.post.postAttachments?.map(p => (
-                    <div className="flex w-full mt-5" key={p.file.id}>
+                    <a className="flex w-full mt-5" key={p.file.id} href={p.file.publicUrl} target='_blank' rel='noreferrer'>
                       <div className="flex flex-col justify-center mr-2">
                       <AttachmentIcon className="rotate-45 text-gray-300"/>
                       </div>
@@ -82,12 +82,11 @@ export function PostCard (props) {
                         <p>{p.file.originalName}</p>
                         </div>
 
-                        <a onClick={()=>forceDown(`https://classxfiles.s3.ap-south-1.amazonaws.com/ClassX__gtGrtJZ4uqgr1wGIKptog.postman_collection_01_05_22_02_53?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIATWU534TH74MIEWOV%2F20220701%2Fap-south-1%2Fs3%2Faws4_request&X-Amz-Date=20220701T182838Z&X-Amz-Expires=1000&X-Amz-Signature=ae3aded8bbc8fe7288fba11ea374017c49e144dec29c65e4bf3147cfd8f0b10b&X-Amz-SignedHeaders=host
-`,'testFile')}>
+                        <div onClick={()=>forceDown(`${p.file.publicUrl}`,'testFile')}>
                           <IconButton size="small"><DownloadIcon/></IconButton>
-                        </a>
+                        </div>
                       </div>
-                    </div>
+                    </a>
                   ))}
                 </div>
               </div>
