@@ -283,7 +283,7 @@ export function FilePicker(props) {
                       <React.Fragment>
                         {myFiles.map(f => (
                             <div key={f.id} className={"py-2 px-4 flex justify-between border border-gray-200 rounded items-center"}>
-                              <h4 className={"text-gray-600 flex flex-nowrap"}>{f.originalName}</h4>
+                              <h4 className={"text-gray-600 overflow-hidden text-ellipsis w-[150px] md:w-full"}>{f.originalName}</h4>
                               <Button variant={"contained"} onClick={() => {selectedRecentFilesManipulation(f, 'add')}}>Select</Button>
                             </div>
                         ))}
@@ -295,7 +295,7 @@ export function FilePicker(props) {
                   <h3 className={"text-gray-800 font-semibold text-lg"}>Selected Files</h3>
                   {recentSelectedFiles.map(f => (
                       <div key={f.id} className={"py-1 px-4 flex justify-between border border-gray-200 rounded items-center"}>
-                        <h4 className={"text-gray-600 flex flex-nowrap"}>{f.originalName}</h4>
+                        <h4 className={"text-gray-600 overflow-hidden text-ellipsis w-[150px] md:w-full"}>{f.originalName}</h4>
                         <IconButton onClick={() => {selectedRecentFilesManipulation(f, 'remove')}}><Close/></IconButton>
                       </div>
                   ))}

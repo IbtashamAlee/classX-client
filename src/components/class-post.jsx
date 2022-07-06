@@ -1,4 +1,4 @@
-import { Fragment, useState } from 'react'
+import { useState } from 'react'
 import {
   EmojiHappyIcon,
   EmojiSadIcon,
@@ -7,7 +7,7 @@ import {
   ThumbUpIcon,
   XIcon,
 } from '@heroicons/react/solid'
-import {Button} from "@mui/material";
+import {Button, Chip} from "@mui/material";
 import {FilePicker} from "./file-picker";
 import Api from "../generic-services/api";
 import {useParams} from "react-router-dom";
@@ -23,9 +23,6 @@ const moods = [
   { name: 'I feel nothing', value: null, icon: XIcon, iconColor: 'text-gray-400', bgColor: 'bg-transparent' },
 ]
 
-function classNames(...classes) {
-  return classes.filter(Boolean).join(' ')
-}
 
 export default function ClassPost() {
   const [selected, setSelected] = useState(moods[5]);
@@ -84,6 +81,11 @@ export default function ClassPost() {
               <div className="flex items-center space-x-5">
                 <div className="flex items-center">
                   <FilePicker fileReturn={getFiles}/>
+                  <div className={"flex flex-nowrap space-x-2 overflow-x-scroll w-[13rem] md:w-[44rem] pb-1"}>
+                    {files.map(f => (
+                        <Chip label={f.originalName} />
+                    ))}
+                  </div>
                 </div>
               </div>
               <div className="flex-shrink-0">
