@@ -9,6 +9,7 @@ import SendIcon from "@mui/icons-material/Send";
 import Api from "../generic-services/api";
 import {useSelector} from "react-redux";
 import {Link, useNavigate, useParams} from "react-router-dom";
+import DeleteDialog from "./delete-dialog";
 
 export function AssessmentCard(props) {
   let user = useSelector((state => state.user.user))
@@ -132,9 +133,13 @@ export function AssessmentCard(props) {
                   </div>
                   {/*check if comment is of current user give delete access (if com.user.id === current_user_id*/}
                   {user.id === com.user.id &&
-                  <IconButton style={{padding: 0}} onClick={()=>deleteComment(com.id)}>
-                    <RemoveCircleOutlineIcon className="text-red-500" style={{height: '1.3rem'}}/>
-                  </IconButton>
+                      <DeleteDialog actionDone={()=> {
+                        deleteComment(com.id)
+                      }}>
+                        <IconButton style={{padding: 0}}>
+                          <RemoveCircleOutlineIcon className="text-red-500" style={{height: '1.3rem'}}/>
+                        </IconButton>
+                      </DeleteDialog>
                   }
                 </div>
               </div>)

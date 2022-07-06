@@ -8,6 +8,7 @@ import placeholder from '../Sample_User_Icon.png';
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 import SendIcon from '@mui/icons-material/Send';
 import {useSelector} from "react-redux";
+import DeleteDialog from "./delete-dialog";
 
 export function PostCard (props) {
   let user = useSelector((state => state.user.user))
@@ -112,9 +113,11 @@ export function PostCard (props) {
                     </div>
                     {/*check if comment is of current user give delete access (if com.user.id === current_user_id*/}
                     {user.id === com.user.id &&
-                    <IconButton style={{padding: 0}} onClick={()=>deleteComment(com.id)}>
-                      <RemoveCircleOutlineIcon className="text-red-500" style={{height: '1.3rem'}}/>
-                    </IconButton>
+                        <DeleteDialog actionDone={() => {deleteComment(com.id)}}>
+                          <IconButton style={{padding: 0}}>
+                            <RemoveCircleOutlineIcon className="text-red-500" style={{height: '1.3rem'}}/>
+                          </IconButton>
+                        </DeleteDialog>
                     }
                   </div>
                 </div>)
