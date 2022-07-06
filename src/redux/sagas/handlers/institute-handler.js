@@ -90,6 +90,7 @@ export function* handleDeleteInstituteRequest(action) {
       console.log(err);
     }
     yield put({type: ActionTypes.ADD_TOAST, payload: {text: "Institute Deleted!"}})
+    action.navigate('/dashboard?tab=InstituteAdmin')
   } catch (err) {
     yield put({type: ActionTypes.DELETE_INSTITUTE_FAIL})
     yield put({type: ActionTypes.ADD_TOAST, payload: {text: "Unable to delete institute", danger: true}})

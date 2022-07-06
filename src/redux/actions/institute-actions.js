@@ -33,10 +33,11 @@ export const acceptRejectInstitute = (institute_id, method) => {
   }
 }
 
-export const deleteInstitute = (id) => {
+export const deleteInstitute = (id, navigate) => {
   return {
     type: ActionTypes.DELETE_INSTITUTE,
-    id: id
+    id: id,
+    navigate: navigate
   }
 }
 

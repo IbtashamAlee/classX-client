@@ -1,12 +1,14 @@
 import React, {useEffect, useState} from 'react'
-import { Switch} from '@headlessui/react'
-import { TrashIcon } from '@heroicons/react/solid'
 import {Header} from '../components/header'
 import api from "../generic-services/api";
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import Chart from "react-apexcharts";
 import {Button} from "@mui/material";
 import {FilePicker} from "../components/file-picker";
+import DeleteDialog from "../components/delete-dialog";
+import Api from "../generic-services/api";
+import {deleteInstitute} from "../redux/actions/institute-actions";
+import {useDispatch} from "react-redux";
 
 
 
@@ -62,6 +64,9 @@ export default function InstituteSettings() {
   const [imageUrl, setImageUrl] = useState('');
   const [isOpen, setIsOpen] = useState(false);
 
+  let navigate = useNavigate();
+  let dispatch = useDispatch();
+
   useEffect(()=>{
     api.execute(`/api/stats/institute/${id}/attendance-stats`)
       .then(res=> setSeries([res.data.present,res.data.total-res.data.present]))
@@ -99,6 +104,10 @@ export default function InstituteSettings() {
         console.log(e)
       }
     )
+  }
+
+  const handleDelete = () => {
+    dispatch(deleteInstitute(id, navigate))
   }
 
   let handleClose = () => {
@@ -228,7 +237,7 @@ export default function InstituteSettings() {
                           />
                           </div>
                           <p className="mt-2 text-sm text-gray-500">
-                            Brief description of class
+                            Brief description of institute
                           </p>
                         </div>
                       </div>
@@ -276,7 +285,12 @@ export default function InstituteSettings() {
 
                   {/* Privacy section */}
                   <div className="pt-6 divide-y divide-gray-200">
-                    <div className="mt-0 py-4 px-4 flex justify-end sm:px-6">
+                    <div className="mt-0 py-4 px-4 flex justify-between sm:px-6">
+                      <div>
+                        <DeleteDialog actionDone={handleDelete}>
+                          <Button variant={"outlined"} color={"error"}>Delete</Button>
+                        </DeleteDialog>
+                      </div>
                       <Button
                         type="submit"
                         variant={"contained"}
