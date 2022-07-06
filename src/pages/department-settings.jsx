@@ -75,7 +75,7 @@ export default function DepartmentSettings() {
       getDepartment();
     }).catch( e => {
           console.log(e)
-        }
+      }
     )
   }
 
@@ -237,7 +237,6 @@ export default function DepartmentSettings() {
                 </div>
               </div>
             </div>
-
           </main>
         }
 
