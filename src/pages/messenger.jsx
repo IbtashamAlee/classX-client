@@ -70,7 +70,7 @@ export default function Messenger() {
     interval = setInterval(function () {
       getChats();
       getMessages();
-    }, 2000);
+    }, 200);
     return () => {
       clearInterval(interval);
     }
