@@ -36,7 +36,6 @@ export default function Messenger() {
 
   function getChats() {
     Api.execute("/api/chat/conversations?search="+query, "get", {}, false).then((res) => {
-      console.log(res.data)
       setConversations(res.data);
     }).catch(err => {
       console.log(err);
@@ -46,7 +45,6 @@ export default function Messenger() {
   function getMessages() {
     if(selectedUser === null) return;
     Api.execute("/api/chat/" + selectedUser.chatId, "get", {}, false).then((res) => {
-      console.log(res);
       setMessages(res.data.chatmessage);
     }).catch(err => {
       console.log(err);
@@ -59,7 +57,6 @@ export default function Messenger() {
       message: messageInputValue,
       files: files
     }, false).then((res) => {
-      console.log(res);
       getMessages();
     }).catch(err => {
       console.log(err);
@@ -148,10 +145,9 @@ export default function Messenger() {
               <ConversationHeader.Content userName={selectedUser.userName.user.name}/>
 
             </ConversationHeader>
-            <MessageList className="min-h-[80vh] max-h-[80vh] !flex !flex-col" autoScrollToBottom={true} loading={!messages} autoScrollToBottomOnMount={true}>
+            <MessageList className="min-h-[80vh] max-h-[80vh] !flex !flex-col justify-end" autoScrollToBottom={true} loading={!messages} autoScrollToBottomOnMount={true}>
               {
                 messages.map((m,k) => {
-                  console.log(m.timeSent)
                   return (
                     <Message key={k} style={{marginTop: "1rem"}} model={{
                       message: m.body,
@@ -161,10 +157,9 @@ export default function Messenger() {
                     }}>
                       <Avatar src={m.user.imageUrl ?? placeholder} name="Joe" />
                       <Message.Header sender="Emily" sentTime="just now" className="!font-[2px] !text-slate-400" >
-                        {m.timeSent.split('T')[0]}
                       </Message.Header>
                       <Message.Footer sender="Emily" sentTime="just now" className="!font-[2px] !text-slate-400" >
-                        {formatDistance(new Date(m.timeSent), new Date())} ago
+                        {m.timeSent.split('T')[0]}  ({formatDistance(new Date(m.timeSent), new Date())} ago)
                       </Message.Footer>
                     </Message>
                   )
