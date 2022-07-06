@@ -81,7 +81,7 @@ export default function Messenger() {
   }, [])
 
   return (
-    <div>
+    <div className="">
       <Header/>
       {
         showConversations && width < 768 &&
@@ -108,7 +108,7 @@ export default function Messenger() {
         </Sidebar>
       }
       { (!showConversations || (showConversations && width>768)) &&
-        <MainContainer responsive>
+        <MainContainer responsive className="!overflow-hidden">
         <Sidebar position="left" scrollable={false} className="!hidden md:!block">
           <div className="flex flex-row-reverse items-center">
           <CreateChat/>
@@ -146,14 +146,8 @@ export default function Messenger() {
               <ConversationHeader.Content userName={selectedUser.userName.user.name}/>
 
             </ConversationHeader>
-            <MessageList style={{
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'flex-end',
-              overflow:'show',
-              marginBottom:'10px'
-
-            }}>
+            <MessageList className="min-h-[80vh] max-h-[80vh] !flex !flex-col !justify-end !items-between mb-4" autoScrollToBottom={true}>
+              <div className="h-[100%]">
               {
                 messages.map((m,k) => {
                   return (
@@ -162,23 +156,23 @@ export default function Messenger() {
                       direction: (user && user.id && m.senderId == user.id) ? 'outgoing':"incoming",
                       position: m.position
                     }}>
-                      <Message.Footer sentTime={m.time}/>
+                      <Message.Footer sentTime={m.timeSent}/>
                     </Message>
                   )
                 })
               }
-              <MessageInput
-                placeholder="Type message here" value={messageInputValue}
-                onChange={val => setMessageInputValue(val)}
-                onSend={() => {
-                  sendMessage();
-                  setMessageInputValue("")
-                }
-                }
-
-              />
+              </div>
             </MessageList>
+            <MessageInput
+              placeholder="Type message here" value={messageInputValue}
+              onChange={val => setMessageInputValue(val)}
+              onSend={() => {
+                sendMessage();
+                setMessageInputValue("")
+              }
+              }
 
+            />
           </ChatContainer>
         }
       </MainContainer>
