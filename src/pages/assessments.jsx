@@ -55,10 +55,10 @@ export function Assessments() {
       <React.Fragment>
         <Header/>
         <div className="flex flex-col md:px-8 xl:px-0 px-4 md:px-0 mx-4 md:mx-16">
-          <div className="text-gray-900 text-2xl font-medium py-4 flex justify-between item-center">
+          <div className="flex-wrap text-gray-900 text-2xl font-medium py-4 flex justify-between item-center">
             <div>Assessments</div>
             <Link to="/assessment/create">
-              <Button variant={"contained"}>Create Assessment</Button>
+              <Button variant={"contained"} className="!mt-2">Create Assessment</Button>
             </Link>
           </div>
           <div className="bg-white shadow overflow-hidden sm:rounded-md">

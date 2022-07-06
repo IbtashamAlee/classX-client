@@ -83,7 +83,7 @@ export const Header = React.memo((props) => {
                 <Sidebar isOpen={sidebarOpen} setSidebarOpen={hideShowSidebar}/>
             }
 
-            <div className="sticky top-0 z-10 flex-shrink-0 h-16 bg-white border-b border-gray-200 flex">
+            <div className="sticky top-0 z-10 flex-shrink-0 h-16 bg-white border-b border-gray-200 flex z-40">
               {props.isSideBarEnabled &&
                   <button
                       type="button"
