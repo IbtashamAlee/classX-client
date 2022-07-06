@@ -19,6 +19,8 @@ import Api from "../generic-services/api";
 import {useSelector} from "react-redux";
 import {CreateChat} from "../components/create-chat";
 import useWindowDimensions from "../hooks/useWindowDimensions";
+import formatDistance from 'date-fns/formatDistance'
+
 export default function Messenger() {
 
   const [selectedUser,setSelectedUser] = useState(null)
@@ -90,7 +92,7 @@ export default function Messenger() {
             <CreateChat/>
             <Search placeholder="Search..." onChange={(e)=>setQuery(e)} className="max-h-10"/>
           </div>
-          <ConversationList style={{minHeight:"80vh"}}>
+          <ConversationList style={{minHeight:"80vh"}}  loading={!conversations}>
             { conversations &&
             conversations.filter(con=>con.userName !== undefined).map(c => {
               return (
@@ -114,7 +116,7 @@ export default function Messenger() {
           <CreateChat/>
           <Search placeholder="Search..." onChange={(e)=>setQuery(e)}/>
           </div>
-          <ConversationList style={{minHeight:"80vh"}}>
+          <ConversationList style={{minHeight:"80vh"}} loading={!conversations}>
             { conversations &&
               conversations.filter(con=>con.userName !== undefined).map(c => {
                 return (
@@ -137,7 +139,7 @@ export default function Messenger() {
         }
         {selectedUser &&
           // set height here
-          <ChatContainer className="!flex !flex-col !justify-between !min-h-[94vh]">
+          <ChatContainer className="!flex !flex-col !justify-between !min-h-[93vh] !overflow-hidden">
             <ConversationHeader>
               <ConversationHeader.Back className="!block md:!hidden" onClick={()=>setShowConversations(true)}/>
               <Avatar
@@ -146,22 +148,28 @@ export default function Messenger() {
               <ConversationHeader.Content userName={selectedUser.userName.user.name}/>
 
             </ConversationHeader>
-            <MessageList className="min-h-[80vh] max-h-[80vh] !flex !flex-col !justify-end !items-between mb-4" autoScrollToBottom={true}>
-              <div className="h-[100%]">
+            <MessageList className="min-h-[80vh] max-h-[80vh] !flex !flex-col" autoScrollToBottom={true} loading={!messages} autoScrollToBottomOnMount={true}>
               {
                 messages.map((m,k) => {
+                  console.log(m.timeSent)
                   return (
                     <Message key={k} style={{marginTop: "1rem"}} model={{
                       message: m.body,
                       direction: (user && user.id && m.senderId == user.id) ? 'outgoing':"incoming",
-                      position: m.position
+                      position: m.position,
+                      sentTime:m.timeSent
                     }}>
-                      <Message.Footer sentTime={m.timeSent}/>
+                      <Avatar src={m.user.imageUrl ?? placeholder} name="Joe" />
+                      <Message.Header sender="Emily" sentTime="just now" className="!font-[2px] !text-slate-400" >
+                        {m.timeSent.split('T')[0]}
+                      </Message.Header>
+                      <Message.Footer sender="Emily" sentTime="just now" className="!font-[2px] !text-slate-400" >
+                        {formatDistance(new Date(m.timeSent), new Date())} ago
+                      </Message.Footer>
                     </Message>
                   )
                 })
               }
-              </div>
             </MessageList>
             <MessageInput
               placeholder="Type message here" value={messageInputValue}
