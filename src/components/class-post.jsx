@@ -81,11 +81,14 @@ export default function ClassPost() {
               <div className="flex items-center space-x-5">
                 <div className="flex items-center">
                   <FilePicker fileReturn={getFiles}/>
-                  <div className={"flex flex-nowrap space-x-2 overflow-x-scroll w-[13rem] md:w-[44rem] pb-1"}>
-                    {files.map(f => (
-                        <Chip label={f.originalName} />
-                    ))}
-                  </div>
+                  {
+                    files.length ?
+                      <div className={"flex flex-nowrap space-x-2 overflow-x-scroll w-[13rem] md:w-[44rem] pb-1"}>
+                        {files.map(f => (
+                            <Chip label={f.originalName} />
+                        ))}
+                      </div> : <></>
+                  }
                 </div>
               </div>
               <div className="flex-shrink-0">
