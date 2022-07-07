@@ -21,14 +21,14 @@ export function Signup() {
       image: "./resource-classroom1.png"
     },
     {
-      title: "Random Name #2",
-      description: "Hello World!",
-      image: "./resource-classroom1.png"
+      title: "Automated Quizzes",
+      description: "System calculates assessment score automatically",
+      image: "./2.svg"
     },
     {
-      title: "Random Name #3",
-      description: "Hello World!",
-      image: "./resource-classroom1.png"
+      title: "Automated Attendances & Stats",
+      description: "Students mark attendance without interference of teacher adn their stats",
+      image: "./3.svg"
     }
   ]
 
