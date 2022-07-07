@@ -29,7 +29,7 @@ export function* handleSigninUserRequest(action) {
         action.navigate('/dashboard');
         yield put({type: ActionTypes.ADD_TOAST, payload: {text: "Signed In Successfully"}})
     } catch (err) {
-        yield put({type: ActionTypes.ADD_TOAST, payload: {text: "Unable to sign in", danger: true, message: "Wrong email/password"}})
+        yield put({type: ActionTypes.ADD_TOAST, payload: {text: err.response.message, danger: true, message: "Wrong email/password"}})
         yield put({type: ActionTypes.SIGN_IN_USER_FAIL});
         console.log(err);
     }
