@@ -83,7 +83,7 @@ export function PostCard (props) {
                         <p>{p.file.originalName}</p>
                         </div>
 
-                        <div onClick={()=>forceDown(`${p.file.publicUrl}`,'testFile')}>
+                        <div onClick={()=>forceDown(`${p.file.publicUrl}`,p.file.originalName ?? 'test')}>
                           <IconButton size="small"><DownloadIcon/></IconButton>
                         </div>
                       </div>
