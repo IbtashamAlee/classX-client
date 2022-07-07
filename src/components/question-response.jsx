@@ -12,6 +12,18 @@ export default function QuestionResponse({test,k}){
   const [marks,setMarks] = useState(test.obtainedScore)
   const {id,assessment_id} = useParams();
   const [key, setKey] = useState(0)
+
+  function forceDown(url, filename) {
+    fetch(url).then(function(t) {
+      return t.blob().then((b) => {
+        var a = document.createElement("a");
+        a.href = URL.createObjectURL(b);
+        a.setAttribute("download", filename);
+        a.click();
+      });
+    });
+  }
+
   function updateMarks(response_id){
     if(marks>=0) {
       api.execute(`/api/class/${id}/assessment/${assessment_id}/response/${response_id}/marks`, 'PUT', {
