@@ -59,6 +59,7 @@ export function EditAssessment(props) {
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
               <TableHead>
                 <TableRow>
+                  <TableCell>No.</TableCell>
                   <TableCell>Statement</TableCell>
                   <TableCell align="right">Type</TableCell>
                   <TableCell align="right">Time&nbsp;(sec)</TableCell>
@@ -68,11 +69,14 @@ export function EditAssessment(props) {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {assessment.question && [...assessment.question].reverse().map((row) => (
+                {assessment.question && [...assessment.question].reverse().map((row,k) => (
                     <TableRow
                         key={row.id}
                         sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                     >
+                      <TableCell component="th" scope="row">
+                        {k+1}
+                      </TableCell>
                       <TableCell component="th" scope="row">
                         {row.statement}
                       </TableCell>
