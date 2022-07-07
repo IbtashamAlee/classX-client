@@ -8,6 +8,8 @@ import {getAssessments, getPublicAssessments} from "../redux/actions/assessments
 import {Header} from "../components/header";
 import {Link} from 'react-router-dom'
 import Api from "../generic-services/api";
+import QuestionsToDisplayDialog from "../components/questions-to-display-dialog";
+import {addToast} from "../redux/actions/toast-actions";
 
 export function Assessments() {
   let dispatch = useDispatch();
@@ -30,10 +32,14 @@ export function Assessments() {
     })
   }
 
-  let assignAssessment = (assessments_id) => {
-    Api.execute('/api/class/' + id +'/assessment/' + assessments_id, 'post', {}).then(res => {
+  let assignAssessment = (assessments_id, q) => {
+    Api.execute('/api/class/' + id +'/assessment/' + assessments_id, 'post', {
+      questionsToDisplay: parseInt(q)
+    }).then(res => {
+      dispatch(addToast({text: "Assessment Assigned"}))
       navigate(-1);
     }).catch(err => {
+      dispatch(addToast({text: "Unable to assign assessment", danger: true}))
       console.log(err);
     })
   }
@@ -85,7 +91,9 @@ export function Assessments() {
                       </div>
                     </div>
                     {id ?
-                        <Button variant={"contained"} onClick={() => {assignAssessment(position.id)}}>Assign</Button>
+                        <QuestionsToDisplayDialog actionDone={(q) => {assignAssessment(position.id, q)}} length={position.question?.length}>
+                          <Button variant={"contained"}>Assign</Button>
+                        </QuestionsToDisplayDialog>
                         :
                         <Link to={"/assessment/" + position.id}>
                           <IconButton value={position.id} className="!ml-3">

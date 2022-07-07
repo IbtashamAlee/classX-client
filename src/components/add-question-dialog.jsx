@@ -10,14 +10,8 @@ import DialogActions from "@mui/material/DialogActions";
 import {useParams} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import Checkbox from "@mui/material/Checkbox";
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
 import Api from "../generic-services/api";
+import {addToast} from "../redux/actions/toast-actions";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -87,8 +81,10 @@ export function AddQuestionDialog (props) {
       setStatement('');
       setIsTrue(false);
       props.getAssessment();
+      dispatch(addToast({text: "Question Added"}))
       handleClose();
     }).catch(err => {
+      dispatch(addToast({text: "Unable to add question", danger: true}))
       console.log(err);
     })
     //saveQuestions();
