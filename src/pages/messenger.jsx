@@ -19,6 +19,8 @@ import Api from "../generic-services/api";
 import {useSelector} from "react-redux";
 import {CreateChat} from "../components/create-chat";
 import useWindowDimensions from "../hooks/useWindowDimensions";
+import formatDistance from 'date-fns/formatDistance'
+
 export default function Messenger() {
 
   const [selectedUser,setSelectedUser] = useState(null)
@@ -34,7 +36,6 @@ export default function Messenger() {
 
   function getChats() {
     Api.execute("/api/chat/conversations?search="+query, "get", {}, false).then((res) => {
-      console.log(res.data)
       setConversations(res.data);
     }).catch(err => {
       console.log(err);
@@ -44,7 +45,6 @@ export default function Messenger() {
   function getMessages() {
     if(selectedUser === null) return;
     Api.execute("/api/chat/" + selectedUser.chatId, "get", {}, false).then((res) => {
-      console.log(res);
       setMessages(res.data.chatmessage);
     }).catch(err => {
       console.log(err);
@@ -57,7 +57,6 @@ export default function Messenger() {
       message: messageInputValue,
       files: files
     }, false).then((res) => {
-      console.log(res);
       getMessages();
     }).catch(err => {
       console.log(err);
@@ -70,7 +69,7 @@ export default function Messenger() {
     interval = setInterval(function () {
       getChats();
       getMessages();
-    }, 2000);
+    }, 200);
     return () => {
       clearInterval(interval);
     }
@@ -81,7 +80,7 @@ export default function Messenger() {
   }, [])
 
   return (
-    <div>
+    <div className="">
       <Header/>
       {
         showConversations && width < 768 &&
@@ -90,7 +89,7 @@ export default function Messenger() {
             <CreateChat/>
             <Search placeholder="Search..." onChange={(e)=>setQuery(e)} className="max-h-10"/>
           </div>
-          <ConversationList style={{minHeight:"80vh"}}>
+          <ConversationList style={{minHeight:"80vh"}}  loading={!conversations}>
             { conversations &&
             conversations.filter(con=>con.userName !== undefined).map(c => {
               return (
@@ -108,13 +107,13 @@ export default function Messenger() {
         </Sidebar>
       }
       { (!showConversations || (showConversations && width>768)) &&
-        <MainContainer responsive>
+        <MainContainer responsive className="!overflow-hidden">
         <Sidebar position="left" scrollable={false} className="!hidden md:!block">
           <div className="flex flex-row-reverse items-center">
           <CreateChat/>
           <Search placeholder="Search..." onChange={(e)=>setQuery(e)}/>
           </div>
-          <ConversationList style={{minHeight:"80vh"}}>
+          <ConversationList style={{minHeight:"80vh"}} loading={!conversations}>
             { conversations &&
               conversations.filter(con=>con.userName !== undefined).map(c => {
                 return (
@@ -137,7 +136,7 @@ export default function Messenger() {
         }
         {selectedUser &&
           // set height here
-          <ChatContainer className="!flex !flex-col !justify-between !min-h-[94vh]">
+          <ChatContainer className="!flex !flex-col !justify-between !min-h-[93vh] !overflow-hidden">
             <ConversationHeader>
               <ConversationHeader.Back className="!block md:!hidden" onClick={()=>setShowConversations(true)}/>
               <Avatar
@@ -146,39 +145,37 @@ export default function Messenger() {
               <ConversationHeader.Content userName={selectedUser.userName.user.name}/>
 
             </ConversationHeader>
-            <MessageList style={{
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'flex-end',
-              overflow:'show',
-              marginBottom:'10px'
-
-            }}>
+            <MessageList className="min-h-[80vh] max-h-[80vh] !flex !flex-col justify-end" autoScrollToBottom={true} loading={!messages} autoScrollToBottomOnMount={true}>
               {
                 messages.map((m,k) => {
                   return (
                     <Message key={k} style={{marginTop: "1rem"}} model={{
                       message: m.body,
                       direction: (user && user.id && m.senderId == user.id) ? 'outgoing':"incoming",
-                      position: m.position
+                      position: m.position,
+                      sentTime:m.timeSent
                     }}>
-                      <Message.Footer sentTime={m.time}/>
+                      <Avatar src={m.user.imageUrl ?? placeholder} name="Joe" />
+                      <Message.Header sender="Emily" sentTime="just now" className="!font-[2px] !text-slate-400" >
+                      </Message.Header>
+                      <Message.Footer sender="Emily" sentTime="just now" className="!font-[2px] !text-slate-400" >
+                        {m.timeSent.split('T')[0]}  ({formatDistance(new Date(m.timeSent), new Date())} ago)
+                      </Message.Footer>
                     </Message>
                   )
                 })
               }
-              <MessageInput
-                placeholder="Type message here" value={messageInputValue}
-                onChange={val => setMessageInputValue(val)}
-                onSend={() => {
-                  sendMessage();
-                  setMessageInputValue("")
-                }
-                }
-
-              />
             </MessageList>
+            <MessageInput
+              placeholder="Type message here" value={messageInputValue}
+              onChange={val => setMessageInputValue(val)}
+              onSend={() => {
+                sendMessage();
+                setMessageInputValue("")
+              }
+              }
 
+            />
           </ChatContainer>
         }
       </MainContainer>

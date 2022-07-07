@@ -1,6 +1,5 @@
 import React, {Fragment, useEffect, useState} from "react";
 import {
-  BellIcon,
   MenuAlt2Icon,
 } from "@heroicons/react/outline";
 import {Menu, Transition} from "@headlessui/react";
@@ -83,7 +82,7 @@ export const Header = React.memo((props) => {
                 <Sidebar isOpen={sidebarOpen} setSidebarOpen={hideShowSidebar}/>
             }
 
-            <div className="sticky top-0 z-10 flex-shrink-0 h-16 bg-white border-b border-gray-200 flex">
+            <div className="sticky top-0 z-10 flex-shrink-0 h-16 bg-white border-b border-gray-200 flex z-40">
               {props.isSideBarEnabled &&
                   <button
                       type="button"
@@ -141,11 +140,6 @@ export const Header = React.memo((props) => {
                       </Menu.Items>
                     </Transition>
                   </Menu>
-
-                  <IconButton type="button">
-                    <span className="sr-only">View notifications</span>
-                    <BellIcon className="h-6 w-6" aria-hidden="true"/>
-                  </IconButton>
 
                   {/* Profile dropdown */}
                   <Menu as="div" className="ml-3 relative">
