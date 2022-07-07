@@ -1,8 +1,11 @@
-import {useState} from "react";
+import React, {useState} from "react";
 import UploadIcon from '@mui/icons-material/Upload';
 import EditIcon from '@mui/icons-material/Edit';
 import api from "../generic-services/api";
 import {useParams} from "react-router-dom";
+import AttachmentIcon from "@mui/icons-material/Attachment";
+import IconButton from "@mui/material/IconButton";
+import DownloadIcon from "@mui/icons-material/Download";
 
 export default function QuestionResponse({test,k}){
   const [editMode,setEditMode] = useState(false)
@@ -63,7 +66,29 @@ export default function QuestionResponse({test,k}){
         {
           test.responseAttachment.length > 0 &&
           (<div>
-            Attached files appear here
+            {test.responseAttachment?.length > 0  &&
+                <div>
+                  <div className={"text-gray-500 text-sm space-y-2"}>
+                    <hr className="mt-2"/>
+                    {test.responseAttachment?.map(p => (
+                        <a className="flex w-full mt-5" key={p.file?.id} href={p.file?.publicUrl} target='_blank' rel='noreferrer'>
+                          <div className="flex flex-col justify-center mr-2">
+                            <AttachmentIcon className="rotate-45 text-gray-300"/>
+                          </div>
+                          <div className="w-full pl-1 border border-indigo-50 rounded flex justify-between">
+                            <div key={p.file?.id} className="flex flex-col justify-center">
+                              <p>{p.file?.originalName}</p>
+                            </div>
+
+                            <div onClick={()=>forceDown(`${p.file?.publicUrl}`,'testFile')}>
+                              <IconButton size="small"><DownloadIcon/></IconButton>
+                            </div>
+                          </div>
+                        </a>
+                    ))}
+                  </div>
+                </div>
+            }
           </div>)
         }
         {

@@ -154,7 +154,8 @@ export default function AttemptAssessment() {
   let submitAnswer = () => {
     Api.execute('/api/class/' + class_id + "/assessment/" + assessment_id + "/question/" + questionId + "/response", 'post', {
       options: selectedOptions,
-      answer: content
+      answer: content,
+      files: files
     }).then(res => {
       localStorage.setItem("current" + assessment_id, current - 1 + 2)
       setCurrent(current - 1 + 2)
