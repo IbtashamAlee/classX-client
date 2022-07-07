@@ -167,6 +167,7 @@ export default function Messenger() {
               }
             </MessageList>
             <MessageInput
+              attachButton={false}
               placeholder="Type message here" value={messageInputValue}
               onChange={val => setMessageInputValue(val)}
               onSend={() => {
